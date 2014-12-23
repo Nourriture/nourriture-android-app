@@ -14,9 +14,10 @@ import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 
 import cn.edu.bjtu.nourriture.fragments.MomentsFragment;
+import cn.edu.bjtu.nourriture.fragments.RecipesFragment;
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, MomentsFragment.OnFragmentInteractionListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, MomentsFragment.OnFragmentInteractionListener, RecipesFragment.OnFragmentInteractionListener {
 
 
 
@@ -68,6 +69,11 @@ public class MainActivity extends ActionBarActivity
                         .replace(R.id.container, MomentsFragment.newInstance(position + 1))
                         .commit();
                 break;
+            case 1:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, RecipesFragment.newInstance(position + 1))
+                        .commit();
+                break;
             default:
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
@@ -83,7 +89,17 @@ public class MainActivity extends ActionBarActivity
      */
     @Override
     public void onMomentSelected(String id) {
-        System.out.println("bla");
+        System.out.println("Moment " + id);
+    }
+
+    /**
+     * from "RecipesFragment" FRAGMENT
+     *
+     * Implementation of method from MomentsFragment interface
+     */
+    @Override
+    public void onRecipeSelected(String id) {
+        System.out.println("Recipe " + id);
     }
 
 
@@ -157,10 +173,6 @@ public class MainActivity extends ActionBarActivity
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
-
 
 
 
