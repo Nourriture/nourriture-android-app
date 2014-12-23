@@ -13,11 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 
+import cn.edu.bjtu.nourriture.fragments.FriendsFragment;
 import cn.edu.bjtu.nourriture.fragments.MomentsFragment;
 import cn.edu.bjtu.nourriture.fragments.RecipesFragment;
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, MomentsFragment.OnFragmentInteractionListener, RecipesFragment.OnFragmentInteractionListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, MomentsFragment.OnFragmentInteractionListener, RecipesFragment.OnFragmentInteractionListener, FriendsFragment.OnFragmentInteractionListener {
 
 
 
@@ -74,6 +75,11 @@ public class MainActivity extends ActionBarActivity
                         .replace(R.id.container, RecipesFragment.newInstance(position + 1))
                         .commit();
                 break;
+            case 2:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, FriendsFragment.newInstance(position + 1))
+                        .commit();
+                break;
             default:
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
@@ -95,11 +101,21 @@ public class MainActivity extends ActionBarActivity
     /**
      * from "RecipesFragment" FRAGMENT
      *
-     * Implementation of method from MomentsFragment interface
+     * Implementation of method from RecipesFragment interface
      */
     @Override
     public void onRecipeSelected(String id) {
         System.out.println("Recipe " + id);
+    }
+
+    /**
+     * from "FriendsFragment" FRAGMENT
+     *
+     * Implementation of method from FriendsFragment interface
+     */
+    @Override
+    public void onFriendSelected(String id) {
+        System.out.println("Friend " + id);
     }
 
 
