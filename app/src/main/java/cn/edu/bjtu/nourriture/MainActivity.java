@@ -5,23 +5,22 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
+import cn.edu.bjtu.nourriture.fragments.MomentsFragment;
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, MomentsFragment.OnFragmentInteractionListener {
 
+
+
+    // --- PROPERTIES ---
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
@@ -34,7 +33,7 @@ public class MainActivity extends ActionBarActivity
 
 
 
-    // --- ACTIVITY stuff ---
+    // --- ACTIVITY lifecycle methods ---
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,18 +48,51 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer,(DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
-    // Implementation of method from NavigationDrawerFragment interface
-    // Invoked when Item selected -> changes fragment
+
+
+    // --- Fragments INTERFACE methods implementation ---
+    /**
+     * from "NavigationDrawerFragment" FRAGMENT
+     *
+     * Implementation of method from NavigationDrawerFragment interface
+     * Invoked on "selectItem(int position)" -> changes fragment
+     */
     @Override
     public void onNavigationDrawerItemSelected(int position) {
-        // update the main content by replacing fragments
+        // Update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1)) //TODO: PlaceholderFragment as separated file!
-                .commit();
+
+        switch (position){
+            case 0:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, MomentsFragment.newInstance(position + 1))
+                        .commit();
+                break;
+            default:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                        .commit();
+                break;
+        }
     }
 
-    // Invoked from PlaceholderFragment upon "onAttach" method
+    /**
+     * from "MomentsFragment" FRAGMENT
+     *
+     * Implementation of method from MomentsFragment interface
+     */
+    @Override
+    public void onMomentSelected(String id) {
+        System.out.println("bla");
+    }
+
+
+
+    // --- OTHER methods ---
+    /**
+     * Invoked from FRAGMENTS upon "onAttach" method
+     * Changes the Action Bar title
+     */
     public void onSectionAttached(int number) {
         switch (number) {
             case 1:
@@ -72,13 +104,18 @@ public class MainActivity extends ActionBarActivity
             case 3:
                 mTitle = getString(R.string.title_section3);
                 break;
+            case 4:
+                mTitle = getString(R.string.title_section4);
+                break;
         }
     }
 
 
 
     // --- ACTION BAR ---
-    /** Update the Action bar! */
+    /**
+     *  Update the Action bar!
+     */
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
@@ -123,6 +160,10 @@ public class MainActivity extends ActionBarActivity
 
 
 
+
+
+
+
     // --- NESTED PLACEHOLDER FRAGMENT ---
     /**
      * A placeholder fragment containing a simple view.
@@ -163,5 +204,4 @@ public class MainActivity extends ActionBarActivity
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
-
 }
