@@ -76,8 +76,8 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
         super.onCreate(savedInstanceState);
 
         // TODO: Change Adapter to display your content
-        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
+        mAdapter = new ArrayAdapter<DummyContent.DummyMoment>(getActivity(),
+                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.MOMENTS);
     }
 
     @Override
@@ -120,7 +120,7 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onMomentSelected(DummyContent.ITEMS.get(position).id);
+            mListener.onMomentSelected(DummyContent.MOMENTS.get(position).id);
         }
     }
 

@@ -14,8 +14,7 @@ import android.widget.TextView;
 
 import cn.edu.bjtu.nourriture.MainActivity;
 import cn.edu.bjtu.nourriture.R;
-
-import cn.edu.bjtu.nourriture.fragments.dummy.DummyContent;
+import cn.edu.bjtu.nourriture.dummy.DummyContent;
 
 /**
  * A fragment representing a list of Items.
@@ -76,8 +75,8 @@ public class RecipesFragment extends Fragment implements AbsListView.OnItemClick
         super.onCreate(savedInstanceState);
 
         // TODO: Change Adapter to display your content
-        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
+        mAdapter = new ArrayAdapter<DummyContent.DummyRecipe>(getActivity(),
+                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.RECIPES);
     }
 
     @Override
@@ -119,7 +118,7 @@ public class RecipesFragment extends Fragment implements AbsListView.OnItemClick
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onRecipeSelected(DummyContent.ITEMS.get(position).id);
+            mListener.onRecipeSelected(DummyContent.RECIPES.get(position).id);
         }
     }
 
