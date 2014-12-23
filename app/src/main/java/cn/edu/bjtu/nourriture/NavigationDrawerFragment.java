@@ -19,7 +19,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 /**
@@ -105,7 +107,11 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
+
+        // Creating an instance of my custom Adapter to provide custom rows :)
+        ArrayAdapter adapter = new MyMenuAdapter();
+        mDrawerListView.setAdapter(adapter);
+        /*mDrawerListView.setAdapter(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
@@ -114,7 +120,8 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.title_section2),
                         getString(R.string.title_section3),
                         getString(R.string.title_section4)
-                }));
+                }));*/
+
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }
@@ -286,6 +293,54 @@ public class NavigationDrawerFragment extends Fragment {
 
     private ActionBar getActionBar() {
         return ((ActionBarActivity) getActivity()).getSupportActionBar();
+    }
+
+
+
+    // --- CUSTOM INNER CLASS of ArrayAdapter ---
+    private class MyMenuAdapter extends ArrayAdapter {
+
+        public MyMenuAdapter(){
+            super(getActionBar().getThemedContext(), R.layout.main_menu_item, new String[]{
+                    getString(R.string.title_section1),
+                    getString(R.string.title_section2),
+                    getString(R.string.title_section3),
+                    getString(R.string.title_section4)
+            });
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View menuItemView = convertView;
+
+            // Make sure we have a view to work with
+            if (menuItemView == null){
+                menuItemView = getActivity().getLayoutInflater().inflate(R.layout.main_menu_item, parent, false);
+            }
+
+            // Set image
+            ImageView i = (ImageView) menuItemView.findViewById(R.id.menu_image);
+            switch (position){
+                case 0:
+                    i.setImageResource(R.drawable.ic_action_chat);
+                    break;
+                case 1:
+                    i.setImageResource(R.drawable.ic_action_view_as_list);
+                    break;
+                case 2:
+                    i.setImageResource(R.drawable.ic_action_group);
+                    break;
+                case 3:
+                    i.setImageResource(R.drawable.ic_action_person);
+                    break;
+            }
+
+            // Set text
+            TextView t = (TextView) menuItemView.findViewById(R.id.menu_textView);
+            t.setText(this.getItem(position).toString());
+
+            return menuItemView;
+        }
     }
 
 
