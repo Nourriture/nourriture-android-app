@@ -34,6 +34,7 @@ public class ProfileFragment extends Fragment {
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
 
+    private final String MY_PROFILE_PREFERENCES = "myProfile";
     private final String PROFILE_NAME = "name";
     private final String PROFILE_OCCUPATION = "occupation";
     private final String PROFILE_BIRTHDATE = "birthdate";
@@ -72,7 +73,7 @@ public class ProfileFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences pref = getActivity().getSharedPreferences("myProfile", 0);
+        SharedPreferences pref = getActivity().getSharedPreferences(MY_PROFILE_PREFERENCES, 0);
 
         SharedPreferences.Editor editor = pref.edit(); // used for save data
         editor.putString(PROFILE_NAME, "Rocky Brambora"); // Storing string value
@@ -90,7 +91,7 @@ public class ProfileFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        SharedPreferences pref = getActivity().getSharedPreferences("myProfile", 0); // 0 - for private mode
+        SharedPreferences pref = getActivity().getSharedPreferences(MY_PROFILE_PREFERENCES, 0); // 0 - for private mode
 
         TextView name = (TextView) v.findViewById(R.id.profileNameValueTextView);
         name.setText(pref.getString(PROFILE_NAME, ""));
