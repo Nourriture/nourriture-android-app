@@ -1,6 +1,7 @@
 package cn.edu.bjtu.nourriture;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -15,10 +16,15 @@ import android.support.v4.widget.DrawerLayout;
 
 import cn.edu.bjtu.nourriture.fragments.FriendsFragment;
 import cn.edu.bjtu.nourriture.fragments.MomentsFragment;
+import cn.edu.bjtu.nourriture.fragments.ProfileFragment;
 import cn.edu.bjtu.nourriture.fragments.RecipesFragment;
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, MomentsFragment.OnFragmentInteractionListener, RecipesFragment.OnFragmentInteractionListener, FriendsFragment.OnFragmentInteractionListener {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks,
+        MomentsFragment.OnFragmentInteractionListener,
+        RecipesFragment.OnFragmentInteractionListener,
+        FriendsFragment.OnFragmentInteractionListener,
+        ProfileFragment.OnFragmentInteractionListener {
 
 
 
@@ -80,6 +86,11 @@ public class MainActivity extends ActionBarActivity
                         .replace(R.id.container, FriendsFragment.newInstance(position + 1))
                         .commit();
                 break;
+            case 3:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, ProfileFragment.newInstance(position + 1))
+                        .commit();
+                break;
             default:
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
@@ -116,6 +127,17 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onFriendSelected(String id) {
         System.out.println("Friend " + id);
+    }
+
+
+    /**
+     * from "ProfileFragment" FRAGMENT
+     *
+     * Implementation of method from ProfileFragment interface
+     */
+    @Override
+    public void onProfileInteraction(Uri uri) {
+
     }
 
 

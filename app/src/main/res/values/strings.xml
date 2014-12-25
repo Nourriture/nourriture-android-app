@@ -2,16 +2,14 @@
 <resources>
 
     <string name="app_name">Nourriture</string>
-
     <string name="title_section1">Moments</string>
     <string name="title_section2">Recipes</string>
     <string name="title_section3">My Friends</string>
     <string name="title_section4">My Profile</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
