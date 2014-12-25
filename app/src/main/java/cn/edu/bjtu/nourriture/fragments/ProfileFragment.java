@@ -1,12 +1,16 @@
 package cn.edu.bjtu.nourriture.fragments;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import cn.edu.bjtu.nourriture.MainActivity;
 import cn.edu.bjtu.nourriture.R;
@@ -29,6 +33,12 @@ public class ProfileFragment extends Fragment {
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
+
+    private final String PROFILE_NAME = "name";
+    private final String PROFILE_OCCUPATION = "occupation";
+    private final String PROFILE_BIRTHDATE = "birthdate";
+    private final String PROFILE_WEBSITE = "website";
+    private final String PROFILE_BIO = "bio";
 
     private OnFragmentInteractionListener mListener;
 
@@ -61,13 +71,44 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences pref = getActivity().getSharedPreferences("myProfile", 0);
+
+        SharedPreferences.Editor editor = pref.edit(); // used for save data
+        editor.putString(PROFILE_NAME, "Rocky Brambora"); // Storing string value
+        editor.putString(PROFILE_OCCUPATION, "Boxer"); // Storing string value
+        editor.putString(PROFILE_BIRTHDATE, "02/05/1958"); // Storing string value
+        editor.putString(PROFILE_WEBSITE, "http://www.me.com"); // Storing string value
+        editor.putString(PROFILE_BIO, "You all know me well!"); // Storing string value
+
+        editor.commit(); // commit changes into sharedpreferences file.
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        View v = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        SharedPreferences pref = getActivity().getSharedPreferences("myProfile", 0); // 0 - for private mode
+
+        TextView name = (TextView) v.findViewById(R.id.profileNameValueTextView);
+        name.setText(pref.getString(PROFILE_NAME, ""));
+
+        TextView occupation = (TextView) v.findViewById(R.id.profileOccupationValueTextView);
+        occupation.setText(pref.getString(PROFILE_OCCUPATION, ""));
+
+        TextView birthdate = (TextView) v.findViewById(R.id.profileBirthdateValueTextView);
+        birthdate.setText(pref.getString(PROFILE_BIRTHDATE, ""));
+
+        TextView website = (TextView) v.findViewById(R.id.profileWebsiteValueTextView);
+        website.setText(pref.getString(PROFILE_WEBSITE, ""));
+
+        TextView bio = (TextView) v.findViewById(R.id.profileBioValueTextView);
+        bio.setText(pref.getString(PROFILE_BIO, ""));
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

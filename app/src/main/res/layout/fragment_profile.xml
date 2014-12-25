@@ -17,20 +17,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/profileName"
-        android:id="@+id/profileNameTextView"
-        android:layout_gravity="center"
-        android:layout_marginTop="-50dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="@string/profileOccupation"
         android:id="@+id/profileOccupationTextView"
         android:layout_gravity="center_vertical|left"
-        android:layout_marginTop="-20dp" />
+        android:layout_marginTop="-10dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,7 +30,7 @@
         android:text="@string/profileBirthdate"
         android:id="@+id/profileBirthdateTextView"
         android:layout_gravity="left|center_vertical"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -48,7 +39,7 @@
         android:text="@string/profileWebsite"
         android:id="@+id/profileWebsiteTextView"
         android:layout_gravity="left|center_vertical"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="50dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -57,6 +48,51 @@
         android:text="@string/profileBio"
         android:id="@+id/profileBioTextView"
         android:layout_gravity="left|center_vertical"
-        android:layout_marginTop="70dp" />
+        android:layout_marginTop="80dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/profileName"
+        android:id="@+id/profileNameValueTextView"
+        android:layout_gravity="center"
+        android:layout_marginTop="-50dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/profileValue"
+        android:id="@+id/profileOccupationValueTextView"
+        android:layout_gravity="center"
+        android:layout_marginTop="-10dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/profileValue"
+        android:id="@+id/profileBirthdateValueTextView"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/profileValue"
+        android:id="@+id/profileWebsiteValueTextView"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/profileValue"
+        android:id="@+id/profileBioValueTextView"
+        android:layout_gravity="center"
+        android:layout_marginTop="80dp" />
 
 </FrameLayout>

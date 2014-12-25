@@ -19,5 +19,6 @@
     <string name="profileBirthdate">Birthdate:</string>
     <string name="profileWebsite">Website:</string>
     <string name="profileBio">Bio:</string>
+    <string name="profileValue">value</string>
 
 </resources>
