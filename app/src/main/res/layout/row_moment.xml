@@ -34,7 +34,8 @@
         android:layout_below="@+id/momentContentTextView"
         android:layout_alignStart="@+id/momentContentTextView"
         android:layout_marginTop="5dp"
-        android:textStyle="italic" />
+        android:textStyle="italic"
+        android:layout_marginBottom="15dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -44,5 +45,6 @@
         android:id="@+id/momentLikesTextView"
         android:layout_alignTop="@+id/momentTimeTextView"
         android:layout_marginRight="15dp"
-        android:layout_alignParentRight="true" />
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="15dp" />
 </RelativeLayout>
