@@ -129,7 +129,6 @@ public class MainActivity extends ActionBarActivity
         System.out.println("Friend " + id);
     }
 
-
     /**
      * from "ProfileFragment" FRAGMENT
      *
