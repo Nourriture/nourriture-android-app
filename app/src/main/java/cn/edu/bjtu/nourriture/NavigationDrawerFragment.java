@@ -301,7 +301,7 @@ public class NavigationDrawerFragment extends Fragment {
     private class MyMenuAdapter extends ArrayAdapter {
 
         public MyMenuAdapter(){
-            super(getActionBar().getThemedContext(), R.layout.main_menu_item, new String[]{
+            super(getActionBar().getThemedContext(), R.layout.row_main_menu, new String[]{
                     getString(R.string.title_section1),
                     getString(R.string.title_section2),
                     getString(R.string.title_section3),
@@ -315,7 +315,7 @@ public class NavigationDrawerFragment extends Fragment {
 
             // Make sure we have a view to work with
             if (menuItemView == null){
-                menuItemView = getActivity().getLayoutInflater().inflate(R.layout.main_menu_item, parent, false);
+                menuItemView = getActivity().getLayoutInflater().inflate(R.layout.row_main_menu, parent, false);
             }
 
             // Set image
