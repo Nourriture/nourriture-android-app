@@ -92,6 +92,11 @@ import cn.edu.bjtu.nourriture.dummy.DummyContent;
          // Set OnItemClickListener so we can be notified on item clicks
          mListView.setOnItemClickListener(this);
 
+         if (DummyContent.FRIENDS.size() == 0) {
+             TextView t = (TextView) view.findViewById(android.R.id.empty);
+             t.setText(getString(R.string.no_friends));
+         }
+
          return view;
      }
 
@@ -121,22 +126,6 @@ import cn.edu.bjtu.nourriture.dummy.DummyContent;
              // Notify the active callbacks interface (the activity, if the
              // fragment is attached to one) that an item has been selected.
              mListener.onFriendSelected(DummyContent.FRIENDS.get(position).id);
-         }
-     }
-
-
-
-     // --- OTHER methods ---
-     /**
-      * The default content for this Fragment has a TextView that is shown when
-      * the list is empty. If you would like to change the text, call this method
-      * to supply the text it should use.
-      */
-     public void setEmptyText(CharSequence emptyText) {
-         View emptyView = mListView.getEmptyView();
-
-         if (emptyView instanceof TextView) {
-             ((TextView) emptyView).setText(emptyText);
          }
      }
 
