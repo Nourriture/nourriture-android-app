@@ -97,6 +97,11 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
 
+        if (myDummyMoments.size() == 0) {
+            TextView t = (TextView) view.findViewById(android.R.id.empty);
+            t.setText(getString(R.string.no_moments));
+        }
+
         return view;
     }
 
@@ -132,22 +137,6 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
 
 
 
-    // --- OTHER methods ---
-    /**
-     * The default content for this Fragment has a TextView that is shown when
-     * the list is empty. If you would like to change the text, call this method
-     * to supply the text it should use.
-     */
-    public void setEmptyText(CharSequence emptyText) {
-        View emptyView = mListView.getEmptyView();
-
-        if (emptyView instanceof TextView) {
-            ((TextView) emptyView).setText(emptyText);
-        }
-    }
-
-
-
     // --- CUSTOM INNER CLASS of ArrayAdapter ---
     private class MomentsAdapter extends ArrayAdapter {
 
@@ -158,6 +147,7 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+
             View momentView = convertView;
 
             // Make sure we have a view to work with
