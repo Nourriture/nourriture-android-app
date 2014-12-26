@@ -12,7 +12,7 @@
     <!-- No data titles-->
     <string name="no_moments">No moments yet</string>
     <string name="no_recipes">Sorry, there are no recipes</string>
-    <string name="no_friends">You have no friends yet</string>
+    <string name="no_friends">No friends yet</string>
 
     <!-- Action bar titles-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
