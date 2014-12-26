@@ -9,6 +9,8 @@ import java.util.Date;
  * Created by Pavel Procházka on 26/12/14.
  */
 public class Moment {
+
+    private String              momentID;
     private String              momentAuthor;
     private Date                momentCreated;
     //private ArrayList<Consumer> momentLikes;      // FIXME: use this instead of int
@@ -18,12 +20,21 @@ public class Moment {
     //private Comment             momentComment;    // TODO: nice to have
 
 
-    public Moment(String momentAuthor, Date momentCreated, int momentLikes, String momentText, String momentSubjectID) {
+    public Moment(String momentID, String momentAuthor, Date momentCreated, int momentLikes, String momentText, String momentSubjectID) {
+        this.momentID = momentID;
         this.momentAuthor = momentAuthor;
         this.momentCreated = momentCreated;
         this.momentLikes = momentLikes;
         this.momentText = momentText;
         this.momentSubjectID = momentSubjectID;
+    }
+
+    public String getMomentID() {
+        return momentID;
+    }
+
+    public void setMomentID(String momentID) {
+        this.momentID = momentID;
     }
 
     public String getMomentAuthor() {
