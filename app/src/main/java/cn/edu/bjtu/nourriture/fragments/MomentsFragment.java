@@ -175,7 +175,7 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
 
             // Set time elapsed
             TextView timeElapsed = (TextView) momentView.findViewById(R.id.momentTimeTextView);
-            timeElapsed.setText(DummyContent.MOMENTS.get(position).getMomentCreated().toString());  //TODO: time elapsed!
+            timeElapsed.setText(DummyContent.MOMENTS.get(position).getMomentCreated());
 
             // Set likes
             TextView likes = (TextView) momentView.findViewById(R.id.momentLikesTextView);
