@@ -41,13 +41,19 @@ public class DummyContent {
         Date d = new Date();
         Date d2 = new Date();
         Date d3 = new Date();
+        Date d4 = new Date();
+        Date d5 = new Date();
+        Date d6 = new Date();
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
 
         try {
-            d = simpleDateFormat.parse("13/11/2014 20:35:55");
-            d2 = simpleDateFormat.parse("10/10/2013 11:30:10");
-            d3 = simpleDateFormat.parse("26/12/2014 11:30:10");
+            //d = simpleDateFormat.parse("13/11/2014 20:35:55");
+            d2 = simpleDateFormat.parse("26/12/2014 17:11:10");
+            d3 = simpleDateFormat.parse("26/12/2014 17:30:10");
+            d4 = simpleDateFormat.parse("13/12/2014 20:35:55");
+            d5 = simpleDateFormat.parse("24/12/2014 11:30:10");
+            d6 = simpleDateFormat.parse("25/12/2014 11:30:10");
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -55,9 +61,9 @@ public class DummyContent {
         addMoment(new Moment("ID1", "Paja Prochazka", d, 5, "This is my first moment", "Reference object ID"));
         addMoment(new Moment("ID2", "Martin Jensen", d2, 10, "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "Reference object ID"));
         addMoment(new Moment("ID3", "Victoria Secret", d3, 3, "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...", "Reference object ID"));
-        addMoment(new Moment("ID4", "Rocky Balboa", d, 2, "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.", "Reference object ID"));
-        addMoment(new Moment("ID5", "Barack Obama", d2, 8, "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.", "Reference object ID"));
-        addMoment(new Moment("ID6", "Tony Hawk", d3, 13, "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.", "Reference object ID"));
+        addMoment(new Moment("ID4", "Rocky Balboa", d4, 2, "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.", "Reference object ID"));
+        addMoment(new Moment("ID5", "Barack Obama", d5, 8, "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.", "Reference object ID"));
+        addMoment(new Moment("ID6", "Tony Hawk", d6, 13, "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.", "Reference object ID"));
 
         addRecipe(new DummyRecipe("1", "Sushi"));
         addRecipe(new DummyRecipe("2", "Gulash"));
