@@ -12,10 +12,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 
 import cn.edu.bjtu.nourriture.MainActivity;
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.dummy.DummyContent;
+import cn.edu.bjtu.nourriture.models.Moment;
 
 /**
  * A fragment representing a list of Items.
@@ -50,6 +52,11 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
      */
     private ListAdapter mAdapter;
 
+    /**
+     * Load some dummy moments
+     */
+    private ArrayList<Moment> myDummyMoments = (ArrayList<Moment>) DummyContent.MOMENTS;
+
 
 
     // --- CONSTRUCTOR ---
@@ -76,8 +83,7 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
         super.onCreate(savedInstanceState);
 
         // TODO: Change Adapter to display your content
-        mAdapter = new ArrayAdapter<DummyContent.DummyMoment>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.MOMENTS);
+        mAdapter = new MomentsAdapter();//new ArrayAdapter<Moment>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.MOMENTS);
     }
 
     @Override
@@ -120,7 +126,7 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onMomentSelected(DummyContent.MOMENTS.get(position).id);
+            mListener.onMomentSelected(DummyContent.MOMENTS.get(position).getMomentID());
         }
     }
 
@@ -137,6 +143,45 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
 
         if (emptyView instanceof TextView) {
             ((TextView) emptyView).setText(emptyText);
+        }
+    }
+
+
+
+    // --- CUSTOM INNER CLASS of ArrayAdapter ---
+    private class MomentsAdapter extends ArrayAdapter {
+
+        // takes CONTEXT, LAYOUT and DATA
+        public MomentsAdapter(){
+            super(getActivity(), R.layout.row_moment, myDummyMoments);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View momentView = convertView;
+
+            // Make sure we have a view to work with
+            if (momentView == null){
+                momentView = getActivity().getLayoutInflater().inflate(R.layout.row_moment, parent, false);
+            }
+
+            // Set author name
+            TextView author = (TextView) momentView.findViewById(R.id.momentAuthorTextView);
+            author.setText(DummyContent.MOMENTS.get(position).getMomentAuthor());
+
+            // Set content text
+            TextView content = (TextView) momentView.findViewById(R.id.momentContentTextView);
+            content.setText(DummyContent.MOMENTS.get(position).getMomentText());
+
+            // Set time elapsed
+            TextView timeElapsed = (TextView) momentView.findViewById(R.id.momentTimeTextView);
+            timeElapsed.setText(DummyContent.MOMENTS.get(position).getMomentCreated().toString());  //TODO: time elapsed!
+
+            // Set likes
+            TextView likes = (TextView) momentView.findViewById(R.id.momentLikesTextView);
+            likes.setText(DummyContent.MOMENTS.get(position).getMomentLikes() + " likes");
+
+            return momentView;
         }
     }
 
