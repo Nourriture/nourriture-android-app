@@ -14,10 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 
-import cn.edu.bjtu.nourriture.fragments.FriendsFragment;
-import cn.edu.bjtu.nourriture.fragments.MomentsFragment;
-import cn.edu.bjtu.nourriture.fragments.ProfileFragment;
-import cn.edu.bjtu.nourriture.fragments.RecipesFragment;
+import cn.edu.bjtu.nourriture.fragments.friends.FriendsFragment;
+import cn.edu.bjtu.nourriture.fragments.moments.MomentsFragment;
+import cn.edu.bjtu.nourriture.fragments.profile.ProfileFragment;
+import cn.edu.bjtu.nourriture.fragments.recipes.RecipesFragment;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,

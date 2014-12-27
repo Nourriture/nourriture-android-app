@@ -1,4 +1,4 @@
-package cn.edu.bjtu.nourriture.fragments;
+package cn.edu.bjtu.nourriture.fragments.profile;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import cn.edu.bjtu.nourriture.MainActivity;
 import cn.edu.bjtu.nourriture.R;

@@ -1,4 +1,4 @@
-package cn.edu.bjtu.nourriture.fragments;
+package cn.edu.bjtu.nourriture.fragments.friends;
 
 import android.app.Activity;
 import android.os.Bundle;

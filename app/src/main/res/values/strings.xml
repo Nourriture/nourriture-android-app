@@ -3,18 +3,18 @@
 
     <string name="app_name">Nourriture</string>
 
-    <!-- Menu items-->
+    <!-- Menu items -->
     <string name="title_section1">Moments</string>
     <string name="title_section2">Recipes</string>
     <string name="title_section3">My Friends</string>
     <string name="title_section4">My Profile</string>
 
-    <!-- No data titles-->
+    <!-- No data titles -->
     <string name="no_moments">No moments yet</string>
     <string name="no_recipes">Sorry, there are no recipes</string>
     <string name="no_friends">No friends yet</string>
 
-    <!-- Action bar titles-->
+    <!-- Action bar titles -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
@@ -35,5 +35,6 @@
     <string name="profileWebsite">Website:</string>
     <string name="profileBio">Bio:</string>
     <string name="profileValue">value</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
