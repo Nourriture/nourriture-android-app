@@ -158,13 +158,19 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.action_add_moment:
-                //openSearch();
+                openAddNewMomentFragment();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+
+
+    // --- HELPERs ---
+    private void openAddNewMomentFragment() {
+        System.out.println("Yo yo yo");
+    }
 
 
     // --- CUSTOM INNER CLASS of ArrayAdapter ---
