@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -85,8 +86,7 @@ import cn.edu.bjtu.nourriture.dummy.DummyContent;
      }
 
      @Override
-     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                              Bundle savedInstanceState) {
+     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
          View view = inflater.inflate(R.layout.fragment_friends, container, false);
 
          // Set the adapter
@@ -124,6 +124,18 @@ import cn.edu.bjtu.nourriture.dummy.DummyContent;
          mListener = null;
      }
 
+     @Override
+     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+         if (null != mListener) {
+             // Notify the active callbacks interface (the activity, if the
+             // fragment is attached to one) that an item has been selected.
+             mListener.onFriendSelected(DummyContent.FRIENDS.get(position).id);
+         }
+     }
+
+
+
+    // --- ACTION BAR ---
     /**
      *  Inflate the menu resource into the given Menu to add each item to the action bar:
      */
@@ -134,14 +146,17 @@ import cn.edu.bjtu.nourriture.dummy.DummyContent;
         getActivity().getMenuInflater().inflate(R.menu.friends_menu, menu);
     }
 
-     @Override
-     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-         if (null != mListener) {
-             // Notify the active callbacks interface (the activity, if the
-             // fragment is attached to one) that an item has been selected.
-             mListener.onFriendSelected(DummyContent.FRIENDS.get(position).id);
-         }
-     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.action_add_friend:
+                //openSearch(); //TODO: implement the handler for adding a new friend
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 
 

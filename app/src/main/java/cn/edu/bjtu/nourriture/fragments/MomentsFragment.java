@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -130,6 +131,18 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
         mListener = null;
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (null != mListener) {
+            // Notify the active callbacks interface (the activity, if the
+            // fragment is attached to one) that an item has been selected.
+            mListener.onMomentSelected(DummyContent.MOMENTS.get(position).getMomentID());
+        }
+    }
+
+
+
+    // --- ACTION BAR ---
     /**
      *  Inflate the menu resource into the given Menu to add each item to the action bar:
      */
@@ -141,11 +154,14 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (null != mListener) {
-            // Notify the active callbacks interface (the activity, if the
-            // fragment is attached to one) that an item has been selected.
-            mListener.onMomentSelected(DummyContent.MOMENTS.get(position).getMomentID());
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.action_add_moment:
+                //openSearch();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
