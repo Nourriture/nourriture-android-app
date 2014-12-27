@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -82,6 +84,8 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setHasOptionsMenu(true);
+
         // TODO: Change Adapter to display your content
         mAdapter = new MomentsAdapter();//new ArrayAdapter<Moment>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.MOMENTS);
     }
@@ -124,6 +128,16 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    /**
+     *  Inflate the menu resource into the given Menu to add each item to the action bar:
+     */
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        getActivity().getMenuInflater().inflate(R.menu.moments_menu, menu);
     }
 
     @Override

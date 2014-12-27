@@ -1,16 +1,18 @@
 package cn.edu.bjtu.nourriture.fragments;
 
 import android.app.Activity;
- import android.os.Bundle;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
- import android.view.LayoutInflater;
- import android.view.View;
- import android.view.ViewGroup;
- import android.widget.AbsListView;
- import android.widget.AdapterView;
- import android.widget.ArrayAdapter;
- import android.widget.ListAdapter;
- import android.widget.TextView;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.TextView;
 
 import cn.edu.bjtu.nourriture.MainActivity;
 import cn.edu.bjtu.nourriture.R;
@@ -75,6 +77,8 @@ import cn.edu.bjtu.nourriture.dummy.DummyContent;
      public void onCreate(Bundle savedInstanceState) {
          super.onCreate(savedInstanceState);
 
+         setHasOptionsMenu(true);
+
          // TODO: Change Adapter to display your content
          mAdapter = new ArrayAdapter<DummyContent.DummyFriend>(getActivity(),
                  android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.FRIENDS);
@@ -119,6 +123,16 @@ import cn.edu.bjtu.nourriture.dummy.DummyContent;
          super.onDetach();
          mListener = null;
      }
+
+    /**
+     *  Inflate the menu resource into the given Menu to add each item to the action bar:
+     */
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        getActivity().getMenuInflater().inflate(R.menu.friends_menu, menu);
+    }
 
      @Override
      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
