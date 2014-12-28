@@ -116,7 +116,7 @@ public class MainActivity extends ActionBarActivity
     public void onNewMomentSelected() {
 
         // Present the "New Moment" activity modaly (slide up)
-        Intent intent_info = new Intent(MainActivity.this,NewMomentActivity.class);
+        Intent intent_info = new Intent(MainActivity.this, NewMomentActivity.class);
         startActivity(intent_info);
         overridePendingTransition(R.anim.slide_up_animation,R.anim.no_change_animation);
     }

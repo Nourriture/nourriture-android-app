@@ -1,5 +1,6 @@
 package cn.edu.bjtu.nourriture.activities;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -36,10 +37,32 @@ public class NewMomentActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_save_moment) {
+            postMoment();
+            return true;
+        }
+        else if (id == R.id.action_cancel_moment){
+            discardMoment();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+
+    // --- Moment handlers ---
+    private void postMoment() {
+        //TODO: POST to API
+
+        //TODO 2: discard moment
+    }
+
+    private void discardMoment() {
+
+        // Present the "Main" activity modaly (slide down)
+        Intent intent_home = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent_home);
+        overridePendingTransition(R.anim.no_change_animation, R.anim.slide_down_animation);
     }
 }
