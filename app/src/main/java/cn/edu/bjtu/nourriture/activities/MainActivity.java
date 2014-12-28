@@ -1,6 +1,7 @@
-package cn.edu.bjtu.nourriture;
+package cn.edu.bjtu.nourriture.activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -14,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 
+import cn.edu.bjtu.nourriture.R;
+import cn.edu.bjtu.nourriture.fragments.NavigationDrawerFragment;
 import cn.edu.bjtu.nourriture.fragments.friends.FriendsFragment;
 import cn.edu.bjtu.nourriture.fragments.moments.MomentsFragment;
 import cn.edu.bjtu.nourriture.fragments.profile.ProfileFragment;
@@ -24,7 +27,7 @@ public class MainActivity extends ActionBarActivity
         MomentsFragment.OnFragmentInteractionListener,
         RecipesFragment.OnFragmentInteractionListener,
         FriendsFragment.OnFragmentInteractionListener,
-        ProfileFragment.OnFragmentInteractionListener {
+        ProfileFragment.OnFragmentInteractionListener{
 
 
 
@@ -107,6 +110,15 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onMomentSelected(String id) {
         System.out.println("Moment " + id);
+    }
+
+    @Override
+    public void onNewMomentSelected() {
+
+        // Present the "New Moment" activity modaly (slide up)
+        Intent intent_info = new Intent(MainActivity.this,NewMomentActivity.class);
+        startActivity(intent_info);
+        overridePendingTransition(R.anim.slide_up_animation,R.anim.no_change_animation);
     }
 
     /**
