@@ -1,4 +1,4 @@
-package cn.edu.bjtu.nourriture;
+package cn.edu.bjtu.nourriture.activities;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,6 +9,9 @@ import cn.edu.bjtu.nourriture.R;
 
 public class NewMomentActivity extends ActionBarActivity {
 
+
+
+    // --- ACTIVITY lifecycle methods ---
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,6 +19,8 @@ public class NewMomentActivity extends ActionBarActivity {
     }
 
 
+
+    // --- ACTION BAR ---
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

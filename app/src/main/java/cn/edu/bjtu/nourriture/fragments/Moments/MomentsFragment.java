@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import cn.edu.bjtu.nourriture.MainActivity;
+import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.dummy.DummyContent;
 import cn.edu.bjtu.nourriture.models.Moment;
