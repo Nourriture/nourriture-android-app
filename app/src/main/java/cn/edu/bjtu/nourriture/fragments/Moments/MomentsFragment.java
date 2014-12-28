@@ -169,7 +169,12 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
 
     // --- HELPERs ---
     private void openAddNewMomentFragment() {
-        System.out.println("Yo yo yo");
+        if (null != mListener) {
+            // Notify the active callbacks interface (the activity, if the
+            // fragment is attached to one) that an item has been selected.
+            mListener.onNewMomentSelected();
+        }
+
     }
 
 
@@ -226,6 +231,8 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
      */
     public interface OnFragmentInteractionListener {
         public void onMomentSelected(String id);
+
+        public void onNewMomentSelected();
     }
 
 }
