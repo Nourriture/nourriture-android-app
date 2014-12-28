@@ -7,5 +7,5 @@ xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
     <item android:id="@+id/action_add_moment"
         android:icon="@drawable/ic_action_new"
         android:title="@string/action_add_moment"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom|withText" />
 </menu>
