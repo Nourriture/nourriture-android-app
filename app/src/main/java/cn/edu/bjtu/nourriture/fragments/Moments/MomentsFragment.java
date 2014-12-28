@@ -172,6 +172,8 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
+
+            // Calls the MainActivity, which then presents the NewMomentActivity
             mListener.onNewMomentSelected();
         }
 
