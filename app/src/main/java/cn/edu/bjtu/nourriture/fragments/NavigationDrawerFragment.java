@@ -1,4 +1,4 @@
-package cn.edu.bjtu.nourriture;
+package cn.edu.bjtu.nourriture.fragments;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
@@ -23,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import cn.edu.bjtu.nourriture.R;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
