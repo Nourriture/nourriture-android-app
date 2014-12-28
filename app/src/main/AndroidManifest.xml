@@ -18,7 +18,8 @@
         </activity>
         <activity
             android:name=".activities.NewMomentActivity"
-            android:label="@string/title_activity_new_moment" >
+            android:label="@string/title_activity_new_moment"
+            android:windowSoftInputMode="stateVisible|adjustResize" >
         </activity>
     </application>
 
