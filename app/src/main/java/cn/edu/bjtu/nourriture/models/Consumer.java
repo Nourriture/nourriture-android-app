@@ -130,11 +130,11 @@ public class Consumer {
             result.add(picDic);
         }
 
-        /*if (this.consumerUsername != null && !this.consumerUsername.isEmpty()){
+        if (this.consumerUsername != null && !this.consumerUsername.isEmpty()){
             HashMap usernameDic = new HashMap();
             usernameDic.put(Consumer.CONSUMER_USERNAME, this.consumerUsername);
             result.add(usernameDic);
-        }*/
+        }
 
         if (this.consumerName != null && !this.consumerName.isEmpty()){
             HashMap nameDic = new HashMap();
