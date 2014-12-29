@@ -15,6 +15,8 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.activities.MainActivity;
@@ -42,7 +44,7 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
 
     private final String MY_PROFILE_PREFERENCES = "myProfile";
 
-    private ArrayList<String> consumerInfo = new ArrayList<>(); //holds strings about a Customer
+    private Consumer currentConstumer = null;
 
     private OnFragmentInteractionListener mListener;
 
@@ -129,7 +131,8 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onConsumerInteraction(consumerInfo.get(position));
+            HashMap hm = currentConstumer.getConsumerInfoToDisplay().get(position);
+            mListener.onConsumerInteraction(hm.values().toString());
         }
     }
 
@@ -140,13 +143,15 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
         SharedPreferences pref = getActivity().getSharedPreferences(MY_PROFILE_PREFERENCES, 0);
 
         SharedPreferences.Editor editor = pref.edit(); // used for save data
-        editor.putString(Consumer.PROFILE_PICTURE, "R.drawable.rockybalboaimage"); // Storing string value
-        editor.putString(Consumer.PROFILE_USERNAME, "rockyUS"); // Storing string value
-        editor.putString(Consumer.PROFILE_NAME, "Rocky Brambora"); // Storing string value
-        editor.putString(Consumer.PROFILE_OCCUPATION, "Boxer"); // Storing string value
-        editor.putString(Consumer.PROFILE_BIRTHDATE, "02/05/1958"); // Storing string value
-        editor.putString(Consumer.PROFILE_WEBSITE, "http://www.me.com"); // Storing string value
-        editor.putString(Consumer.PROFILE_BIO, "You all know me well! You all know me well! You all know me well! You all know me well! You all know me well! You all know me well!"); // Storing string value
+        editor.putString(Consumer.CONSUMER_PICTURE, "R.drawable.rockybalboaimage"); // Storing string value
+        editor.putString(Consumer.CONSUMER_USERNAME, "rockyUS"); // Storing string value
+        editor.putString(Consumer.CONSUMER_NAME, "Rocky Brambora"); // Storing string value
+        editor.putString(Consumer.CONSUMER_OCCUPATION, "Boxer"); // Storing string value
+        editor.putLong(Consumer.CONSUMER_BIRTHDATE, new Date().getTime()); // Storing Date value
+        editor.putString(Consumer.CONSUMER_WEBSITE, "http://www.me.com"); // Storing string value
+        editor.putString(Consumer.CONSUMER_BIO, "You all know me well! You all know me well! You all know me well! You all know me well! You all know me well! You all know me well!"); // Storing string value
+        editor.putString(Consumer.CONSUMER_EMAIL, "bla@foo.com");
+        editor.putInt(Consumer.CONSUMER_GENDER, 1);
 
         editor.commit(); // commit changes into sharedpreferences file.
     }
@@ -154,13 +159,16 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
     private void readProfileFromSharedPreferences() {
         SharedPreferences pref = getActivity().getSharedPreferences(MY_PROFILE_PREFERENCES, 0); // 0 - for private mode
 
-        consumerInfo.add(pref.getString(Consumer.PROFILE_PICTURE, ""));
-        consumerInfo.add(pref.getString(Consumer.PROFILE_USERNAME, ""));
-        consumerInfo.add(pref.getString(Consumer.PROFILE_NAME, ""));
-        consumerInfo.add(pref.getString(Consumer.PROFILE_OCCUPATION, ""));
-        consumerInfo.add(pref.getString(Consumer.PROFILE_BIRTHDATE, ""));
-        consumerInfo.add(pref.getString(Consumer.PROFILE_WEBSITE, ""));
-        consumerInfo.add(pref.getString(Consumer.PROFILE_BIO, ""));
+        currentConstumer = new Consumer();
+        currentConstumer.setConsumerUsername(pref.getString(Consumer.CONSUMER_USERNAME, ""));
+        currentConstumer.setConsumerName(pref.getString(Consumer.CONSUMER_NAME, ""));
+        currentConstumer.setConsumerPicture(pref.getString(Consumer.CONSUMER_PICTURE, ""));
+        currentConstumer.setConsumerOccupation(pref.getString(Consumer.CONSUMER_OCCUPATION, ""));
+        currentConstumer.setConsumerBirthdate(new Date(pref.getLong(Consumer.CONSUMER_BIRTHDATE, 0)));
+        currentConstumer.setConsumerWebsite(pref.getString(Consumer.CONSUMER_WEBSITE, ""));
+        currentConstumer.setConsumerBio(pref.getString(Consumer.CONSUMER_BIO, ""));
+        currentConstumer.setConsumerEmail(pref.getString(Consumer.CONSUMER_EMAIL, ""));
+        currentConstumer.setConsumerGender(pref.getInt(Consumer.CONSUMER_GENDER, 0));
     }
 
 
@@ -170,7 +178,7 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
 
         // takes CONTEXT, LAYOUT and DATA
         public ConsumerAdapter(){
-            super(getActivity(), R.layout.row_moment, consumerInfo);
+            super(getActivity(), R.layout.row_moment, currentConstumer.getConsumerInfoToDisplay()); //will pass an array of Consumer available info to display
         }
 
         @Override
@@ -180,88 +188,46 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
 
             View rowView = null;
 
-            switch (position){
-                case 0:{
-                    rowView = inflater.inflate(R.layout.row_consumer_image, parent, false);
+            ArrayList<HashMap> consumerArrayOfInfo = currentConstumer.getConsumerInfoToDisplay();
+            HashMap consumerInfo = consumerArrayOfInfo.get(position);
 
-                    ImageView imgView = (ImageView) rowView.findViewById(R.id.consumerImageView);
-                    imgView.setImageResource(R.drawable.rockybalboaimage);
+            // row with IMAGE
+            if (consumerInfo.containsKey(Consumer.CONSUMER_PICTURE)){
+                rowView = inflater.inflate(R.layout.row_consumer_image, parent, false);
 
-                    break;
+                ImageView imgView = (ImageView) rowView.findViewById(R.id.consumerImageView);
+                imgView.setImageResource(R.drawable.rockybalboaimage);
+            }
+            // row with TITLE and VALUE
+            else {
+                rowView = inflater.inflate(R.layout.row_consumer_title_and_value, parent, false);
+
+                TextView titleTextView = (TextView) rowView.findViewById(R.id.titleTextView);
+                TextView valueTextView = (TextView) rowView.findViewById(R.id.valueTextView);
+
+                if (consumerInfo.containsKey(Consumer.CONSUMER_USERNAME)){
+                    titleTextView.setText(R.string.consumerUsername);
+                    valueTextView.setText(consumerInfo.get(Consumer.CONSUMER_USERNAME).toString());
                 }
-                case 1:{
-                    rowView = inflater.inflate(R.layout.row_consumer_title_and_value, parent, false);
-
-                    TextView txtView = (TextView) rowView.findViewById(R.id.titleTextView);
-                    txtView.setText(R.string.consumerUsername);
-
-                    TextView txtView2 = (TextView) rowView.findViewById(R.id.valueTextView);
-                    txtView2.setText(consumerInfo.get(position));
-
-                    break;
+                else if (consumerInfo.containsKey(Consumer.CONSUMER_NAME)){
+                    titleTextView.setText(R.string.consumerName);
+                    valueTextView.setText(consumerInfo.get(Consumer.CONSUMER_NAME).toString());
                 }
-                case 2:{
-                    rowView = inflater.inflate(R.layout.row_consumer_title_and_value, parent, false);
-
-                    TextView txtView = (TextView) rowView.findViewById(R.id.titleTextView);
-                    txtView.setText(R.string.consumerName);
-
-                    TextView txtView2 = (TextView) rowView.findViewById(R.id.valueTextView);
-                    txtView2.setText(consumerInfo.get(position));
-
-                    break;
+                else if (consumerInfo.containsKey(Consumer.CONSUMER_OCCUPATION)){
+                    titleTextView.setText(R.string.consumerOccupation);
+                    valueTextView.setText(consumerInfo.get(Consumer.CONSUMER_OCCUPATION).toString());
                 }
-                case 3:{
-                    rowView = inflater.inflate(R.layout.row_consumer_title_and_value, parent, false);
-
-                    TextView txtView = (TextView) rowView.findViewById(R.id.titleTextView);
-                    txtView.setText(R.string.consumerOccupation);
-
-                    TextView txtView2 = (TextView) rowView.findViewById(R.id.valueTextView);
-                    txtView2.setText(consumerInfo.get(position));
-
-                    break;
+                else if (consumerInfo.containsKey(Consumer.CONSUMER_BIRTHDATE)){
+                    titleTextView.setText(R.string.consumerBirthdate);
+                    valueTextView.setText(consumerInfo.get(Consumer.CONSUMER_BIRTHDATE).toString());
                 }
-                case 4:{
-                    rowView = inflater.inflate(R.layout.row_consumer_title_and_value, parent, false);
-
-                    TextView txtView = (TextView) rowView.findViewById(R.id.titleTextView);
-                    txtView.setText(R.string.consumerBirthdate);
-
-                    TextView txtView2 = (TextView) rowView.findViewById(R.id.valueTextView);
-                    txtView2.setText(consumerInfo.get(position));
-
-                    break;
+                else if (consumerInfo.containsKey(Consumer.CONSUMER_WEBSITE)){
+                    titleTextView.setText(R.string.consumerWebsite);
+                    valueTextView.setText(consumerInfo.get(Consumer.CONSUMER_WEBSITE).toString());
                 }
-                case 5:{
-                    rowView = inflater.inflate(R.layout.row_consumer_title_and_value, parent, false);
-
-                    TextView txtView = (TextView) rowView.findViewById(R.id.titleTextView);
-                    txtView.setText(R.string.consumerWebsite);
-
-                    TextView txtView2 = (TextView) rowView.findViewById(R.id.valueTextView);
-                    txtView2.setText(consumerInfo.get(position));
-
-                    break;
-                }
-                case 6:{
-                    rowView = inflater.inflate(R.layout.row_consumer_title_and_value, parent, false);
-
-                    TextView txtView = (TextView) rowView.findViewById(R.id.titleTextView);
-                    txtView.setText(R.string.consumerBio);
-
-                    TextView txtView2 = (TextView) rowView.findViewById(R.id.valueTextView);
-                    txtView2.setText(consumerInfo.get(position));
-
-                    break;
-                }
-                default:{
-                    rowView = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
-
-                    TextView txtView = (TextView) rowView.findViewById(android.R.id.text1);
-                    txtView.setText(consumerInfo.get(position));
-
-                    break;
+                else if (consumerInfo.containsKey(Consumer.CONSUMER_BIO)){
+                    titleTextView.setText(R.string.consumerBio);
+                    valueTextView.setText(consumerInfo.get(Consumer.CONSUMER_BIO).toString());
                 }
             }
 
