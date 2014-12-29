@@ -92,8 +92,7 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_consumer, container, false);
 
         // Set the adapter
@@ -149,7 +148,7 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
         editor.putString(Consumer.CONSUMER_OCCUPATION, "Boxer"); // Storing string value
         editor.putLong(Consumer.CONSUMER_BIRTHDATE, new Date().getTime()); // Storing Date value
         editor.putString(Consumer.CONSUMER_WEBSITE, "http://www.me.com"); // Storing string value
-        editor.putString(Consumer.CONSUMER_BIO, "You all know me well! You all know me well! You all know me well! You all know me well! You all know me well! You all know me well!"); // Storing string value
+        editor.putString(Consumer.CONSUMER_BIO, "Miloš Zeman si nechal od Putinova blízkého spolupracovníka zaplatit dovolenou na Rhodosu, navzdory informacím od českých i aliančních rozvědek popíral přítomnost ruských vojáků na Ukrajině, rozhodnutí Ukrajinců v prezidentských i parlamentních volbách směřovat západním směrem označil za umělý pokus o změnu vlastního geopolitického směřování, v čínské státní televizi uváděl nepravdivé informace o ukrajinském jazykovém zákoně přesně podle linie Kremlu."); // Storing string value
         editor.putString(Consumer.CONSUMER_EMAIL, "bla@foo.com");
         editor.putInt(Consumer.CONSUMER_GENDER, 1);
 
