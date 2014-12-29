@@ -19,7 +19,7 @@ import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.fragments.NavigationDrawerFragment;
 import cn.edu.bjtu.nourriture.fragments.friends.FriendsFragment;
 import cn.edu.bjtu.nourriture.fragments.moments.MomentsFragment;
-import cn.edu.bjtu.nourriture.fragments.profile.ProfileFragment;
+import cn.edu.bjtu.nourriture.fragments.profile.ConsumerFragment;
 import cn.edu.bjtu.nourriture.fragments.recipes.RecipesFragment;
 
 public class MainActivity extends ActionBarActivity
@@ -27,7 +27,7 @@ public class MainActivity extends ActionBarActivity
         MomentsFragment.OnFragmentInteractionListener,
         RecipesFragment.OnFragmentInteractionListener,
         FriendsFragment.OnFragmentInteractionListener,
-        ProfileFragment.OnFragmentInteractionListener{
+        ConsumerFragment.OnFragmentInteractionListener{
 
 
 
@@ -91,7 +91,7 @@ public class MainActivity extends ActionBarActivity
                 break;
             case 3:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, ProfileFragment.newInstance(position + 1))
+                        .replace(R.id.container, ConsumerFragment.newInstance(position + 1))
                         .commit();
                 break;
             default:
@@ -142,13 +142,13 @@ public class MainActivity extends ActionBarActivity
     }
 
     /**
-     * from "ProfileFragment" FRAGMENT
+     * from "ConsumerFragment" FRAGMENT
      *
-     * Implementation of method from ProfileFragment interface
+     * Implementation of method from ConsumerFragment interface
      */
     @Override
-    public void onProfileInteraction(Uri uri) {
-
+    public void onConsumerInteraction(String id) {
+        System.out.println("yeah");
     }
 
 
