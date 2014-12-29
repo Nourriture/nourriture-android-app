@@ -28,14 +28,15 @@
     <string name="momentTime">xxx minutes ago</string>
     <string name="momentLikes">xxx likes</string>
 
-    <!-- Profile fragment -->
-    <string name="profileName">Name</string>
-    <string name="profileOccupation">Occupation:</string>
-    <string name="profileBirthdate">Birthdate:</string>
-    <string name="profileWebsite">Website:</string>
-    <string name="profileBio">Bio:</string>
-    <string name="profileValue">value</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Consumer fragment -->
+    <string name="consumerUsername">Username</string>
+    <string name="consumerName">Name</string>
+    <string name="consumerOccupation">Occupation:</string>
+    <string name="consumerBirthdate">Birthdate:</string>
+    <string name="consumerWebsite">Website:</string>
+    <string name="consumerBio">Bio:</string>
+    <string name="consumerTitle">title</string>
+    <string name="consumerValue">value</string>
 
     <!-- New moment activity -->
     <string name="title_activity_new_moment">New moment</string>
