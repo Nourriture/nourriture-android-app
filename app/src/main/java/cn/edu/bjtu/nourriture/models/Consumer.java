@@ -166,7 +166,8 @@ public class Consumer {
             result.add(bioDic);
         }
 
-        /*if (this.consumerEmail != null && !this.consumerEmail.isEmpty()){
+        /* I DONT WANNA PRINT OUT EMAIL and GENDER
+        if (this.consumerEmail != null && !this.consumerEmail.isEmpty()){
             HashMap emailDic = new HashMap();
             emailDic.put(Consumer.CONSUMER_EMAIL, this.consumerEmail);
             result.add(emailDic);
