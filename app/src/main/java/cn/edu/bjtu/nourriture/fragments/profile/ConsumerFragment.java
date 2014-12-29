@@ -14,12 +14,9 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 import cn.edu.bjtu.nourriture.R;
-
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 
 /**
