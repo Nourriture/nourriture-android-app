@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.activities.MainActivity;
+import cn.edu.bjtu.nourriture.models.Consumer;
 
 /**
  * A fragment representing a list of Items.
@@ -40,13 +41,6 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     private final String MY_PROFILE_PREFERENCES = "myProfile";
-    private final String PROFILE_PICTURE        = "picture";
-    private final String PROFILE_USERNAME       = "username";
-    private final String PROFILE_NAME           = "name";
-    private final String PROFILE_OCCUPATION     = "occupation";
-    private final String PROFILE_BIRTHDATE      = "birthdate";
-    private final String PROFILE_WEBSITE        = "website";
-    private final String PROFILE_BIO            = "bio";
 
     private ArrayList<String> consumerInfo = new ArrayList<>(); //holds strings about a Customer
 
@@ -146,13 +140,13 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
         SharedPreferences pref = getActivity().getSharedPreferences(MY_PROFILE_PREFERENCES, 0);
 
         SharedPreferences.Editor editor = pref.edit(); // used for save data
-        editor.putString(PROFILE_PICTURE, "R.drawable.rockybalboaimage"); // Storing string value
-        editor.putString(PROFILE_USERNAME, "rockyUS"); // Storing string value
-        editor.putString(PROFILE_NAME, "Rocky Brambora"); // Storing string value
-        editor.putString(PROFILE_OCCUPATION, "Boxer"); // Storing string value
-        editor.putString(PROFILE_BIRTHDATE, "02/05/1958"); // Storing string value
-        editor.putString(PROFILE_WEBSITE, "http://www.me.com"); // Storing string value
-        editor.putString(PROFILE_BIO, "You all know me well! You all know me well! You all know me well! You all know me well! You all know me well! You all know me well!"); // Storing string value
+        editor.putString(Consumer.PROFILE_PICTURE, "R.drawable.rockybalboaimage"); // Storing string value
+        editor.putString(Consumer.PROFILE_USERNAME, "rockyUS"); // Storing string value
+        editor.putString(Consumer.PROFILE_NAME, "Rocky Brambora"); // Storing string value
+        editor.putString(Consumer.PROFILE_OCCUPATION, "Boxer"); // Storing string value
+        editor.putString(Consumer.PROFILE_BIRTHDATE, "02/05/1958"); // Storing string value
+        editor.putString(Consumer.PROFILE_WEBSITE, "http://www.me.com"); // Storing string value
+        editor.putString(Consumer.PROFILE_BIO, "You all know me well! You all know me well! You all know me well! You all know me well! You all know me well! You all know me well!"); // Storing string value
 
         editor.commit(); // commit changes into sharedpreferences file.
     }
@@ -160,13 +154,13 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
     private void readProfileFromSharedPreferences() {
         SharedPreferences pref = getActivity().getSharedPreferences(MY_PROFILE_PREFERENCES, 0); // 0 - for private mode
 
-        consumerInfo.add(pref.getString(PROFILE_PICTURE, ""));
-        consumerInfo.add(pref.getString(PROFILE_USERNAME, ""));
-        consumerInfo.add(pref.getString(PROFILE_NAME, ""));
-        consumerInfo.add(pref.getString(PROFILE_OCCUPATION, ""));
-        consumerInfo.add(pref.getString(PROFILE_BIRTHDATE, ""));
-        consumerInfo.add(pref.getString(PROFILE_WEBSITE, ""));
-        consumerInfo.add(pref.getString(PROFILE_BIO, ""));
+        consumerInfo.add(pref.getString(Consumer.PROFILE_PICTURE, ""));
+        consumerInfo.add(pref.getString(Consumer.PROFILE_USERNAME, ""));
+        consumerInfo.add(pref.getString(Consumer.PROFILE_NAME, ""));
+        consumerInfo.add(pref.getString(Consumer.PROFILE_OCCUPATION, ""));
+        consumerInfo.add(pref.getString(Consumer.PROFILE_BIRTHDATE, ""));
+        consumerInfo.add(pref.getString(Consumer.PROFILE_WEBSITE, ""));
+        consumerInfo.add(pref.getString(Consumer.PROFILE_BIO, ""));
     }
 
 
