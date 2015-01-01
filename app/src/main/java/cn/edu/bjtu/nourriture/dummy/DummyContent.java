@@ -58,12 +58,12 @@ public class DummyContent {
             e.printStackTrace();
         }
 
-        addMoment(new Moment("ID1", "Paja Prochazka", d, 5, "This is my first moment", "Reference object ID"));
-        addMoment(new Moment("ID2", "Martin Jensen", d2, 10, "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "Reference object ID"));
-        addMoment(new Moment("ID3", "Victoria Secret", d3, 3, "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...", "Reference object ID"));
-        addMoment(new Moment("ID4", "Rocky Balboa", d4, 2, "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.", "Reference object ID"));
-        addMoment(new Moment("ID5", "Barack Obama", d5, 8, "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.", "Reference object ID"));
-        addMoment(new Moment("ID6", "Tony Hawk", d6, 13, "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.", "Reference object ID"));
+        addMoment(new Moment("ID1", "Paja Prochazka", d, 5, "This is my first moment", "1"));
+        addMoment(new Moment("ID2", "Martin Jensen", d2, 10, "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "2"));
+        addMoment(new Moment("ID3", "Victoria Secret", d3, 3, "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...", "1"));
+        addMoment(new Moment("ID4", "Rocky Balboa", d4, 2, "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.", "2"));
+        addMoment(new Moment("ID5", "Barack Obama", d5, 8, "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.", "1"));
+        addMoment(new Moment("ID6", "Tony Hawk", d6, 13, "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.", "2"));
 
         addRecipe(new DummyRecipe("1", "Sushi"));
         addRecipe(new DummyRecipe("2", "Gulash"));

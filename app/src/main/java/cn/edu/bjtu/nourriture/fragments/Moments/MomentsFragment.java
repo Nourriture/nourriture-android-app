@@ -88,7 +88,7 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
         setHasOptionsMenu(true);
 
         // TODO: Change Adapter to display your content
-        mAdapter = new MomentsAdapter();//new ArrayAdapter<Moment>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.MOMENTS);
+        mAdapter = new MomentsAdapter(this.getActivity(), myDummyMoments);//new ArrayAdapter<Moment>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.MOMENTS);
     }
 
     @Override
@@ -96,14 +96,14 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
         View view = inflater.inflate(R.layout.fragment_item, container, false);
 
         // Set the adapter
-        mListView = (AbsListView) view.findViewById(android.R.id.list);
+        mListView = (AbsListView) view.findViewById(R.id.momentList);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
 
         if (myDummyMoments.size() == 0) {
-            TextView t = (TextView) view.findViewById(android.R.id.empty);
+            TextView t = (TextView) view.findViewById(R.id.momentNotFound);
             t.setText(getString(R.string.no_moments));
         }
 
@@ -181,42 +181,7 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
 
 
     // --- CUSTOM INNER CLASS of ArrayAdapter ---
-    private class MomentsAdapter extends ArrayAdapter {
 
-        // takes CONTEXT, LAYOUT and DATA
-        public MomentsAdapter(){
-            super(getActivity(), R.layout.row_moment, myDummyMoments);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            View momentView = convertView;
-
-            // Make sure we have a view to work with
-            if (momentView == null){
-                momentView = getActivity().getLayoutInflater().inflate(R.layout.row_moment, parent, false);
-            }
-
-            // Set author name
-            TextView author = (TextView) momentView.findViewById(R.id.momentAuthorTextView);
-            author.setText(DummyContent.MOMENTS.get(position).getMomentAuthor());
-
-            // Set content text
-            TextView content = (TextView) momentView.findViewById(R.id.momentContentTextView);
-            content.setText(DummyContent.MOMENTS.get(position).getMomentText());
-
-            // Set time elapsed
-            TextView timeElapsed = (TextView) momentView.findViewById(R.id.momentTimeTextView);
-            timeElapsed.setText(DummyContent.MOMENTS.get(position).getMomentCreated());
-
-            // Set likes
-            TextView likes = (TextView) momentView.findViewById(R.id.momentLikesTextView);
-            likes.setText(DummyContent.MOMENTS.get(position).getMomentLikes() + " likes");
-
-            return momentView;
-        }
-    }
 
 
 
@@ -238,3 +203,4 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
     }
 
 }
+

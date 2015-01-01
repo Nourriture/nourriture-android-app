@@ -1,6 +1,7 @@
 package cn.edu.bjtu.nourriture.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
@@ -15,9 +16,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,9 +32,11 @@ import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.dummy.DummyContent;
 import cn.edu.bjtu.nourriture.fragments.NavigationDrawerFragment;
 import cn.edu.bjtu.nourriture.fragments.friends.FriendsFragment;
+import cn.edu.bjtu.nourriture.fragments.moments.MomentsAdapter;
 import cn.edu.bjtu.nourriture.fragments.moments.MomentsFragment;
 import cn.edu.bjtu.nourriture.fragments.profile.ConsumerFragment;
 import cn.edu.bjtu.nourriture.fragments.recipes.RecipesFragment;
+import cn.edu.bjtu.nourriture.models.Moment;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
@@ -131,6 +137,42 @@ public class MainActivity extends ActionBarActivity
         overridePendingTransition(R.anim.slide_up_animation,R.anim.no_change_animation);
     }
 
+    public void momentSearchByRecipe(View view){
+        TextView t = (TextView) findViewById(R.id.momentNotFound);
+        t.setText("");
+        AbsListView lv = (AbsListView) findViewById(R.id.momentList);
+        ArrayList<Moment> searchResultMoment = new ArrayList<Moment>();
+        List<DummyContent.DummyRecipe> searchResultRecipe = new ArrayList<DummyContent.DummyRecipe>();
+        final EditText searchBar = (EditText) findViewById(R.id.momentSearchBar);
+        for (int i = 0; i < DummyContent.RECIPES.size();i++)
+        {
+            if (DummyContent.RECIPES.get(i).content.toUpperCase().equals(searchBar.getText().toString().toUpperCase()))
+            {
+                searchResultRecipe.add(DummyContent.RECIPES.get(i));
+            }
+        }
+        if (searchResultRecipe.size() == 0) {
+            t.setText(getString(R.string.no_moments));
+        }
+        else{
+            for (int i = 0; i < searchResultRecipe.size();i++)
+            {
+                for (int a = 0; a < DummyContent.MOMENTS.size();a++)
+                {
+                    if (DummyContent.MOMENTS.get(a).getMomentSubjectID().equals(searchResultRecipe.get(i).id))
+                    {
+                        searchResultMoment.add(DummyContent.MOMENTS.get(a));
+                    }
+                }
+            }
+        }
+        ListAdapter arrayAdapter;
+        arrayAdapter = new MomentsAdapter(this, searchResultMoment);
+
+        lv.setAdapter(arrayAdapter);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
     /**
      * from "RecipesFragment" FRAGMENT
      *
@@ -142,7 +184,6 @@ public class MainActivity extends ActionBarActivity
     }
 
     public void recipeSearch(View view){
-        Log.d("test", "search Function");
         TextView t = (TextView) findViewById(R.id.notFound);
         t.setText("");
         AbsListView lv = (AbsListView) findViewById(R.id.recipeList);
@@ -150,10 +191,8 @@ public class MainActivity extends ActionBarActivity
         final EditText searchBar = (EditText) findViewById(R.id.recipeSearchbar);
         for (int i = 0; i < DummyContent.RECIPES.size();i++)
         {
-            Log.d("test", "["+DummyContent.RECIPES.get(i).content+"] ["+searchBar.getText().toString()+"]");
             if (DummyContent.RECIPES.get(i).content.toUpperCase().equals(searchBar.getText().toString().toUpperCase()))
             {
-                Log.d("if", "if ok");
                 searchResult.add(DummyContent.RECIPES.get(i));
             }
         }
@@ -166,6 +205,8 @@ public class MainActivity extends ActionBarActivity
                 searchResult);
 
         lv.setAdapter(arrayAdapter);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     /**
