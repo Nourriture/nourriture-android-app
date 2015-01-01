@@ -8,14 +8,24 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.AbsListView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.edu.bjtu.nourriture.R;
+import cn.edu.bjtu.nourriture.dummy.DummyContent;
 import cn.edu.bjtu.nourriture.fragments.NavigationDrawerFragment;
 import cn.edu.bjtu.nourriture.fragments.friends.FriendsFragment;
 import cn.edu.bjtu.nourriture.fragments.moments.MomentsFragment;
@@ -131,6 +141,33 @@ public class MainActivity extends ActionBarActivity
         System.out.println("Recipe " + id);
     }
 
+    public void recipeSearch(View view){
+        Log.d("test", "search Function");
+        TextView t = (TextView) findViewById(R.id.notFound);
+        t.setText("");
+        AbsListView lv = (AbsListView) findViewById(R.id.recipeList);
+        List<DummyContent.DummyRecipe> searchResult = new ArrayList<DummyContent.DummyRecipe>();
+        final EditText searchBar = (EditText) findViewById(R.id.recipeSearchbar);
+        for (int i = 0; i < DummyContent.RECIPES.size();i++)
+        {
+            Log.d("test", "["+DummyContent.RECIPES.get(i).content+"] ["+searchBar.getText().toString()+"]");
+            if (DummyContent.RECIPES.get(i).content.toUpperCase().equals(searchBar.getText().toString().toUpperCase()))
+            {
+                Log.d("if", "if ok");
+                searchResult.add(DummyContent.RECIPES.get(i));
+            }
+        }
+        if (searchResult.size() == 0) {
+            t.setText(getString(R.string.no_recipes));
+        }
+        ArrayAdapter<DummyContent.DummyRecipe> arrayAdapter = new ArrayAdapter<DummyContent.DummyRecipe>(
+                this,
+                android.R.layout.simple_list_item_1,
+                searchResult);
+
+        lv.setAdapter(arrayAdapter);
+    }
+
     /**
      * from "FriendsFragment" FRAGMENT
      *
@@ -174,7 +211,6 @@ public class MainActivity extends ActionBarActivity
                 break;
         }
     }
-
 
 
     // --- ACTION BAR ---

@@ -84,14 +84,14 @@ public class RecipesFragment extends Fragment implements AbsListView.OnItemClick
         View view = inflater.inflate(R.layout.fragment_recipe, container, false);
 
         // Set the adapter
-        mListView = (AbsListView) view.findViewById(android.R.id.list);
+        mListView = (AbsListView) view.findViewById(R.id.recipeList);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
 
         if (DummyContent.RECIPES.size() == 0) {
-            TextView t = (TextView) view.findViewById(android.R.id.empty);
+            TextView t = (TextView) view.findViewById(R.id.notFound);
             t.setText(getString(R.string.no_recipes));
         }
 
