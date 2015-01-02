@@ -7,7 +7,7 @@
         android:layout_height="160dp"
         android:id="@+id/consumerImageView"
         android:layout_gravity="center|top"
-        android:src="@drawable/rockybalboaimage"
+        android:src="@drawable/user_placeholder"
         android:maxHeight="160dp"
         android:maxWidth="160dp"
         android:layout_alignParentTop="true"
