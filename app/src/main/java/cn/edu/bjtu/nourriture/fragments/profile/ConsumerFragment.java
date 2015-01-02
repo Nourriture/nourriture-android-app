@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import cn.edu.bjtu.nourriture.R;
@@ -108,7 +109,7 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
     public void onResume() {
         super.onResume();
 
-        // Always fetch moments when comes to the foreground
+        // Always fetch consumer info when comes to the foreground
         fetchConsumerInfo();
     }
 
@@ -171,7 +172,8 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
 
             @Override
             public void failure(RetrofitError error) {
-
+                Toast toast = Toast.makeText(getActivity().getApplicationContext(), R.string.api_error, Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
     }
