@@ -14,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import cn.edu.bjtu.nourriture.R;
@@ -202,7 +205,14 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
                 rowView = inflater.inflate(R.layout.row_consumer_image, parent, false);
 
                 ImageView imgView = (ImageView) rowView.findViewById(R.id.consumerImageView);
-                imgView.setImageResource(R.drawable.rockybalboaimage);
+
+                String url = consumerInfo.get(Consumer.CONSUMER_PICTURE).toString();
+                Picasso.with(getContext())
+                        .load(url)
+                        .resize(160, 160)
+                        .centerCrop()
+                        .placeholder(R.drawable.user_placeholder)
+                        .into(imgView);
             }
             // row with TITLE and VALUE
             else {
