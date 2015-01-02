@@ -25,10 +25,13 @@ public class Moment {
     @Expose
     private String text;
     @Expose
+    private Integer commentCount;
+    @Expose
+    private Integer likeCount;
+    @Expose
     private List<Object> comments = new ArrayList<Object>();
     @Expose
     private List<Object> likes = new ArrayList<Object>();
-
 
     /**
      *
@@ -105,6 +108,42 @@ public class Moment {
     /**
      *
      * @return
+     * The commentCount
+     */
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    /**
+     *
+     * @param commentCount
+     * The commentCount
+     */
+    public void setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    /**
+     *
+     * @return
+     * The likeCount
+     */
+    public Integer getLikeCount() {
+        return likeCount;
+    }
+
+    /**
+     *
+     * @param likeCount
+     * The likeCount
+     */
+    public void setLikeCount(Integer likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    /**
+     *
+     * @return
      * The comments
      */
     public List<Object> getComments() {
@@ -137,8 +176,6 @@ public class Moment {
     public void setLikes(List<Object> likes) {
         this.likes = likes;
     }
-
-
 
     /**
      *  Count the elapsed time between now and moment created
