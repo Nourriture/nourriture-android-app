@@ -63,6 +63,7 @@ public class MainActivity extends ActionBarActivity
         //FIXME: hardcoded the currently logged in Consumer. Usually this would be verified with login API call
         SharedPreferences pref = getSharedPreferences(MY_PROFILE_PREFERENCES, 0);
         SharedPreferences.Editor editor = pref.edit(); // used for save data
+        editor.putString(Consumer.CONSUMER_ID, "54a521b0d8ecc8779dbda776"); // Storing string value
         editor.putString(Consumer.CONSUMER_USERNAME, "RockyUS"); // Storing string value
         editor.commit(); // commit changes into sharedpreferences file.
     }
