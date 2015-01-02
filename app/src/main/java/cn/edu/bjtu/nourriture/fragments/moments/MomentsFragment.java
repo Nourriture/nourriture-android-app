@@ -285,9 +285,23 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
             TextView timeElapsed = (TextView) momentView.findViewById(R.id.momentTimeTextView);
             timeElapsed.setText(m.getCreated());
 
-            // Set likes
+            // Set comments count
+            TextView comments = (TextView) momentView.findViewById(R.id.momentCommentTextView);
+            if (m.getCommentCount() == 1){
+                comments.setText(m.getCommentCount() + " " + getString(R.string.momentComment));
+            }
+            else {
+                comments.setText(m.getCommentCount() + " " + getString(R.string.momentComments));
+            }
+
+            // Set likes count
             TextView likes = (TextView) momentView.findViewById(R.id.momentLikesTextView);
-            likes.setText(m.getLikes().size() + " likes");
+            if (m.getLikeCount() == 1){
+                likes.setText(m.getCommentCount() + " " + getString(R.string.momentLike));
+            }
+            else {
+                likes.setText(m.getCommentCount() + " " + getString(R.string.momentLikes));
+            }
 
             return momentView;
         }
