@@ -230,6 +230,8 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
             @Override
             public void success(List<Moment> moments, Response response) {
 
+                myMoments.clear();
+
                 myMoments.addAll(moments);
 
                 if (myMoments.size() == 0) {
