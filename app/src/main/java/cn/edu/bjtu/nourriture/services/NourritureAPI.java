@@ -35,35 +35,35 @@ public interface NourritureAPI {
 
 
     // Recipe endpoints
-    @Headers("Content-Type:application/json")
+    /*@Headers("Content-Type:application/json")
     @GET("/recipe")
     public void getAllRecipes(Callback<List<Recipe>> callback);
 
     @Headers("Content-Type:application/json")
     @GET("/recipe/{id}")
-    public Recipe getRecipe(@Path("id") String recipeID);
+    public Recipe getRecipe(@Path("id") String recipeID);*/
 
 
 
     // Consumer endpoints
-    @Headers("Content-Type:application/json")
+    /*@Headers("Content-Type:application/json")
     @POST("/consumer")
     public boolean postConsumer(Consumer consumer);
 
     @Headers("Content-Type:application/json")
     @GET("/consumer")
-    public List<Consumer> getAllConsumers();
+    public List<Consumer> getAllConsumers();*/
 
     @Headers("Content-Type:application/json")
     @GET("/consumer/{username}")
     public void getConsumer(@Path("username") String consumerUsername, Callback<Consumer> callback);
 
     // Relationships
-    @Headers("Content-Type:application/json")
+    /*@Headers("Content-Type:application/json")
     @GET("/consumer/{username}/following")
     public Consumer getConsumerFollowing(@Path("username") String consumerUsername);
 
     @Headers("Content-Type:application/json")
     @POST("/consumer/{username}/following")
-    public Consumer getConsumerFollowing(@Path("username") Consumer consumer);
+    public Consumer getConsumerFollowing(@Path("username") Consumer consumer);*/
 }
