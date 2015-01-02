@@ -14,6 +14,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +26,13 @@ import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.dummy.DummyContent;
 import cn.edu.bjtu.nourriture.models.Moment;
-import cn.edu.bjtu.nourriture.models.Recipe;
 import cn.edu.bjtu.nourriture.services.NourritureAPI;
 import cn.edu.bjtu.nourriture.services.NourritureBaseURL;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import retrofit.converter.GsonConverter;
 
 /**
  * A fragment representing a list of Items.
@@ -61,12 +65,12 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
-    private ListAdapter mAdapter;
+    private MomentsAdapter mAdapter;
 
     /**
      * Load some dummy moments
      */
-    private ArrayList<Moment> myDummyMoments = (ArrayList<Moment>) DummyContent.MOMENTS;
+    private ArrayList<Moment> myMoments = new ArrayList<>();
 
 
 
@@ -97,8 +101,6 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
 
         // TODO: Change Adapter to display your content
         mAdapter = new MomentsAdapter();//new ArrayAdapter<Moment>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.MOMENTS);
-
-        fetchAllMoments();
     }
 
     @Override
@@ -112,12 +114,15 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
 
-        if (myDummyMoments.size() == 0) {
-            TextView t = (TextView) view.findViewById(android.R.id.empty);
-            t.setText(getString(R.string.no_moments));
-        }
-
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Always fetch moments when comes to the foreground
+        fetchAllMoments();
     }
 
     @Override
@@ -146,7 +151,7 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onMomentSelected(DummyContent.MOMENTS.get(position).getMomentID());
+            mListener.onMomentSelected(myMoments.get(position).getId());
         }
     }
 
@@ -189,25 +194,58 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
 
     }
 
+    private void showEmptyView(boolean showEmptyView){
+
+        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_item, ((ViewGroup) getView().getParent()), false);
+
+        TextView t = (TextView) view.findViewById(android.R.id.empty);
+
+        if (showEmptyView){
+            t.setText(getString(R.string.no_moments));
+        }
+        else {
+            t.setText("");
+        }
+    }
+
 
 
     // --- API calls ---
     private void fetchAllMoments() {
+
+        // custom GSON parser http://stackoverflow.com/questions/18473011/retrofit-gson-serialize-date-from-json-string-into-java-util-date
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                .create();
+
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(NourritureBaseURL.LOCALHOST_PLATFORM_ANDROID_URL)
-                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .setConverter(new GsonConverter(gson))
                 .build();
 
         NourritureAPI api = restAdapter.create(NourritureAPI.class);
+
+        //once response is received, in case of JSON api your data will be transformed to your model using Gson library
         api.getAllMoments(new Callback<List<Moment>>() {
             @Override
             public void success(List<Moment> moments, Response response) {
-                System.out.println("Success");
+
+                myMoments.addAll(moments);
+
+                if (myMoments.size() == 0) {
+                    showEmptyView(true);
+                }
+                else {
+                    showEmptyView(false);
+                }
+
+                mAdapter.notifyDataSetChanged();    // Notifies the attached observers that the underlying data has been changed and any View reflecting the data set should refresh itself
             }
 
             @Override
             public void failure(RetrofitError error) {
-                System.out.println("Error" + error);
+                Toast toast = Toast.makeText(getActivity().getApplicationContext(), R.string.api_error, Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
     }
@@ -219,7 +257,7 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
 
         // takes CONTEXT, LAYOUT and DATA
         public MomentsAdapter(){
-            super(getActivity(), R.layout.row_moment, myDummyMoments);
+            super(getActivity(), R.layout.row_moment, myMoments);
         }
 
         @Override
@@ -232,21 +270,23 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
                 momentView = getActivity().getLayoutInflater().inflate(R.layout.row_moment, parent, false);
             }
 
+            Moment m = myMoments.get(position);
+
             // Set author name
             TextView author = (TextView) momentView.findViewById(R.id.momentAuthorTextView);
-            author.setText(DummyContent.MOMENTS.get(position).getMomentAuthor());
+            author.setText(m.getAuthor());
 
             // Set content text
             TextView content = (TextView) momentView.findViewById(R.id.momentContentTextView);
-            content.setText(DummyContent.MOMENTS.get(position).getMomentText());
+            content.setText(m.getText());
 
             // Set time elapsed
             TextView timeElapsed = (TextView) momentView.findViewById(R.id.momentTimeTextView);
-            timeElapsed.setText(DummyContent.MOMENTS.get(position).getMomentCreated());
+            timeElapsed.setText(m.getCreated());
 
             // Set likes
             TextView likes = (TextView) momentView.findViewById(R.id.momentLikesTextView);
-            likes.setText(DummyContent.MOMENTS.get(position).getMomentLikes() + " likes");
+            likes.setText(m.getLikes().size() + " likes");
 
             return momentView;
         }
