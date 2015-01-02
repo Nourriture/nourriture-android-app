@@ -23,6 +23,14 @@
             android:label="@string/title_activity_new_moment"
             android:windowSoftInputMode="stateVisible|adjustResize" >
         </activity>
+        <activity
+            android:name=".activities.DetailMomentActivity"
+            android:label="@string/title_activity_detail_moment"
+            android:parentActivityName=".activities.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cn.edu.bjtu.nourriture.activities.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
