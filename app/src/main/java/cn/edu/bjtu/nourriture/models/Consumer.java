@@ -17,6 +17,7 @@ import com.google.gson.annotations.SerializedName;
 public class Consumer {
 
     // Constants definition
+    public static final String CONSUMER_ID = "id";
     public static final String CONSUMER_USERNAME = "username";
     public static final String CONSUMER_NAME = "name";
     public static final String CONSUMER_PICTURE = "picture";
