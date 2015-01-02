@@ -13,14 +13,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.models.Consumer;
+import cn.edu.bjtu.nourriture.services.NourritureAPI;
+import cn.edu.bjtu.nourriture.services.NourritureBaseURL;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * A fragment representing a list of Items.
@@ -42,9 +45,7 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    private final String MY_PROFILE_PREFERENCES = "myProfile";
-
-    private Consumer currentConstumer = null;
+    private ArrayList<HashMap> consumerDataToShow;
 
     private OnFragmentInteractionListener mListener;
 
@@ -53,15 +54,15 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
      */
     private AbsListView mListView;
 
-
-
-    // --- CONSTRUCTOR ---
     /**
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
-    private ListAdapter mAdapter;
+    private ConsumerAdapter mAdapter;
 
+
+
+    // --- CONSTRUCTOR ---
     public static ConsumerFragment newInstance(int sectionNumber) {
         ConsumerFragment fragment = new ConsumerFragment();
         Bundle args = new Bundle();
@@ -84,9 +85,7 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        writeProfileToSharedPreferences();
-
-        readProfileFromSharedPreferences();
+        consumerDataToShow = new ArrayList<>();
 
         mAdapter = new ConsumerAdapter();
     }
@@ -103,6 +102,14 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
         mListView.setOnItemClickListener(this);
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Always fetch moments when comes to the foreground
+        fetchConsumerInfo();
     }
 
     @Override
@@ -130,44 +137,43 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            HashMap hm = currentConstumer.getConsumerInfoToDisplay().get(position);
+            HashMap hm = consumerDataToShow.get(position);
             mListener.onConsumerInteraction(hm.values().toString());
         }
     }
 
 
 
-    // --- CUSTOM METHODS ---
-    private void writeProfileToSharedPreferences() {
-        SharedPreferences pref = getActivity().getSharedPreferences(MY_PROFILE_PREFERENCES, 0);
+    // --- API calls ---
+    private void fetchConsumerInfo() {
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint(NourritureBaseURL.LOCALHOST_PLATFORM_ANDROID_URL)
+                .build();
 
-        SharedPreferences.Editor editor = pref.edit(); // used for save data
-        editor.putString(Consumer.CONSUMER_PICTURE, "R.drawable.rockybalboaimage"); // Storing string value
-        editor.putString(Consumer.CONSUMER_USERNAME, "rockyUS"); // Storing string value
-        editor.putString(Consumer.CONSUMER_NAME, "Rocky Brambora"); // Storing string value
-        editor.putString(Consumer.CONSUMER_OCCUPATION, "Boxer"); // Storing string value
-        editor.putLong(Consumer.CONSUMER_BIRTHDATE, new Date().getTime()); // Storing Date value
-        editor.putString(Consumer.CONSUMER_WEBSITE, "http://www.me.com"); // Storing string value
-        editor.putString(Consumer.CONSUMER_BIO, "Miloš Zeman si nechal od Putinova blízkého spolupracovníka zaplatit dovolenou na Rhodosu, navzdory informacím od českých i aliančních rozvědek popíral přítomnost ruských vojáků na Ukrajině, rozhodnutí Ukrajinců v prezidentských i parlamentních volbách směřovat západním směrem označil za umělý pokus o změnu vlastního geopolitického směřování, v čínské státní televizi uváděl nepravdivé informace o ukrajinském jazykovém zákoně přesně podle linie Kremlu."); // Storing string value
-        editor.putString(Consumer.CONSUMER_EMAIL, "bla@foo.com");
-        editor.putInt(Consumer.CONSUMER_GENDER, 1);
+        SharedPreferences pref = getActivity().getSharedPreferences(MainActivity.MY_PROFILE_PREFERENCES, 0); // 0 - for private mode
+        String username = pref.getString(Consumer.CONSUMER_USERNAME, "");
 
-        editor.commit(); // commit changes into sharedpreferences file.
-    }
+        NourritureAPI api = restAdapter.create(NourritureAPI.class);
+        //once response is received, in case of JSON api your data will be transformed to your model using Gson library
+        api.getConsumer(username, new Callback<Consumer>() {
+            @Override
+            public void success(Consumer consumer, Response response) {
 
-    private void readProfileFromSharedPreferences() {
-        SharedPreferences pref = getActivity().getSharedPreferences(MY_PROFILE_PREFERENCES, 0); // 0 - for private mode
+                consumerDataToShow.clear();
 
-        currentConstumer = new Consumer();
-        currentConstumer.setConsumerUsername(pref.getString(Consumer.CONSUMER_USERNAME, ""));
-        currentConstumer.setConsumerName(pref.getString(Consumer.CONSUMER_NAME, ""));
-        currentConstumer.setConsumerPicture(pref.getString(Consumer.CONSUMER_PICTURE, ""));
-        currentConstumer.setConsumerOccupation(pref.getString(Consumer.CONSUMER_OCCUPATION, ""));
-        currentConstumer.setConsumerBirthdate(new Date(pref.getLong(Consumer.CONSUMER_BIRTHDATE, 0)));
-        currentConstumer.setConsumerWebsite(pref.getString(Consumer.CONSUMER_WEBSITE, ""));
-        currentConstumer.setConsumerBio(pref.getString(Consumer.CONSUMER_BIO, ""));
-        currentConstumer.setConsumerEmail(pref.getString(Consumer.CONSUMER_EMAIL, ""));
-        currentConstumer.setConsumerGender(pref.getInt(Consumer.CONSUMER_GENDER, 0));
+                consumerDataToShow.addAll(consumer.getConsumerInfoToDisplay());
+
+                //BIG BUG: replaces customerDataToShow with a pointer to arraylist from getConsumerInfoToDisplay() -> adapter hooked with customerDataToShow pointer though!!!
+                //consumerDataToShow = consumer.getConsumerInfoToDisplay();
+
+                mAdapter.notifyDataSetChanged();    // Notifies the attached observers that the underlying data has been changed and any View reflecting
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+
+            }
+        });
     }
 
 
@@ -177,7 +183,7 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
 
         // takes CONTEXT, LAYOUT and DATA
         public ConsumerAdapter(){
-            super(getActivity(), R.layout.row_moment, currentConstumer.getConsumerInfoToDisplay()); //will pass an array of Consumer available info to display
+            super(getActivity(), R.layout.row_consumer_title_and_value, consumerDataToShow); //will pass an array of Consumer available info to display
         }
 
         @Override
@@ -187,8 +193,7 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
 
             View rowView = null;
 
-            ArrayList<HashMap> consumerArrayOfInfo = currentConstumer.getConsumerInfoToDisplay();
-            HashMap consumerInfo = consumerArrayOfInfo.get(position);
+            HashMap consumerInfo = consumerDataToShow.get(position);
 
             // row with IMAGE
             if (consumerInfo.containsKey(Consumer.CONSUMER_PICTURE)){
