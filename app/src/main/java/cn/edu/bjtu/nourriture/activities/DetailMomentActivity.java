@@ -4,11 +4,15 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import cn.edu.bjtu.nourriture.R;
 
 public class DetailMomentActivity extends ActionBarActivity {
 
+
+
+    // --- ACTIVITY lifecycle methods ---
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +35,30 @@ public class DetailMomentActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_like_moment) {
+            likeMoment();
+            return true;
+        }
+        else if (id == R.id.action_comment_on_moment){
+            commentOnMoment();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+
+    // --- API calls ---
+    private void likeMoment() {
+        //FIXME: for now will be able to add as many likes as possible
+
+        //TODO: POST "like" for this specific moment
+    }
+
+    private void commentOnMoment() {
+        //TODO: implement
+        Toast toast = Toast.makeText(getApplicationContext(), "Feature not implemented yet", Toast.LENGTH_SHORT);
+        toast.show();
     }
 }
