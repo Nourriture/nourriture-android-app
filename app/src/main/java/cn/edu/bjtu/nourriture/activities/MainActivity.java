@@ -2,7 +2,7 @@ package cn.edu.bjtu.nourriture.activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -14,13 +14,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.fragments.NavigationDrawerFragment;
 import cn.edu.bjtu.nourriture.fragments.friends.FriendsFragment;
 import cn.edu.bjtu.nourriture.fragments.moments.MomentsFragment;
 import cn.edu.bjtu.nourriture.fragments.profile.ConsumerFragment;
 import cn.edu.bjtu.nourriture.fragments.recipes.RecipesFragment;
+import cn.edu.bjtu.nourriture.models.Consumer;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks,
@@ -42,6 +42,8 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+    public static final String MY_PROFILE_PREFERENCES = "myProfile";
+
 
 
     // --- ACTIVITY lifecycle methods ---
@@ -57,6 +59,12 @@ public class MainActivity extends ActionBarActivity
 
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer,(DrawerLayout) findViewById(R.id.drawer_layout));
+
+        //FIXME: hardcoded the currently logged in Consumer. Usually this would be verified with login API call
+        SharedPreferences pref = getSharedPreferences(MY_PROFILE_PREFERENCES, 0);
+        SharedPreferences.Editor editor = pref.edit(); // used for save data
+        editor.putString(Consumer.CONSUMER_USERNAME, "RockyUS"); // Storing string value
+        editor.commit(); // commit changes into sharedpreferences file.
     }
 
 
