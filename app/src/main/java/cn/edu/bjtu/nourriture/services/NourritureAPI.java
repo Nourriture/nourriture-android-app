@@ -25,6 +25,10 @@ public interface NourritureAPI {
     public void postMoment(@Body Moment moment, Callback<Moment> callback);
 
     @Headers("Content-Type:application/json")
+    @GET("/moment/{momentID}")
+    public void getMoment(@Path("momentID") String momentID, Callback<Moment> callback);
+
+    @Headers("Content-Type:application/json")
     @GET("/moment")
     public void getAllMoments(Callback<List<Moment>> callback);
 
