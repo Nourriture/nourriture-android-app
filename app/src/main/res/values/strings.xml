@@ -21,6 +21,14 @@
     <string name="action_settings">Settings</string>
     <string name="action_add_moment">Add moment</string>
     <string name="action_add_friend">Add friend</string>
+    <string name="action_like_moment">Like</string>
+    <string name="action_comment_on_moment">Comment</string>
+
+    <!-- Toast texts -->
+    <string name="api_error">An error occured</string>
+    <string name="moment_posted">Moment successfully posted</string>
+    <string name="moment_text_missing">Fill in moment text</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!-- Moments fragment -->
     <string name="momentAuthor">Author</string>
@@ -44,9 +52,7 @@
     <string name="action_cancel_moment">Cancel</string>
     <string name="hello_world">Hello world!</string>
 
-    <!-- Toast texts-->
-    <string name="api_error">An error occured</string>
-    <string name="moment_posted">Moment successfully posted</string>
-    <string name="moment_text_missing">Fill in moment text</string>
+    <!-- Detail moment activity -->
+    <string name="title_activity_detail_moment">Moment</string>
 
 </resources>
