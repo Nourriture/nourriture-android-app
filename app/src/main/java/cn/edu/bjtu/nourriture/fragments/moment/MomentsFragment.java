@@ -1,4 +1,4 @@
-package cn.edu.bjtu.nourriture.fragments.moments;
+package cn.edu.bjtu.nourriture.fragments.moment;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -24,7 +24,6 @@ import java.util.List;
 
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.R;
-import cn.edu.bjtu.nourriture.dummy.DummyContent;
 import cn.edu.bjtu.nourriture.models.Moment;
 import cn.edu.bjtu.nourriture.services.NourritureAPI;
 import cn.edu.bjtu.nourriture.services.NourritureBaseURL;

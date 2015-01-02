@@ -17,7 +17,7 @@ import android.support.v4.widget.DrawerLayout;
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.fragments.NavigationDrawerFragment;
 import cn.edu.bjtu.nourriture.fragments.friends.FriendsFragment;
-import cn.edu.bjtu.nourriture.fragments.moments.MomentsFragment;
+import cn.edu.bjtu.nourriture.fragments.moment.MomentsFragment;
 import cn.edu.bjtu.nourriture.fragments.profile.ConsumerFragment;
 import cn.edu.bjtu.nourriture.fragments.recipes.RecipesFragment;
 import cn.edu.bjtu.nourriture.models.Consumer;
