@@ -6,6 +6,7 @@ import cn.edu.bjtu.nourriture.models.Consumer;
 import cn.edu.bjtu.nourriture.models.Moment;
 import cn.edu.bjtu.nourriture.models.Recipe;
 import retrofit.Callback;
+import retrofit.http.Body;
 import retrofit.http.GET;
 import retrofit.http.Headers;
 import retrofit.http.POST;
@@ -21,7 +22,7 @@ public interface NourritureAPI {
     // Moment endpoints
     @Headers("Content-Type:application/json")   //FIXME: put in the main activity as RequestInterceptor
     @POST("/moment")
-    public boolean postMoment(Moment moment);
+    public void postMoment(@Body Moment moment, Callback<Moment> callback);
 
     @Headers("Content-Type:application/json")
     @GET("/moment")
@@ -55,7 +56,7 @@ public interface NourritureAPI {
 
     @Headers("Content-Type:application/json")
     @GET("/consumer/{username}")
-    public Consumer getConsumer(@Path("username") String consumerUsername);
+    public void getConsumer(@Path("username") String consumerUsername, Callback<Consumer> callback);
 
     // Relationships
     @Headers("Content-Type:application/json")
