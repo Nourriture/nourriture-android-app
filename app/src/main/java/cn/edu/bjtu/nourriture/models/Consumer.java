@@ -224,6 +224,8 @@ public class Consumer {
     }
 
 
+
+    // CUSTOM GETTER
     public ArrayList<HashMap> getConsumerInfoToDisplay() {
 
         if (consumerInfoToDisplay == null) {
@@ -232,7 +234,6 @@ public class Consumer {
 
         return consumerInfoToDisplay;
     }
-
 
     private ArrayList findAvailableInfo() {
         ArrayList<HashMap> result = new ArrayList<>();
@@ -279,7 +280,7 @@ public class Consumer {
             result.add(bioDic);
         }
 
-        /* I DONT WANNA PRINT OUT EMAIL and GENDER
+        /* //I DONT WANNA PRINT OUT EMAIL and GENDER
         if (this.consumerEmail != null && !this.consumerEmail.isEmpty()){
             HashMap emailDic = new HashMap();
             emailDic.put(Consumer.CONSUMER_EMAIL, this.consumerEmail);
