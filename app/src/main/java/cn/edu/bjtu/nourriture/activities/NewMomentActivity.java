@@ -8,6 +8,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.models.Consumer;
 import cn.edu.bjtu.nourriture.models.Moment;
@@ -17,6 +21,7 @@ import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import retrofit.converter.GsonConverter;
 
 public class NewMomentActivity extends ActionBarActivity {
 
@@ -75,8 +80,14 @@ public class NewMomentActivity extends ActionBarActivity {
             m.setText(t.getText().toString());
 
             // 2) POST request to API
+            // custom GSON parser http://stackoverflow.com/questions/18473011/retrofit-gson-serialize-date-from-json-string-into-java-util-date
+            Gson gson = new GsonBuilder()
+                    .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                    .create();
+
             RestAdapter restAdapter = new RestAdapter.Builder()
                     .setEndpoint(NourritureBaseURL.LOCALHOST_PLATFORM_ANDROID_URL)
+                    .setConverter(new GsonConverter(gson))
                     .build();
 
             NourritureAPI api = restAdapter.create(NourritureAPI.class);
