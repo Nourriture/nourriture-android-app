@@ -1,12 +1,22 @@
 package cn.edu.bjtu.nourriture.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.widget.EditText;
+import android.widget.Toast;
 import cn.edu.bjtu.nourriture.R;
+import cn.edu.bjtu.nourriture.models.Consumer;
+import cn.edu.bjtu.nourriture.models.Moment;
+import cn.edu.bjtu.nourriture.services.NourritureAPI;
+import cn.edu.bjtu.nourriture.services.NourritureBaseURL;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class NewMomentActivity extends ActionBarActivity {
 
@@ -53,9 +63,44 @@ public class NewMomentActivity extends ActionBarActivity {
 
     // --- Moment handlers ---
     private void postMoment() {
-        //TODO: POST to API
+        if (isMomentReady()){
+            // 1) create a moment object
+            EditText t = (EditText) findViewById(R.id.new_moment_edit_text);
 
-        //TODO 2: discard moment
+            SharedPreferences pref = getSharedPreferences(MainActivity.MY_PROFILE_PREFERENCES, 0); // 0 - for private mode
+            String consumerID = pref.getString(Consumer.CONSUMER_ID, "");
+
+            Moment m = new Moment();
+            m.setAuthor(consumerID);
+            m.setText(t.getText().toString());
+
+            // 2) POST request to API
+            RestAdapter restAdapter = new RestAdapter.Builder()
+                    .setEndpoint(NourritureBaseURL.LOCALHOST_PLATFORM_ANDROID_URL)
+                    .build();
+
+            NourritureAPI api = restAdapter.create(NourritureAPI.class);
+            api.postMoment(m, new Callback<Moment>() {
+                @Override
+                public void success(Moment moment, Response response) {
+
+                    Toast toast = Toast.makeText(getApplicationContext(), R.string.moment_posted, Toast.LENGTH_SHORT);
+                    toast.show();
+
+                    discardMoment();
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Toast toast = Toast.makeText(getApplicationContext(), R.string.api_error, Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            });
+        }
+        else {
+            Toast toast = Toast.makeText(getApplicationContext(), R.string.moment_text_missing, Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     private void discardMoment() {
@@ -64,5 +109,16 @@ public class NewMomentActivity extends ActionBarActivity {
         Intent intent_home = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent_home);
         overridePendingTransition(R.anim.no_change_animation, R.anim.slide_down_animation);
+    }
+
+    private boolean isMomentReady(){
+        EditText t = (EditText) findViewById(R.id.new_moment_edit_text);
+
+        if (t.getText().toString().isEmpty()) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 }
