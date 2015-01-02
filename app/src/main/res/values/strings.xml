@@ -44,4 +44,9 @@
     <string name="action_cancel_moment">Cancel</string>
     <string name="hello_world">Hello world!</string>
 
+    <!-- Toast texts-->
+    <string name="api_error">An error occured</string>
+    <string name="moment_posted">Moment successfully posted</string>
+    <string name="moment_text_missing">Fill in moment text</string>
+
 </resources>
