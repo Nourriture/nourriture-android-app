@@ -34,7 +34,10 @@
     <string name="momentAuthor">Author</string>
     <string name="momentContent">Text</string>
     <string name="momentTime">xxx minutes ago</string>
-    <string name="momentLikes">xxx likes</string>
+    <string name="momentLikes">likes</string>
+    <string name="momentLike">like</string>
+    <string name="momentComments">comments</string>
+    <string name="momentComment">comment</string>
 
     <!-- Consumer fragment -->
     <string name="consumerUsername">Username</string>
