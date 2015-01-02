@@ -16,11 +16,19 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.dummy.DummyContent;
 import cn.edu.bjtu.nourriture.models.Moment;
+import cn.edu.bjtu.nourriture.models.Recipe;
+import cn.edu.bjtu.nourriture.services.NourritureAPI;
+import cn.edu.bjtu.nourriture.services.NourritureBaseURL;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * A fragment representing a list of Items.
@@ -89,6 +97,8 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
 
         // TODO: Change Adapter to display your content
         mAdapter = new MomentsAdapter();//new ArrayAdapter<Moment>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.MOMENTS);
+
+        fetchAllMoments();
     }
 
     @Override
@@ -178,6 +188,30 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
         }
 
     }
+
+
+
+    // --- API calls ---
+    private void fetchAllMoments() {
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint(NourritureBaseURL.LOCALHOST_PLATFORM_ANDROID_URL)
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .build();
+
+        NourritureAPI api = restAdapter.create(NourritureAPI.class);
+        api.getAllMoments(new Callback<List<Moment>>() {
+            @Override
+            public void success(List<Moment> moments, Response response) {
+                System.out.println("Success");
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                System.out.println("Error" + error);
+            }
+        });
+    }
+
 
 
     // --- CUSTOM INNER CLASS of ArrayAdapter ---
