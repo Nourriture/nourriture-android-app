@@ -1,4 +1,4 @@
-package cn.edu.bjtu.nourriture.fragments.moment;
+package cn.edu.bjtu.nourriture.fragments.moments;
 
 import android.app.Activity;
 import android.os.Bundle;
