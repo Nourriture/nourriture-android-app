@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import cn.edu.bjtu.nourriture.R;
+import cn.edu.bjtu.nourriture.models.Author;
 import cn.edu.bjtu.nourriture.models.Consumer;
 import cn.edu.bjtu.nourriture.models.Moment;
 import cn.edu.bjtu.nourriture.services.NourritureAPI;
@@ -74,9 +75,14 @@ public class NewMomentActivity extends ActionBarActivity {
 
             SharedPreferences pref = getSharedPreferences(MainActivity.MY_PROFILE_PREFERENCES, 0); // 0 - for private mode
             String consumerID = pref.getString(Consumer.CONSUMER_ID, "");
+            String consumerName = pref.getString(Consumer.CONSUMER_NAME, "");
+
+            Author a = new Author();
+            a.setCId(consumerID);
+            a.setName(consumerName);
 
             Moment m = new Moment();
-            m.setAuthor(consumerID);
+            m.setAuthor(a);
             m.setText(t.getText().toString());
 
             // 2) POST request to API
