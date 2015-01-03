@@ -47,6 +47,12 @@ public class DetailMomentActivity extends ActionBarActivity implements AdapterVi
 
 
 
+    // --- INTENTs EXTRAs ---
+    public static final String DETAILED_MOMENT                  = "myDetailedMoment";
+    public static final String DETAILED_MOMENT_ACTIVITY_TITLE   = "myDetailedMomentActivityTitle";
+
+
+
     // --- ACTIVITY lifecycle methods ---
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,11 +98,23 @@ public class DetailMomentActivity extends ActionBarActivity implements AdapterVi
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
         HashMap item = currentMomentDataToShow.get(position);
 
-        if (item.containsKey(Moment.MOMENT_LIKES)){
-            // User wants to see likes
+        // User wants to see likes
+        if (item.containsKey(Moment.MOMENT_LIKES) && !currentMoment.getLikes().isEmpty()){
+
+            // Present the social list activity with "Likes"
+            Intent intent = new Intent(DetailMomentActivity.this, SocialListOfMomentActivity.class);
+            intent.putExtra(DETAILED_MOMENT_ACTIVITY_TITLE,  getString(R.string.listTypeLikes));
+            intent.putExtra(DETAILED_MOMENT, currentMoment);
+            startActivity(intent);
         }
-        else if (item.containsKey(Moment.MOMENT_COMMENTS)){
-            // User wants to see comments
+        // User wants to see comments
+        else if (item.containsKey(Moment.MOMENT_COMMENTS) && !currentMoment.getComments().isEmpty()){
+
+            // Present the social list activity with "Comments"
+            Intent intent = new Intent(DetailMomentActivity.this, SocialListOfMomentActivity.class);
+            intent.putExtra(DETAILED_MOMENT_ACTIVITY_TITLE,  getString(R.string.listTypeComments));
+            intent.putExtra(DETAILED_MOMENT, currentMoment);
+            startActivity(intent);
         }
     }
 
