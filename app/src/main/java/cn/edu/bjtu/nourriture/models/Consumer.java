@@ -122,7 +122,7 @@ public class Consumer {
      * @return
      */
     private ArrayList findAvailableInfo(){
-        ArrayList<HashMap> result = new ArrayList<>();
+        ArrayList<HashMap> result = new ArrayList<HashMap>();
 
         if (this.consumerPicture != null && !this.consumerPicture.isEmpty()){
             HashMap picDic = new HashMap();

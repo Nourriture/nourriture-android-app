@@ -137,6 +137,14 @@ public class MainActivity extends ActionBarActivity
         overridePendingTransition(R.anim.slide_up_animation,R.anim.no_change_animation);
     }
 
+    public void onSearchFriendSelected() {
+
+        // Present the "New Moment" activity modaly (slide up)
+        Intent intent_info = new Intent(MainActivity.this, SearchFriendActivity.class);
+        startActivity(intent_info);
+        overridePendingTransition(R.anim.slide_up_animation,R.anim.no_change_animation);
+    }
+
     public void momentSearchByRecipe(View view){
         TextView t = (TextView) findViewById(R.id.momentNotFound);
         t.setText("");

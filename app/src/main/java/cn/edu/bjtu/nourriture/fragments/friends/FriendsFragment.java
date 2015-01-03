@@ -151,13 +151,25 @@ import cn.edu.bjtu.nourriture.dummy.DummyContent;
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.action_add_friend:
-                //openSearch(); //TODO: implement the handler for adding a new friend
+                openSearchFriendFragment();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+
+    // --- HELPERs ---
+    private void openSearchFriendFragment() {
+        if (null != mListener) {
+            // Notify the active callbacks interface (the activity, if the
+            // fragment is attached to one) that an item has been selected.
+
+            // Calls the MainActivity, which then presents the NewMomentActivity
+            mListener.onSearchFriendSelected();
+        }
+
+    }
 
 
      // --- INTERFACE methods decleration ---
@@ -173,6 +185,7 @@ import cn.edu.bjtu.nourriture.dummy.DummyContent;
       */
      public interface OnFragmentInteractionListener {
          public void onFriendSelected(String id);
+         public void onSearchFriendSelected();
      }
 
  }

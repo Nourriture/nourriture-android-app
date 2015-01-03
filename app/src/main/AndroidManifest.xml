@@ -22,9 +22,16 @@
             android:windowSoftInputMode="stateVisible|adjustResize" >
         </activity>
         <activity
+
             android:name=".activities.RecipeProfileActivity"
             android:label="Recipe profile" >
             </activity>
+        <activity
+            android:name=".activities.SearchFriendActivity"
+            android:label="Search friend"
+            android:windowSoftInputMode="stateVisible|adjustResize" >
+    </activity>
+>>>>>>> Stashed changes
     </application>
 
 </manifest>
