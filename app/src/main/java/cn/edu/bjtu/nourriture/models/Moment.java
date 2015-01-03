@@ -1,6 +1,7 @@
 package cn.edu.bjtu.nourriture.models;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -14,6 +15,13 @@ import com.google.gson.annotations.SerializedName;
 
 @Generated("org.jsonschema2pojo")
 public class Moment {
+
+    // Constants definition
+    public static final String MOMENT_TEXT      = "text";
+    public static final String MOMENT_AUTHOR    = "author";
+    public static final String MOMENT_CREATED   = "created";
+    public static final String MOMENT_LIKES     = "likes";
+    public static final String MOMENT_COMMENTS  = "comments";
 
     @SerializedName("_id")
     @Expose
@@ -230,5 +238,37 @@ public class Moment {
         }
 
         return timeElapsed;
+    }
+
+    public ArrayList<HashMap> getMomentInfoToDisplay(){
+        ArrayList<HashMap> result = new ArrayList<>();
+
+        if (text != null && !text.isEmpty()) {
+            HashMap textDic = new HashMap();
+            textDic.put(Moment.MOMENT_TEXT, text);
+            result.add(textDic);
+        }
+
+        if (author != null && !author.isEmpty()) {
+            HashMap authDic = new HashMap();
+            authDic.put(Moment.MOMENT_AUTHOR, author);
+            result.add(authDic);
+        }
+
+        if (created != null) {
+            HashMap createdDic = new HashMap();
+            createdDic.put(Moment.MOMENT_CREATED, created);
+            result.add(createdDic);
+        }
+
+        HashMap likesDic = new HashMap();
+        likesDic.put(Moment.MOMENT_LIKES, likeCount);
+        result.add(likesDic);
+
+        HashMap commentDic = new HashMap();
+        commentDic.put(Moment.MOMENT_COMMENTS, commentCount);
+        result.add(commentDic);
+
+        return result;
     }
 }
