@@ -70,15 +70,21 @@ public class MainActivity extends ActionBarActivity
         SharedPreferences pref = getSharedPreferences(MY_PROFILE_PREFERENCES, 0);
         SharedPreferences.Editor editor = pref.edit(); // used for save data
 
+        /*
         editor.putString(Consumer.CONSUMER_ID, "54a688dc7048351b5d2972a3"); // Storing string value
         editor.putString(Consumer.CONSUMER_USERNAME, "ctverecek"); // Storing string value
         editor.putString(Consumer.CONSUMER_NAME, "Pavel Prochazka"); // Storing string value
+        */
 
         /*
         editor.putString(Consumer.CONSUMER_ID, "54a6893e7048351b5d2972a5"); // Storing string value
         editor.putString(Consumer.CONSUMER_USERNAME, "nielssj"); // Storing string value
         editor.putString(Consumer.CONSUMER_NAME, "Niels Jensen"); // Storing string value
          */
+
+        editor.putString(Consumer.CONSUMER_ID, "54a689007048351b5d2972a4"); // Storing string value
+        editor.putString(Consumer.CONSUMER_USERNAME, "arnaudkevin"); // Storing string value
+        editor.putString(Consumer.CONSUMER_NAME, "Arnaud Kevin"); // Storing string value
 
         editor.commit(); // commit changes into sharedpreferences file.
     }
