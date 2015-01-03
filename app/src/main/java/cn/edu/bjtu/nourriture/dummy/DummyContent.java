@@ -1,5 +1,7 @@
 package cn.edu.bjtu.nourriture.dummy;
 
+import android.media.Image;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.models.Moment;
 
 /**
@@ -65,9 +68,9 @@ public class DummyContent {
         addMoment(new Moment("ID5", "Barack Obama", d5, 8, "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.", "1"));
         addMoment(new Moment("ID6", "Tony Hawk", d6, 13, "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.", "2"));
 
-        addRecipe(new DummyRecipe("1", "Sushi"));
-        addRecipe(new DummyRecipe("2", "Gulash"));
-        addRecipe(new DummyRecipe("3", "Pizza"));
+        addRecipe(new DummyRecipe(String.valueOf(R.drawable.sushi), "1", "Sushi", "Sushi makizushi", "Lorem Ipsum is simply dummy text of the printing and typesetting industry", "rice, salmon, sauce", "carbs: 100, fat: 50"));
+        addRecipe(new DummyRecipe(String.valueOf(R.drawable.goulash), "2", "Gulash", "Delicious gulash", "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.", "Beef, vegetables, paprika", "carbs: 200, fat: 100"));
+        addRecipe(new DummyRecipe(String.valueOf(R.drawable.pizza4cheeses), "3", "Pizza", "Pizza quatro fromagi", "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.", "4 cheeze, tomato sauce, pizza dough", "carbs: 230, fat: 130"));
 
         addFriend(new DummyFriend("1", "Martin Jensen"));
         addFriend(new DummyFriend("2", "John Applesed"));
@@ -111,12 +114,24 @@ public class DummyContent {
      * A dummy item representing a piece of content.
      */
     public static class DummyRecipe {
+        public String picture;
         public String id;
         public String content;
+        public String description;
+        public String instruction;
+        public String ingredients;
+        public String info;
 
-        public DummyRecipe(String id, String content) {
+
+        public DummyRecipe(String picture, String id, String name, String description,
+                           String instruction, String ingredients, String info) {
+            this.picture = picture;
             this.id = id;
-            this.content = content;
+            this.content = name;
+            this.description = description;
+            this.instruction = instruction;
+            this.ingredients = ingredients;
+            this.info = info;
         }
 
         @Override

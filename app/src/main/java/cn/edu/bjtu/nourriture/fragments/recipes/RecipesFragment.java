@@ -123,7 +123,7 @@ public class RecipesFragment extends Fragment implements AbsListView.OnItemClick
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onRecipeSelected(DummyContent.RECIPES.get(position).id);
+            mListener.onRecipeSelected((DummyContent.RECIPES.get(position).id));
         }
     }
 

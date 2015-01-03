@@ -180,7 +180,12 @@ public class MainActivity extends ActionBarActivity
      */
     @Override
     public void onRecipeSelected(String id) {
-        System.out.println("Recipe " + id);
+        //Bundle b = new Bundle();
+        //b.putString("name", name);
+        Intent intent = new Intent(MainActivity.this, RecipeProfileActivity.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
+//        System.out.println("Recipe " + name);
     }
 
     public void recipeSearch(View view){
