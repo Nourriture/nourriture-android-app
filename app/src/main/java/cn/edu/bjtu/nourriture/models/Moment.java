@@ -20,6 +20,8 @@ public class Moment implements Serializable{
     // Constants definition
     private static final long serialVersionUID = 1L;
 
+    // Used in getMomentInfoToDisplay() as hashmap's KEY
+    // Used in DetailMomentActivity
     public static final String MOMENT_TEXT      = "text";
     public static final String MOMENT_AUTHOR    = "author";
     public static final String MOMENT_CREATED   = "created";
@@ -30,9 +32,9 @@ public class Moment implements Serializable{
     @Expose
     private String Id;
     @Expose
-    private Date created;
+    private Author author;
     @Expose
-    private String author;
+    private Date created;
     @Expose
     private String text;
     @Expose
@@ -40,9 +42,11 @@ public class Moment implements Serializable{
     @Expose
     private Integer likeCount;
     @Expose
-    private List<Object> comments = new ArrayList<Object>();
+    private List<Comment> comments = new ArrayList<Comment>();
     @Expose
     private List<Object> likes = new ArrayList<Object>();
+    @Expose
+    private String subjectID;
 
     /**
      *
@@ -65,6 +69,24 @@ public class Moment implements Serializable{
     /**
      *
      * @return
+     * The author
+     */
+    public Author getAuthor() {
+        return author;
+    }
+
+    /**
+     *
+     * @param author
+     * The author
+     */
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    /**
+     *
+     * @return
      * The created
      */
     public String getCreated() {
@@ -78,24 +100,6 @@ public class Moment implements Serializable{
      */
     public void setCreated(Date created) {
         this.created = created;
-    }
-
-    /**
-     *
-     * @return
-     * The author
-     */
-    public String getAuthor() {
-        return author;
-    }
-
-    /**
-     *
-     * @param author
-     * The author
-     */
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
     /**
@@ -157,7 +161,7 @@ public class Moment implements Serializable{
      * @return
      * The comments
      */
-    public List<Object> getComments() {
+    public List<Comment> getComments() {
         return comments;
     }
 
@@ -166,7 +170,7 @@ public class Moment implements Serializable{
      * @param comments
      * The comments
      */
-    public void setComments(List<Object> comments) {
+    public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
 
@@ -186,6 +190,24 @@ public class Moment implements Serializable{
      */
     public void setLikes(List<Object> likes) {
         this.likes = likes;
+    }
+
+    /**
+     *
+     * @return
+     * The subjectID
+     */
+    public String getSubjectID() {
+        return subjectID;
+    }
+
+    /**
+     *
+     * @param subjectID
+     * The subjectID
+     */
+    public void setSubjectID(String subjectID) {
+        this.subjectID = subjectID;
     }
 
     /**
@@ -252,9 +274,9 @@ public class Moment implements Serializable{
             result.add(textDic);
         }
 
-        if (author != null && !author.isEmpty()) {
+        if (author != null) {
             HashMap authDic = new HashMap();
-            authDic.put(Moment.MOMENT_AUTHOR, author);
+            authDic.put(Moment.MOMENT_AUTHOR, author.getName());
             result.add(authDic);
         }
 
