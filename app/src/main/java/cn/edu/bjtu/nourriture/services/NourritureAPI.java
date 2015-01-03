@@ -3,6 +3,7 @@ package cn.edu.bjtu.nourriture.services;
 import java.util.List;
 
 import cn.edu.bjtu.nourriture.models.Consumer;
+import cn.edu.bjtu.nourriture.models.Like;
 import cn.edu.bjtu.nourriture.models.Moment;
 import cn.edu.bjtu.nourriture.models.Recipe;
 import retrofit.Callback;
@@ -31,6 +32,10 @@ public interface NourritureAPI {
     @Headers("Content-Type:application/json")
     @GET("/moment")
     public void getAllMoments(Callback<List<Moment>> callback);
+
+    @Headers("Content-Type:application/json")
+    @POST("/moment/{momentID}/like")
+    public void likeMoment(@Body Like like, @Path("momentID") String momentID, Callback<Moment> callback);
 
     //TODO: implement on the backend!
     /*@GET("/moment/{recipeID}")

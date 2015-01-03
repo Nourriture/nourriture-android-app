@@ -1,6 +1,7 @@
 package cn.edu.bjtu.nourriture.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,6 +22,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import cn.edu.bjtu.nourriture.R;
+import cn.edu.bjtu.nourriture.models.Consumer;
+import cn.edu.bjtu.nourriture.models.Like;
 import cn.edu.bjtu.nourriture.models.Moment;
 import cn.edu.bjtu.nourriture.services.NourritureAPI;
 import cn.edu.bjtu.nourriture.services.NourritureBaseURL;
@@ -183,10 +186,36 @@ public class DetailMomentActivity extends ActionBarActivity implements AdapterVi
         });
     }
 
+    //FIXME: for now will be able to add as many likes as possible
     private void likeMoment() {
-        //FIXME: for now will be able to add as many likes as possible
+        SharedPreferences pref = getSharedPreferences(MainActivity.MY_PROFILE_PREFERENCES, 0); // 0 - for private mode
+        String consumerID = pref.getString(Consumer.CONSUMER_ID, "");
+        String consumerName = pref.getString(Consumer.CONSUMER_NAME, "");
 
-        //TODO: POST "like" for this specific moment
+        Like l = new Like();
+        l.setCId(consumerID);
+        l.setName(consumerName);
+
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint(NourritureBaseURL.LOCALHOST_PLATFORM_ANDROID_URL)
+                .build();
+
+        NourritureAPI api = restAdapter.create(NourritureAPI.class);
+        api.likeMoment(l, current_moment_id, new Callback<Moment>() {
+            @Override
+            public void success(Moment moment, Response response) {
+                Toast toast = Toast.makeText(getApplicationContext(), R.string.moment_liked, Toast.LENGTH_SHORT);
+                toast.show();
+
+                fetchMomentDetails();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast toast = Toast.makeText(getApplicationContext(), R.string.api_error, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
     }
 
     private void commentOnMoment() {
