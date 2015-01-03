@@ -57,5 +57,9 @@
 
     <!-- Detail moment activity -->
     <string name="title_activity_detail_moment">Moment</string>
+    <string name="momentDetailAuthor">Author:</string>
+    <string name="momentDetailCreated">Created:</string>
+    <string name="momentDetailLikes">Likes:</string>
+    <string name="momentDetailComments">Comments:</string>
 
 </resources>
