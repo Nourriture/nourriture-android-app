@@ -42,8 +42,15 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+    // SharedPreferences name
     public static final String MY_PROFILE_PREFERENCES = "myProfile";
-    public static final String DETAILED_MOMENT_ID     = "myDetailedMomentID";
+
+
+
+    // --- INTENTs EXTRAs ---
+    public static final String DETAILED_MOMENT_ID       = "myDetailedMomentID";
+    public static final String DETAILED_MOMENT_LIKES    = "myDetailedMomentLikes";
+    public static final String DETAILED_MOMENT_COMMENTS = "myDetailedMomentComments";
 
 
 
