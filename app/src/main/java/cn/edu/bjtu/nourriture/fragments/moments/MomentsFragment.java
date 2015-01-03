@@ -275,7 +275,7 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
 
             // Set author name
             TextView author = (TextView) momentView.findViewById(R.id.momentAuthorTextView);
-            author.setText(m.getAuthor());
+            author.setText(m.getAuthor().getName());
 
             // Set content text
             TextView content = (TextView) momentView.findViewById(R.id.momentContentTextView);
