@@ -1,10 +1,12 @@
 package cn.edu.bjtu.nourriture.models;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import cn.edu.bjtu.nourriture.utilities.Utilities;
 
 /**
  * Created by Pavel Procházka on 03/01/15.
@@ -19,7 +21,7 @@ public class Comment {
     @Expose
     private String text;
     @Expose
-    private String created;
+    private Date created;
     @Expose
     private List<Object> likes = new ArrayList<Object>();
 
@@ -65,7 +67,7 @@ public class Comment {
      * The created
      */
     public String getCreated() {
-        return created;
+        return Utilities.convertDateToTimeElapsedString(created, new Date());
     }
 
     /**
@@ -73,7 +75,7 @@ public class Comment {
      * @param created
      * The created
      */
-    public void setCreated(String created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
