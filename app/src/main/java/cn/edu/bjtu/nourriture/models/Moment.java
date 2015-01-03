@@ -46,7 +46,7 @@ public class Moment implements Serializable{
     @Expose
     private List<Comment> comments = new ArrayList<Comment>();
     @Expose
-    private List<Object> likes = new ArrayList<Object>();
+    private List<Like> likes = new ArrayList<Like>();
     @Expose
     private String subjectID;
 
@@ -181,7 +181,7 @@ public class Moment implements Serializable{
      * @return
      * The likes
      */
-    public List<Object> getLikes() {
+    public List<Like> getLikes() {
         return likes;
     }
 
@@ -190,7 +190,7 @@ public class Moment implements Serializable{
      * @param likes
      * The likes
      */
-    public void setLikes(List<Object> likes) {
+    public void setLikes(List<Like> likes) {
         this.likes = likes;
     }
 
