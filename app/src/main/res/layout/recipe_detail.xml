@@ -12,35 +12,35 @@
         />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="295dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/content"
         />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="353dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/description"
         />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="353dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/instruction"
         />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="356dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/ingredients"
         />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="341dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/info"

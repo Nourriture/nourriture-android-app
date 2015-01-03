@@ -68,9 +68,9 @@ public class DummyContent {
         addMoment(new Moment("ID5", "Barack Obama", d5, 8, "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.", "1"));
         addMoment(new Moment("ID6", "Tony Hawk", d6, 13, "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.", "2"));
 
-        addRecipe(new DummyRecipe(String.valueOf(R.drawable.sushi), "1", "Sushi", "Sushi makizushi", "Lorem Ipsum is simply dummy text of the printing and typesetting industry", "rice, salmon, sauce", "carbs: 100, fat: 50"));
-        addRecipe(new DummyRecipe(String.valueOf(R.drawable.goulash), "2", "Gulash", "Delicious gulash", "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.", "Beef, vegetables, paprika", "carbs: 200, fat: 100"));
-        addRecipe(new DummyRecipe(String.valueOf(R.drawable.pizza4cheeses), "3", "Pizza", "Pizza quatro fromagi", "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.", "4 cheeze, tomato sauce, pizza dough", "carbs: 230, fat: 130"));
+        addRecipe(new DummyRecipe("sushi", "1", "Sushi", "Sushi makizushi", "Lorem Ipsum is simply dummy text of the printing and typesetting industry", "rice, salmon, sauce", "carbs: 100, fat: 50"));
+        addRecipe(new DummyRecipe("goulash", "2", "Gulash", "Delicious gulash", "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.", "Beef, vegetables, paprika", "carbs: 200, fat: 100"));
+        addRecipe(new DummyRecipe("pizza4cheeses", "3", "Pizza", "Pizza quatro fromagi", "The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.", "4 cheeze, tomato sauce, pizza dough", "carbs: 230, fat: 130"));
 
         addFriend(new DummyFriend("1", "Martin Jensen"));
         addFriend(new DummyFriend("2", "John Applesed"));
