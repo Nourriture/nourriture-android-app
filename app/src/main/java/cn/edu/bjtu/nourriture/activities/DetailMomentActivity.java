@@ -164,29 +164,16 @@ public class DetailMomentActivity extends ActionBarActivity {
 
             View rowView = null;
 
-            rowView = inflater.inflate(R.layout.row_consumer_title_and_value, parent, false);
+            HashMap momentInfo = momentDataToShow.get(position);
 
-            TextView titleTextView = (TextView) rowView.findViewById(R.id.titleTextView);
-            TextView valueTextView = (TextView) rowView.findViewById(R.id.valueTextView);
+            // row with MOMENT content
+            if (momentInfo.containsKey(Moment.MOMENT_TEXT)){
+                rowView = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
 
-            titleTextView.setText("Title");
-            valueTextView.setText("Value");
-
-            /*HashMap consumerInfo = consumerDataToShow.get(position);
-
-            // row with IMAGE
-            if (consumerInfo.containsKey(Consumer.CONSUMER_PICTURE)){
-                rowView = inflater.inflate(R.layout.row_consumer_image, parent, false);
-
-                ImageView imgView = (ImageView) rowView.findViewById(R.id.consumerImageView);
-
-                String url = consumerInfo.get(Consumer.CONSUMER_PICTURE).toString();
-                Picasso.with(getContext())
-                        .load(url)
-                        .resize(160, 160)
-                        .centerCrop()
-                        .placeholder(R.drawable.user_placeholder)
-                        .into(imgView);
+                TextView textView = (TextView) rowView.findViewById(android.R.id.text1);
+                textView.setText(momentInfo.get(Moment.MOMENT_TEXT).toString());
+                textView.setTextSize(20);
+                //textView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
             }
             // row with TITLE and VALUE
             else {
@@ -195,31 +182,23 @@ public class DetailMomentActivity extends ActionBarActivity {
                 TextView titleTextView = (TextView) rowView.findViewById(R.id.titleTextView);
                 TextView valueTextView = (TextView) rowView.findViewById(R.id.valueTextView);
 
-                if (consumerInfo.containsKey(Consumer.CONSUMER_USERNAME)){
-                    titleTextView.setText(R.string.consumerUsername);
-                    valueTextView.setText(consumerInfo.get(Consumer.CONSUMER_USERNAME).toString());
+                if (momentInfo.containsKey(Moment.MOMENT_AUTHOR)){
+                    titleTextView.setText(R.string.momentDetailAuthor);
+                    valueTextView.setText(momentInfo.get(Moment.MOMENT_AUTHOR).toString());
                 }
-                else if (consumerInfo.containsKey(Consumer.CONSUMER_NAME)){
-                    titleTextView.setText(R.string.consumerName);
-                    valueTextView.setText(consumerInfo.get(Consumer.CONSUMER_NAME).toString());
+                else if (momentInfo.containsKey(Moment.MOMENT_CREATED)){
+                    titleTextView.setText(R.string.momentDetailCreated);
+                    valueTextView.setText(momentInfo.get(Moment.MOMENT_CREATED).toString());
                 }
-                else if (consumerInfo.containsKey(Consumer.CONSUMER_OCCUPATION)){
-                    titleTextView.setText(R.string.consumerOccupation);
-                    valueTextView.setText(consumerInfo.get(Consumer.CONSUMER_OCCUPATION).toString());
+                else if (momentInfo.containsKey(Moment.MOMENT_LIKES)){
+                    titleTextView.setText(R.string.momentDetailLikes);
+                    valueTextView.setText(momentInfo.get(Moment.MOMENT_LIKES).toString());
                 }
-                else if (consumerInfo.containsKey(Consumer.CONSUMER_BIRTHDATE)){
-                    titleTextView.setText(R.string.consumerBirthdate);
-                    valueTextView.setText(consumerInfo.get(Consumer.CONSUMER_BIRTHDATE).toString());
+                else if (momentInfo.containsKey(Moment.MOMENT_COMMENTS)){
+                    titleTextView.setText(R.string.momentDetailComments);
+                    valueTextView.setText(momentInfo.get(Moment.MOMENT_COMMENTS).toString());
                 }
-                else if (consumerInfo.containsKey(Consumer.CONSUMER_WEBSITE)){
-                    titleTextView.setText(R.string.consumerWebsite);
-                    valueTextView.setText(consumerInfo.get(Consumer.CONSUMER_WEBSITE).toString());
-                }
-                else if (consumerInfo.containsKey(Consumer.CONSUMER_BIO)){
-                    titleTextView.setText(R.string.consumerBio);
-                    valueTextView.setText(consumerInfo.get(Consumer.CONSUMER_BIO).toString());
-                }
-            }*/
+            }
 
             return rowView;
         }
