@@ -62,4 +62,8 @@
     <string name="momentDetailLikes">Likes:</string>
     <string name="momentDetailComments">Comments:</string>
 
+    <!-- Social list activity-->
+    <string name="listTypeLikes">Likes</string>
+    <string name="listTypeComments">Comments</string>
+
 </resources>

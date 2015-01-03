@@ -47,8 +47,9 @@ public class SocialListOfMomentActivity extends ActionBarActivity {
         Intent intent = getIntent();    //get the Intent that started your activity by calling getIntent() and retrieve the data contained within the intent
         momentToShowDetails = (Moment) intent.getSerializableExtra(DetailMomentActivity.DETAILED_MOMENT);
 
-        //TODO: set title for this Activity
         String title = intent.getStringExtra(DetailMomentActivity.DETAILED_MOMENT_ACTIVITY_TITLE);
+        setTitle(title);
+
         if (title.equals(getString(R.string.listTypeLikes))){
             listViewType = LIST_TYPE.LIST_TYPE_LIKES;
 
