@@ -231,7 +231,7 @@ public class Moment implements Serializable{
 
         if (created != null) {
             HashMap createdDic = new HashMap();
-            createdDic.put(Moment.MOMENT_CREATED, getCreated()));
+            createdDic.put(Moment.MOMENT_CREATED, getCreated());
             result.add(createdDic);
         }
 
