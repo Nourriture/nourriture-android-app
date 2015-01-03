@@ -49,8 +49,6 @@ public class MainActivity extends ActionBarActivity
 
     // --- INTENTs EXTRAs ---
     public static final String DETAILED_MOMENT_ID       = "myDetailedMomentID";
-    public static final String DETAILED_MOMENT_LIKES    = "myDetailedMomentLikes";
-    public static final String DETAILED_MOMENT_COMMENTS = "myDetailedMomentComments";
 
 
 
