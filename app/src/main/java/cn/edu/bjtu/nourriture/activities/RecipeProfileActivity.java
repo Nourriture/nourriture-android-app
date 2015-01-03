@@ -2,8 +2,12 @@ package cn.edu.bjtu.nourriture.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,29 +19,34 @@ import java.util.HashMap;
 
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.dummy.DummyContent;
+import cn.edu.bjtu.nourriture.fragments.NavigationDrawerFragment;
 
 
 public class RecipeProfileActivity extends ActionBarActivity
 {
+    private NavigationDrawerFragment mNavigationDrawerFragment;
     private DummyContent.DummyRecipe r;
+    public String Id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recipe_detail);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         String id = "";
         Bundle b = getIntent().getExtras();
         if (b == null)
             System.out.println("Error");
         else {
-            id = b.getString("id");
-            if (id != null)
+            Id = b.getString("id");
+            if (Id != null)
                 System.out.println("Recipe " + id);
         }
 
         for (int i = 0; i < DummyContent.RECIPES.size();i++)
         {
-            if (DummyContent.RECIPES.get(i).id.equals(id)) {
+            if (DummyContent.RECIPES.get(i).id.equals(Id)) {
                 ImageView pic = (ImageView) findViewById(R.id.picture);
                 pic.setImageResource(getResources().getIdentifier(DummyContent.RECIPES.get(i).picture, "drawable", "cn.edu.bjtu.nourriture"));
                 TextView cont = (TextView) findViewById(R.id.content);
@@ -56,8 +65,15 @@ public class RecipeProfileActivity extends ActionBarActivity
 
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(RecipeProfileActivity.this, RecipeMoments.class);
-                        startActivity(intent);
+                        for (int a = 0; a < DummyContent.MOMENTS.size();a++)
+                        {
+                            if (DummyContent.MOMENTS.get(a).getMomentSubjectID().equals(Id))
+                            {
+                                Intent intent = new Intent(RecipeProfileActivity.this, RecipeMoments.class);
+                                intent.putExtra("id", Id);
+                                startActivity(intent);
+                            }
+                        }
                     }
                 });
 
@@ -66,6 +82,16 @@ public class RecipeProfileActivity extends ActionBarActivity
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,5 +99,4 @@ public class RecipeProfileActivity extends ActionBarActivity
         getMenuInflater().inflate(R.menu.menu_recipe_profile, menu);
         return true;
     }
-
 }
