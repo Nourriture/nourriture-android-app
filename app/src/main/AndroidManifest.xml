@@ -31,7 +31,10 @@
             android:label="Search friend"
             android:windowSoftInputMode="stateVisible|adjustResize" >
     </activity>
->>>>>>> Stashed changes
+        <activity
+            android:name=".activities.RecipeMoments"
+            android:label="Recipe's Moments" >
+        </activity>
     </application>
 
 </manifest>

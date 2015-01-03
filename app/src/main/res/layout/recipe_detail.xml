@@ -3,46 +3,73 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Moments"
+        android:id="@+id/ShowMoment"
+        android:layout_gravity="right" />
+
     <ImageView
         android:id="@+id/picture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:padding="100px"
+        android:paddingTop="50px"
+        android:layout_gravity="center"
         />
 
     <TextView
-        android:layout_width="295dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/content"
+        android:paddingTop="50px"
+        android:paddingLeft="50px"
+        android:paddingRight="50px"
+        android:layout_gravity="center"
         />
 
     <TextView
-        android:layout_width="353dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/description"
+        android:paddingTop="50px"
+        android:paddingLeft="50px"
+        android:paddingRight="50px"
+        android:layout_gravity="center"
         />
 
     <TextView
-        android:layout_width="353dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/instruction"
+        android:paddingTop="50px"
+        android:paddingLeft="50px"
+        android:paddingRight="50px"
+        android:layout_gravity="center"
         />
 
     <TextView
-        android:layout_width="356dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/ingredients"
+        android:paddingTop="50px"
+        android:paddingLeft="50px"
+        android:paddingRight="50px"
+        android:layout_gravity="center"
         />
 
     <TextView
-        android:layout_width="341dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/info"
+        android:paddingTop="50px"
+        android:paddingLeft="50px"
+        android:paddingRight="50px"
+        android:layout_gravity="center"
         />
 </LinearLayout>
