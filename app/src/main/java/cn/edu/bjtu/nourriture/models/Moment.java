@@ -1,5 +1,6 @@
 package cn.edu.bjtu.nourriture.models;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,9 +15,11 @@ import com.google.gson.annotations.SerializedName;
  */
 
 @Generated("org.jsonschema2pojo")
-public class Moment {
+public class Moment implements Serializable{
 
     // Constants definition
+    private static final long serialVersionUID = 1L;
+
     public static final String MOMENT_TEXT      = "text";
     public static final String MOMENT_AUTHOR    = "author";
     public static final String MOMENT_CREATED   = "created";
