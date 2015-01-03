@@ -31,6 +31,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="cn.edu.bjtu.nourriture.activities.MainActivity" />
         </activity>
+        <activity
+            android:name=".activities.SocialListOfMomentActivity"
+            android:label="@string/title_activity_social_list_of_moment"
+            android:parentActivityName=".activities.DetailMomentActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="cn.edu.bjtu.nourriture.activities.DetailMomentActivity" />
+        </activity>
     </application>
 
 </manifest>
