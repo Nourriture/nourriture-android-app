@@ -43,6 +43,7 @@ public class MainActivity extends ActionBarActivity
     private CharSequence mTitle;
 
     public static final String MY_PROFILE_PREFERENCES = "myProfile";
+    public static final String DETAILED_MOMENT_ID     = "myDetailedMomentID";
 
 
 
@@ -63,8 +64,8 @@ public class MainActivity extends ActionBarActivity
         //FIXME: hardcoded the currently logged in Consumer. Usually this would be verified with login API call
         SharedPreferences pref = getSharedPreferences(MY_PROFILE_PREFERENCES, 0);
         SharedPreferences.Editor editor = pref.edit(); // used for save data
-        editor.putString(Consumer.CONSUMER_ID, "54a521b0d8ecc8779dbda776"); // Storing string value
-        editor.putString(Consumer.CONSUMER_USERNAME, "RockyUS"); // Storing string value
+        editor.putString(Consumer.CONSUMER_ID, "54a6893e7048351b5d2972a5"); // Storing string value
+        editor.putString(Consumer.CONSUMER_USERNAME, "nielssj"); // Storing string value
         editor.commit(); // commit changes into sharedpreferences file.
     }
 
@@ -119,6 +120,11 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onMomentSelected(String id) {
         System.out.println("Moment " + id);
+
+        // Present the "Detail Moment" activity
+        Intent intent = new Intent(MainActivity.this, DetailMomentActivity.class);
+        intent.putExtra(DETAILED_MOMENT_ID, id);
+        startActivity(intent);
     }
 
     @Override
