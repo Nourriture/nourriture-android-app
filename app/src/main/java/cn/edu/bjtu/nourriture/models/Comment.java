@@ -1,5 +1,6 @@
 package cn.edu.bjtu.nourriture.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +14,10 @@ import cn.edu.bjtu.nourriture.utilities.Utilities;
  */
 
 @Generated("org.jsonschema2pojo")
-public class Comment {
+public class Comment implements Serializable{
+
+    // Constants definition
+    private static final long serialVersionUID = 1L;
 
     @SerializedName("_id")
     @Expose
