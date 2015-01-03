@@ -297,10 +297,10 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
             // Set likes count
             TextView likes = (TextView) momentView.findViewById(R.id.momentLikesTextView);
             if (m.getLikeCount() == 1){
-                likes.setText(m.getCommentCount() + " " + getString(R.string.momentLike));
+                likes.setText(m.getLikeCount() + " " + getString(R.string.momentLike));
             }
             else {
-                likes.setText(m.getCommentCount() + " " + getString(R.string.momentLikes));
+                likes.setText(m.getLikeCount() + " " + getString(R.string.momentLikes));
             }
 
             return momentView;
