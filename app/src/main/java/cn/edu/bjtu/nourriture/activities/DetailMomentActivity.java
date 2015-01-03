@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,7 +30,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.converter.GsonConverter;
 
-public class DetailMomentActivity extends ActionBarActivity {
+public class DetailMomentActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
 
 
 
@@ -38,7 +39,9 @@ public class DetailMomentActivity extends ActionBarActivity {
 
     private MomentAdapter adapter;
 
-    private ArrayList<HashMap> momentDataToShow;
+    private ArrayList<HashMap> currentMomentDataToShow;
+
+    private Moment currentMoment;
 
     private ListView listView;
 
@@ -55,13 +58,23 @@ public class DetailMomentActivity extends ActionBarActivity {
         Intent intent = getIntent();    //get the Intent that started your activity by calling getIntent() and retrieve the data contained within the intent
         current_moment_id = intent.getStringExtra(MainActivity.DETAILED_MOMENT_ID);
 
-        momentDataToShow = new ArrayList<>();
+        currentMomentDataToShow = new ArrayList<>();
+
+        currentMoment = null;
 
         adapter = new MomentAdapter();
 
         // can findViewById, because View already populated by setContentView
         listView = (ListView) findViewById(R.id.momentDetailsListView);
         listView.setAdapter(adapter);
+
+        /**
+         * Register a callback to be invoked when an item in this AdapterView has
+         * been clicked.
+         *
+         * Set OnItemClickListener so we can be notified on item clicks
+         */
+        listView.setOnItemClickListener(this);
     }
 
     @Override
@@ -70,6 +83,21 @@ public class DetailMomentActivity extends ActionBarActivity {
 
         // Always fetch moment when comes to the foreground
         fetchMomentDetails();
+    }
+
+
+
+    // --- AdapterView.OnItemClickListener
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+        HashMap item = currentMomentDataToShow.get(position);
+
+        if (item.containsKey(Moment.MOMENT_LIKES)){
+            // User wants to see likes
+        }
+        else if (item.containsKey(Moment.MOMENT_COMMENTS)){
+            // User wants to see comments
+        }
     }
 
 
@@ -120,9 +148,11 @@ public class DetailMomentActivity extends ActionBarActivity {
         api.getMoment(current_moment_id, new Callback<Moment>() {
             @Override
             public void success(Moment moment, Response response) {
-                momentDataToShow.clear();
+                currentMomentDataToShow.clear();
 
-                momentDataToShow.addAll(moment.getMomentInfoToDisplay());
+                currentMomentDataToShow.addAll(moment.getMomentInfoToDisplay());
+
+                currentMoment = moment;
 
                 adapter.notifyDataSetChanged();
             }
@@ -154,7 +184,7 @@ public class DetailMomentActivity extends ActionBarActivity {
 
         // takes CONTEXT, LAYOUT and DATA
         public MomentAdapter() {
-            super(getBaseContext(), R.layout.row_consumer_title_and_value, momentDataToShow);
+            super(getBaseContext(), R.layout.row_consumer_title_and_value, currentMomentDataToShow);
         }
 
         @Override
@@ -164,7 +194,7 @@ public class DetailMomentActivity extends ActionBarActivity {
 
             View rowView = null;
 
-            HashMap momentInfo = momentDataToShow.get(position);
+            HashMap momentInfo = currentMomentDataToShow.get(position);
 
             // row with MOMENT content
             if (momentInfo.containsKey(Moment.MOMENT_TEXT)){
