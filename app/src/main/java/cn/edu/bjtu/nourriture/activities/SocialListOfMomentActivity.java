@@ -12,10 +12,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.HashMap;
 import java.util.List;
 
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.models.Moment;
+import cn.edu.bjtu.nourriture.models.Comment;
 
 enum LIST_TYPE{
     LIST_TYPE_LIKES,
@@ -31,7 +33,7 @@ public class SocialListOfMomentActivity extends ActionBarActivity {
 
     private Moment          momentToShowDetails;
 
-    private SocialAdapter   adapter;
+    private ArrayAdapter    adapter;
 
     private ListView        listView;
 
@@ -53,12 +55,12 @@ public class SocialListOfMomentActivity extends ActionBarActivity {
         if (title.equals(getString(R.string.listTypeLikes))){
             listViewType = LIST_TYPE.LIST_TYPE_LIKES;
 
-            adapter = new SocialAdapter(momentToShowDetails.getLikes());
+            adapter = new SocialAdapterLikes();
         }
         else if (title.equals(getString(R.string.listTypeComments))){
             listViewType = LIST_TYPE.LIST_TYPE_COMMENTS;
 
-            adapter = new SocialAdapter(momentToShowDetails.getComments());
+            adapter = new SocialAdapterComments();
         }
 
         // can findViewById, because View already populated by setContentView
@@ -94,11 +96,11 @@ public class SocialListOfMomentActivity extends ActionBarActivity {
 
 
     // --- CUSTOM INNER CLASS of ArrayAdapter ---
-    private class SocialAdapter extends ArrayAdapter {
+    private class SocialAdapterLikes extends ArrayAdapter {
 
         // takes CONTEXT, LAYOUT and DATA
-        public SocialAdapter(List<Object> content) {
-            super(getBaseContext(), android.R.layout.simple_list_item_1, content);
+        public SocialAdapterLikes() {
+            super(getBaseContext(), android.R.layout.simple_list_item_1, momentToShowDetails.getLikes());
         }
 
         @Override
@@ -106,30 +108,40 @@ public class SocialListOfMomentActivity extends ActionBarActivity {
 
             LayoutInflater inflater = getLayoutInflater();
 
-            View rowView = null;
+            View rowView = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
 
-            // row with LIKE author
-            if (listViewType == LIST_TYPE.LIST_TYPE_LIKES){
-                rowView = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+            List<Object> likes = momentToShowDetails.getLikes();
+            HashMap like = (HashMap) likes.get(position);
+            String likeAuthor = (String) like.get("name");
 
-                String likeAuthor = (String) momentToShowDetails.getLikes().get(position);
+            TextView textView = (TextView) rowView.findViewById(android.R.id.text1);
+            textView.setText(likeAuthor);
 
-                TextView textView = (TextView) rowView.findViewById(android.R.id.text1);
-                textView.setText(likeAuthor);
-            }
-            // row with COMMENT author and comment text
-            else {
-                rowView = inflater.inflate(android.R.layout.simple_list_item_2, parent, false);
+            return rowView;
+        }
+    }
 
-                String commentAuthor = (String) momentToShowDetails.getLikes().get(position);
-                String commentText = "BLAALALALD";
+    private class SocialAdapterComments extends ArrayAdapter {
 
-                TextView textView = (TextView) rowView.findViewById(android.R.id.text1);
-                textView.setText(commentAuthor);
+        // takes CONTEXT, LAYOUT and DATA
+        public SocialAdapterComments() {
+            super(getBaseContext(), android.R.layout.simple_list_item_2, momentToShowDetails.getComments());
+        }
 
-                TextView textView2 = (TextView) rowView.findViewById(android.R.id.text2);
-                textView2.setText(commentText);
-            }
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            LayoutInflater inflater = getLayoutInflater();
+
+            View rowView = inflater.inflate(android.R.layout.simple_list_item_2, parent, false);
+
+            Comment c = (Comment) momentToShowDetails.getComments().get(position);
+
+            TextView textView = (TextView) rowView.findViewById(android.R.id.text1);
+            textView.setText(c.getText());
+
+            TextView textView2 = (TextView) rowView.findViewById(android.R.id.text2);
+            textView2.setText(c.getCreated());
 
             return rowView;
         }
