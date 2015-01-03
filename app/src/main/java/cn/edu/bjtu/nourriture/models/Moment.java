@@ -257,7 +257,7 @@ public class Moment {
 
         if (created != null) {
             HashMap createdDic = new HashMap();
-            createdDic.put(Moment.MOMENT_CREATED, created);
+            createdDic.put(Moment.MOMENT_CREATED, convertDateToTimeElapsedString(created, new Date()));
             result.add(createdDic);
         }
 
