@@ -35,13 +35,13 @@ public class DetailMomentActivity extends ActionBarActivity implements AdapterVi
 
 
     // --- PROPERTIES ---
-    private String current_moment_id;
+    private String current_moment_id;   //used for API call
 
     private MomentAdapter adapter;
 
-    private ArrayList<HashMap> currentMomentDataToShow;
+    private ArrayList<HashMap> currentMomentDataToShow; //data source for our adapter
 
-    private Moment currentMoment;
+    private Moment currentMoment;   //data source used for social list of moments
 
     private ListView listView;
 
