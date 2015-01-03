@@ -12,10 +12,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.HashMap;
 import java.util.List;
 
 import cn.edu.bjtu.nourriture.R;
+import cn.edu.bjtu.nourriture.models.Like;
 import cn.edu.bjtu.nourriture.models.Moment;
 import cn.edu.bjtu.nourriture.models.Comment;
 
@@ -110,9 +110,8 @@ public class SocialListOfMomentActivity extends ActionBarActivity {
 
             View rowView = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
 
-            List<Object> likes = momentToShowDetails.getLikes();
-            HashMap like = (HashMap) likes.get(position);
-            String likeAuthor = (String) like.get("name");
+            Like like = momentToShowDetails.getLikes().get(position);
+            String likeAuthor = like.getName();
 
             TextView textView = (TextView) rowView.findViewById(android.R.id.text1);
             textView.setText(likeAuthor);
