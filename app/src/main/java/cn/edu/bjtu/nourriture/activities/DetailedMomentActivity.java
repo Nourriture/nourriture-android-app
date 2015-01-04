@@ -2,33 +2,15 @@ package cn.edu.bjtu.nourriture.activities;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.fragments.moments.MomentOverviewFragment;
-import cn.edu.bjtu.nourriture.models.Moment;
-import cn.edu.bjtu.nourriture.services.NourritureAPI;
-import cn.edu.bjtu.nourriture.services.NourritureBaseURL;
-import retrofit.Callback;
-import retrofit.RestAdapter;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
-import retrofit.converter.GsonConverter;
+import cn.edu.bjtu.nourriture.models.Comment;
+import cn.edu.bjtu.nourriture.models.Like;
 
 public class DetailedMomentActivity extends ActionBarActivity implements MomentOverviewFragment.OnFragmentInteractionListener {
 
@@ -36,8 +18,6 @@ public class DetailedMomentActivity extends ActionBarActivity implements MomentO
 
     // --- PROPERTIES ---
     private String              current_moment_id;   //used for API call
-    private Moment              currentMoment;   //data source used for social list of moments
-    private ArrayList<HashMap>  currentMomentDataToShow; //data source for our adapter
 
 
 
@@ -51,23 +31,11 @@ public class DetailedMomentActivity extends ActionBarActivity implements MomentO
         Intent intent = getIntent();    //get the Intent that started your activity by calling getIntent() and retrieve the data contained within the intent
         current_moment_id = intent.getStringExtra(MainActivity.DETAILED_MOMENT_ID);
 
-        // Objects init
-        currentMoment = null;
-        currentMomentDataToShow = new ArrayList<>();
-
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, MomentOverviewFragment.newInstance("",""))
+                    .add(R.id.container, MomentOverviewFragment.newInstance(current_moment_id))
                     .commit();
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        // Always fetch moment when comes to the foreground
-        fetchMomentDetails();
     }
 
 
@@ -88,7 +56,12 @@ public class DetailedMomentActivity extends ActionBarActivity implements MomentO
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_like_moment) {
+            //likeMoment();
+            return true;
+        }
+        else if (id == R.id.action_comment_on_moment){
+            //commentOnMoment();
             return true;
         }
 
@@ -98,65 +71,18 @@ public class DetailedMomentActivity extends ActionBarActivity implements MomentO
 
 
     // --- API calls ---
-    private void fetchMomentDetails() {
-        // custom GSON parser http://stackoverflow.com/questions/18473011/retrofit-gson-serialize-date-from-json-string-into-java-util-date
-        Gson gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
-                .create();
-
-        RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint(NourritureBaseURL.LOCALHOST_PLATFORM_ANDROID_URL)
-                .setConverter(new GsonConverter(gson))
-                .build();
-
-        NourritureAPI api = restAdapter.create(NourritureAPI.class);
-        api.getMoment(current_moment_id, new Callback<Moment>() {
-            @Override
-            public void success(Moment moment, Response response) {
-                currentMomentDataToShow.clear();
-
-                currentMomentDataToShow.addAll(moment.getMomentInfoToDisplay());
-
-                currentMoment = moment;
-
-                //adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                Toast toast = Toast.makeText(getApplicationContext(), R.string.api_error, Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
-    }
+    //TODO: POST like from here or from Fragment?
 
 
 
     // --- OnFragmentInteractionListener methods ---
     @Override
-    public void onShowLikesInteraction(String id) {
+    public void onShowLikesInteraction(List<Like> likes) {
         //TODO: present the LIKEs fragment
     }
 
     @Override
-    public void onShowCommentsInteraction(String id) {
+    public void onShowCommentsInteraction(List<Comment> comments) {
         //TODO: present the COMMENTs fragment
     }
-
-
-    /**
-     * A placeholder fragment containing a simple view.
-
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_detailed_moment, container, false);
-            return rootView;
-        }
-    }*/
 }
