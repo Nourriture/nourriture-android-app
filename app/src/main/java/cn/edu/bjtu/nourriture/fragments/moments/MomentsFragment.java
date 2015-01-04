@@ -99,7 +99,7 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
         setHasOptionsMenu(true);
 
         // TODO: Change Adapter to display your content
-        mAdapter = new MomentsAdapter();//new ArrayAdapter<Moment>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.MOMENTS);
+        mAdapter = new MomentsAdapter(this.getActivity(), myDummyMoments);//new ArrayAdapter<Moment>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.MOMENTS);
     }
 
     @Override
@@ -107,7 +107,7 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
         View view = inflater.inflate(R.layout.fragment_item, container, false);
 
         // Set the adapter
-        mListView = (AbsListView) view.findViewById(android.R.id.list);
+        mListView = (AbsListView) view.findViewById(R.id.momentList);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
         // Set OnItemClickListener so we can be notified on item clicks
@@ -254,7 +254,6 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
 
 
     // --- CUSTOM INNER CLASS of ArrayAdapter ---
-    private class MomentsAdapter extends ArrayAdapter {
 
         // takes CONTEXT, LAYOUT and DATA
         public MomentsAdapter(){
@@ -327,3 +326,4 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
     }
 
 }
+

@@ -4,10 +4,28 @@
     android:layout_height="match_parent"
     tools:context="cn.edu.bjtu.nourriture.fragments.recipes.RecipesFragment">
 
-    <ListView android:id="@android:id/list" android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <TextView android:id="@+id/notFound" android:layout_width="match_parent"
+        android:layout_height="458dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:gravity="center" />
 
-    <TextView android:id="@android:id/empty" android:layout_width="match_parent"
-        android:layout_height="match_parent" android:gravity="center" />
+    <ListView android:id="@+id/recipeList" android:layout_width="match_parent"
+        android:layout_height="458dp"
+        android:layout_gravity="center_horizontal|bottom" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/recipeSearchbar"
+        android:layout_gravity="left|top" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:id="@+id/recipeSearchButton"
+        android:layout_gravity="right|top"
+        android:onClick="recipeSearch" />
 
 </FrameLayout>

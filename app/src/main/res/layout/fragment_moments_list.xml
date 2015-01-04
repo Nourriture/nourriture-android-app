@@ -4,10 +4,29 @@
     android:layout_height="match_parent"
     tools:context="cn.edu.bjtu.nourriture.fragments.moments.MomentsFragment">
 
-    <ListView android:id="@android:id/list" android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <TextView android:id="@+id/momentNotFound" android:layout_width="match_parent"
+        android:layout_height="485dp" android:gravity="center"
+        android:layout_gravity="center_horizontal|bottom" />
 
-    <TextView android:id="@android:id/empty" android:layout_width="match_parent"
-        android:layout_height="match_parent" android:gravity="center" />
+    <ListView android:id="@+id/momentList" android:layout_width="match_parent"
+        android:layout_height="484dp"
+        android:layout_gravity="center_horizontal|bottom"
+        android:transitionGroup="false"
+        android:stackFromBottom="false" />
+
+    <EditText
+        android:layout_width="208dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/momentSearchBar"
+        android:layout_gravity="left|top"
+        android:clickable="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:id="@+id/momentSearchButton"
+        android:layout_gravity="right|top"
+        android:onClick="momentSearchByRecipe" />
 
 </FrameLayout>

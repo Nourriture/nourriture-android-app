@@ -1,6 +1,7 @@
 package cn.edu.bjtu.nourriture.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
@@ -8,15 +9,30 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import cn.edu.bjtu.nourriture.R;
+import cn.edu.bjtu.nourriture.dummy.DummyContent;
 import cn.edu.bjtu.nourriture.fragments.NavigationDrawerFragment;
 import cn.edu.bjtu.nourriture.fragments.friends.FriendsFragment;
+import cn.edu.bjtu.nourriture.fragments.moments.MomentsAdapter;
 import cn.edu.bjtu.nourriture.fragments.moments.MomentsFragment;
 import cn.edu.bjtu.nourriture.fragments.profile.ConsumerFragment;
 import cn.edu.bjtu.nourriture.fragments.recipes.RecipesFragment;
@@ -156,6 +172,42 @@ public class MainActivity extends ActionBarActivity
         overridePendingTransition(R.anim.slide_up_animation,R.anim.no_change_animation);
     }
 
+    public void momentSearchByRecipe(View view){
+        TextView t = (TextView) findViewById(R.id.momentNotFound);
+        t.setText("");
+        AbsListView lv = (AbsListView) findViewById(R.id.momentList);
+        ArrayList<Moment> searchResultMoment = new ArrayList<Moment>();
+        List<DummyContent.DummyRecipe> searchResultRecipe = new ArrayList<DummyContent.DummyRecipe>();
+        final EditText searchBar = (EditText) findViewById(R.id.momentSearchBar);
+        for (int i = 0; i < DummyContent.RECIPES.size();i++)
+        {
+            if (DummyContent.RECIPES.get(i).content.toUpperCase().equals(searchBar.getText().toString().toUpperCase()))
+            {
+                searchResultRecipe.add(DummyContent.RECIPES.get(i));
+            }
+        }
+        if (searchResultRecipe.size() == 0) {
+            t.setText(getString(R.string.no_moments));
+        }
+        else{
+            for (int i = 0; i < searchResultRecipe.size();i++)
+            {
+                for (int a = 0; a < DummyContent.MOMENTS.size();a++)
+                {
+                    if (DummyContent.MOMENTS.get(a).getMomentSubjectID().equals(searchResultRecipe.get(i).id))
+                    {
+                        searchResultMoment.add(DummyContent.MOMENTS.get(a));
+                    }
+                }
+            }
+        }
+        ListAdapter arrayAdapter;
+        arrayAdapter = new MomentsAdapter(this, searchResultMoment);
+
+        lv.setAdapter(arrayAdapter);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
     /**
      * from "RecipesFragment" FRAGMENT
      *
@@ -164,6 +216,32 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onRecipeSelected(String id) {
         System.out.println("Recipe " + id);
+    }
+
+    public void recipeSearch(View view){
+        TextView t = (TextView) findViewById(R.id.notFound);
+        t.setText("");
+        AbsListView lv = (AbsListView) findViewById(R.id.recipeList);
+        List<DummyContent.DummyRecipe> searchResult = new ArrayList<DummyContent.DummyRecipe>();
+        final EditText searchBar = (EditText) findViewById(R.id.recipeSearchbar);
+        for (int i = 0; i < DummyContent.RECIPES.size();i++)
+        {
+            if (DummyContent.RECIPES.get(i).content.toUpperCase().equals(searchBar.getText().toString().toUpperCase()))
+            {
+                searchResult.add(DummyContent.RECIPES.get(i));
+            }
+        }
+        if (searchResult.size() == 0) {
+            t.setText(getString(R.string.no_recipes));
+        }
+        ArrayAdapter<DummyContent.DummyRecipe> arrayAdapter = new ArrayAdapter<DummyContent.DummyRecipe>(
+                this,
+                android.R.layout.simple_list_item_1,
+                searchResult);
+
+        lv.setAdapter(arrayAdapter);
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     /**
@@ -209,7 +287,6 @@ public class MainActivity extends ActionBarActivity
                 break;
         }
     }
-
 
 
     // --- ACTION BAR ---

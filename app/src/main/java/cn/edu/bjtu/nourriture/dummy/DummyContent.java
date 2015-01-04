@@ -58,6 +58,7 @@ public class DummyContent {
             e.printStackTrace();
         }
 
+
         /*addMoment(new Moment("ID1", "Paja Prochazka", d, 5, "This is my first moment", "Reference object ID"));
         addMoment(new Moment("ID2", "Martin Jensen", d2, 10, "Lorem Ipsum is simply dummy text of the printing and typesetting industry.", "Reference object ID"));
         addMoment(new Moment("ID3", "Victoria Secret", d3, 3, "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...", "Reference object ID"));
