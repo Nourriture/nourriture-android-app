@@ -4,14 +4,10 @@
     android:layout_height="match_parent"
     tools:context="cn.edu.bjtu.nourriture.fragments.moments.MomentsFragment">
 
-    <TextView android:id="@+id/momentNotFound" android:layout_width="match_parent"
-        android:layout_height="518dp" android:gravity="center"
-        android:layout_gravity="center_horizontal|bottom" />
+    <ListView android:id="@android:id/list" android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-    <ListView android:id="@+id/momentList" android:layout_width="match_parent"
-        android:layout_height="517dp"
-        android:layout_gravity="center_horizontal|bottom"
-        android:transitionGroup="false"
-        android:stackFromBottom="false" />
+    <TextView android:id="@android:id/empty" android:layout_width="match_parent"
+        android:layout_height="match_parent" android:gravity="center" />
 
 </FrameLayout>
