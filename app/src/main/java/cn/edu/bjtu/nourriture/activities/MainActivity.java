@@ -1,7 +1,6 @@
 package cn.edu.bjtu.nourriture.activities;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
@@ -9,30 +8,15 @@ import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.edu.bjtu.nourriture.R;
-import cn.edu.bjtu.nourriture.dummy.DummyContent;
 import cn.edu.bjtu.nourriture.fragments.NavigationDrawerFragment;
 import cn.edu.bjtu.nourriture.fragments.friends.FriendsFragment;
-import cn.edu.bjtu.nourriture.fragments.moments.MomentsAdapter;
 import cn.edu.bjtu.nourriture.fragments.moments.MomentsFragment;
 import cn.edu.bjtu.nourriture.fragments.profile.ConsumerFragment;
 import cn.edu.bjtu.nourriture.fragments.recipes.RecipesFragment;
@@ -172,8 +156,9 @@ public class MainActivity extends ActionBarActivity
         overridePendingTransition(R.anim.slide_up_animation,R.anim.no_change_animation);
     }
 
+    //FIXME: WTF is this for???
     public void momentSearchByRecipe(View view){
-        TextView t = (TextView) findViewById(R.id.momentNotFound);
+        /*TextView t = (TextView) findViewById(R.id.momentNotFound);
         t.setText("");
         AbsListView lv = (AbsListView) findViewById(R.id.momentList);
         ArrayList<Moment> searchResultMoment = new ArrayList<Moment>();
@@ -206,8 +191,10 @@ public class MainActivity extends ActionBarActivity
 
         lv.setAdapter(arrayAdapter);
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);*/
+
     }
+
     /**
      * from "RecipesFragment" FRAGMENT
      *
@@ -218,8 +205,9 @@ public class MainActivity extends ActionBarActivity
         System.out.println("Recipe " + id);
     }
 
+    //FIXME: WTF is this for???
     public void recipeSearch(View view){
-        TextView t = (TextView) findViewById(R.id.notFound);
+        /*TextView t = (TextView) findViewById(R.id.notFound);
         t.setText("");
         AbsListView lv = (AbsListView) findViewById(R.id.recipeList);
         List<DummyContent.DummyRecipe> searchResult = new ArrayList<DummyContent.DummyRecipe>();
@@ -241,7 +229,7 @@ public class MainActivity extends ActionBarActivity
 
         lv.setAdapter(arrayAdapter);
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);*/
     }
 
     /**
@@ -287,6 +275,7 @@ public class MainActivity extends ActionBarActivity
                 break;
         }
     }
+
 
 
     // --- ACTION BAR ---
