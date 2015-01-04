@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +23,7 @@ import java.util.List;
 
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.R;
+import cn.edu.bjtu.nourriture.adapters.MomentsAdapter;
 import cn.edu.bjtu.nourriture.models.Moment;
 import cn.edu.bjtu.nourriture.services.NourritureAPI;
 import cn.edu.bjtu.nourriture.services.NourritureBaseURL;
@@ -59,6 +59,11 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
      * The fragment's ListView/GridView.
      */
     private AbsListView mListView;
+
+    /**
+     * The text view for possible "empty text"
+     */
+    private TextView emptyTextView;
 
     /**
      * The Adapter which will be used to populate the ListView/GridView with
@@ -98,15 +103,17 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
 
         setHasOptionsMenu(true);
 
-        mAdapter = new MomentsAdapter();
+        mAdapter = new MomentsAdapter(getActivity().getBaseContext(), myMoments);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item, container, false);
 
+        emptyTextView = (TextView) view.findViewById(android.R.id.empty);
+
         // Set the adapter
-        mListView = (AbsListView) view.findViewById(R.id.momentList);
+        mListView = (AbsListView) view.findViewById(android.R.id.list);
         ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
         // Set OnItemClickListener so we can be notified on item clicks
@@ -194,15 +201,11 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
 
     private void showEmptyView(boolean showEmptyView){
 
-        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_item, ((ViewGroup) getView().getParent()), false);
-
-        TextView t = (TextView) view.findViewById(android.R.id.empty);
-
         if (showEmptyView){
-            t.setText(getString(R.string.no_moments));
+            emptyTextView.setText(getString(R.string.no_moments));
         }
         else {
-            t.setText("");
+            emptyTextView.setText("");
         }
     }
 
@@ -252,62 +255,6 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
 
 
 
-    // --- CUSTOM INNER CLASS of ArrayAdapter ---
-    private class MomentsAdapter extends ArrayAdapter {
-
-        // takes CONTEXT, LAYOUT and DATA
-        public MomentsAdapter(){
-            super(getActivity(), R.layout.row_moment, myMoments);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            View momentView = convertView;
-
-            // Make sure we have a view to work with
-            if (momentView == null){
-                momentView = getActivity().getLayoutInflater().inflate(R.layout.row_moment, parent, false);
-            }
-
-            Moment m = myMoments.get(position);
-
-            // Set author name
-            TextView author = (TextView) momentView.findViewById(R.id.momentAuthorTextView);
-            author.setText(m.getAuthor().getName());
-
-            // Set content text
-            TextView content = (TextView) momentView.findViewById(R.id.momentContentTextView);
-            content.setText(m.getText());
-
-            // Set time elapsed
-            TextView timeElapsed = (TextView) momentView.findViewById(R.id.momentTimeTextView);
-            timeElapsed.setText(m.getCreated());
-
-            // Set comments count
-            TextView comments = (TextView) momentView.findViewById(R.id.momentCommentTextView);
-            if (m.getCommentCount() == 1){
-                comments.setText(m.getCommentCount() + " " + getString(R.string.momentComment));
-            }
-            else {
-                comments.setText(m.getCommentCount() + " " + getString(R.string.momentComments));
-            }
-
-            // Set likes count
-            TextView likes = (TextView) momentView.findViewById(R.id.momentLikesTextView);
-            if (m.getLikeCount() == 1){
-                likes.setText(m.getLikeCount() + " " + getString(R.string.momentLike));
-            }
-            else {
-                likes.setText(m.getLikeCount() + " " + getString(R.string.momentLikes));
-            }
-
-            return momentView;
-        }
-    }
-
-
-
     // --- INTERFACE methods decleration ---
     /**
      * This interface must be implemented by activities that contain this
@@ -326,4 +273,3 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
     }
 
 }
-
