@@ -107,26 +107,31 @@ public class MainActivity extends ActionBarActivity
             case 0:
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, MomentsFragment.newInstance(position + 1))
+                        .addToBackStack( "MomentTag" )
                         .commit();
                 break;
             case 1:
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, RecipesFragment.newInstance(position + 1))
+                        .addToBackStack( "RecipeTag" )
                         .commit();
                 break;
             case 2:
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, FriendsFragment.newInstance(position + 1))
+                        .addToBackStack( "FriendTag" )
                         .commit();
                 break;
             case 3:
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, ConsumerFragment.newInstance(position + 1))
+                        .addToBackStack( "ConsumerTag" )
                         .commit();
                 break;
             default:
                 fragmentManager.beginTransaction()
                         .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                        .addToBackStack( "Placeholdertag" )
                         .commit();
                 break;
         }
@@ -195,6 +200,14 @@ public class MainActivity extends ActionBarActivity
 
     }
 
+    public void onSearchFriendSelected() {
+
+        // Present the "New Moment" activity modaly (slide up)
+        Intent intent_info = new Intent(MainActivity.this, SearchFriendActivity.class);
+        startActivity(intent_info);
+        overridePendingTransition(R.anim.slide_up_animation,R.anim.no_change_animation);
+    }
+
     /**
      * from "RecipesFragment" FRAGMENT
      *
@@ -202,7 +215,12 @@ public class MainActivity extends ActionBarActivity
      */
     @Override
     public void onRecipeSelected(String id) {
-        System.out.println("Recipe " + id);
+        //Bundle b = new Bundle();
+        //b.putString("name", name);
+        Intent intent = new Intent(MainActivity.this, RecipeProfileActivity.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
+//        System.out.println("Recipe " + name);
     }
 
     //FIXME: WTF is this for???
@@ -212,22 +230,23 @@ public class MainActivity extends ActionBarActivity
         AbsListView lv = (AbsListView) findViewById(R.id.recipeList);
         List<DummyContent.DummyRecipe> searchResult = new ArrayList<DummyContent.DummyRecipe>();
         final EditText searchBar = (EditText) findViewById(R.id.recipeSearchbar);
-        for (int i = 0; i < DummyContent.RECIPES.size();i++)
-        {
-            if (DummyContent.RECIPES.get(i).content.toUpperCase().equals(searchBar.getText().toString().toUpperCase()))
-            {
-                searchResult.add(DummyContent.RECIPES.get(i));
+        Log.d("test", "["+searchBar.getText().toString()+"]");
+        if (!searchBar.getText().toString().isEmpty()) {
+            for (int i = 0; i < DummyContent.RECIPES.size(); i++) {
+                if (DummyContent.RECIPES.get(i).content.toUpperCase().equals(searchBar.getText().toString().toUpperCase())) {
+                    searchResult.add(DummyContent.RECIPES.get(i));
+                }
             }
-        }
-        if (searchResult.size() == 0) {
-            t.setText(getString(R.string.no_recipes));
-        }
-        ArrayAdapter<DummyContent.DummyRecipe> arrayAdapter = new ArrayAdapter<DummyContent.DummyRecipe>(
-                this,
-                android.R.layout.simple_list_item_1,
-                searchResult);
+            if (searchResult.size() == 0) {
+                t.setText(getString(R.string.no_recipes));
+            }
+            ArrayAdapter<DummyContent.DummyRecipe> arrayAdapter = new ArrayAdapter<DummyContent.DummyRecipe>(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    searchResult);
 
-        lv.setAdapter(arrayAdapter);
+            lv.setAdapter(arrayAdapter);
+        }
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);*/
     }

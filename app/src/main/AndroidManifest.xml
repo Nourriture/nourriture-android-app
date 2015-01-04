@@ -39,6 +39,26 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="cn.edu.bjtu.nourriture.activities.DetailMomentActivity" />
         </activity>
+        <activity
+            android:launchMode="singleTop"
+            android:name=".activities.RecipeProfileActivity"
+            android:label="Recipe profile" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activities.SearchFriendActivity"
+            android:label="Search friend"
+            android:windowSoftInputMode="stateVisible|adjustResize" >
+        </activity>
+        <activity
+            android:name=".activities.RecipeMoments"
+            android:label="Recipe's Moments" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.RecipeProfileActivity" />
+        </activity>
     </application>
 
 </manifest>
