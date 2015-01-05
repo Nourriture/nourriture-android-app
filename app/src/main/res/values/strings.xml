@@ -23,6 +23,7 @@
     <string name="action_add_friend">Add friend</string>
     <string name="action_like_moment">Like</string>
     <string name="action_comment_on_moment">Comment</string>
+    <string name="action_search">Search</string>
 
     <!-- Toast texts -->
     <string name="api_error">An error occured</string>

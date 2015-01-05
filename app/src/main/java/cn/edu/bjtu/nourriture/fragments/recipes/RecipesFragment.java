@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -100,6 +103,8 @@ public class RecipesFragment extends Fragment implements AbsListView.OnItemClick
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setHasOptionsMenu(true);
+
         mAdapter = new RecipesAdapter();
     }
 
@@ -161,6 +166,31 @@ public class RecipesFragment extends Fragment implements AbsListView.OnItemClick
 
 
 
+    // --- ACTION BAR ---
+    /**
+     *  Inflate the menu resource into the given Menu to add each item to the action bar:
+     */
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        getActivity().getMenuInflater().inflate(R.menu.menu_recipes, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle presses on the action bar items
+        switch (item.getItemId()) {
+            case R.id.action_search_recipe:
+                searchForRecipe();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+
     // --- HELPERs ---
     private void showEmptyView(boolean showEmptyView){
 
@@ -170,6 +200,12 @@ public class RecipesFragment extends Fragment implements AbsListView.OnItemClick
         else {
             emptyTextView.setText("");
         }
+    }
+
+    private void searchForRecipe(){
+        //TODO: implement
+        Toast toast = Toast.makeText(getActivity().getBaseContext(), "Feature not implemented yet", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
 
@@ -197,8 +233,7 @@ public class RecipesFragment extends Fragment implements AbsListView.OnItemClick
 
                 if (myRecipes.size() == 0) {
                     showEmptyView(true);
-                }
-                else {
+                } else {
                     showEmptyView(false);
                 }
 
