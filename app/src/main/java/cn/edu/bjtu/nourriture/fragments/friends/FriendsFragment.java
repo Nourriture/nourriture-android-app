@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +24,7 @@ import java.util.List;
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.R;
 
-import cn.edu.bjtu.nourriture.dummy.DummyContent;
+import cn.edu.bjtu.nourriture.adapters.ConsumersAdapter;
 import cn.edu.bjtu.nourriture.models.Consumer;
 import cn.edu.bjtu.nourriture.services.NourritureAPI;
 import cn.edu.bjtu.nourriture.services.NourritureBaseURL;
@@ -72,7 +70,7 @@ import retrofit.converter.GsonConverter;
       * The Adapter which will be used to populate the ListView/GridView with
       * Views.
       */
-     private ConsumerAdapter mAdapter;
+     private ConsumersAdapter mAdapter;
 
      /**
       * For data loaded from API
@@ -106,7 +104,7 @@ import retrofit.converter.GsonConverter;
 
          setHasOptionsMenu(true);
 
-         mAdapter = new ConsumerAdapter();
+         mAdapter = new ConsumersAdapter(getActivity().getBaseContext(), myConsumers);
      }
 
      @Override
@@ -162,7 +160,7 @@ import retrofit.converter.GsonConverter;
          if (null != mListener) {
              // Notify the active callbacks interface (the activity, if the
              // fragment is attached to one) that an item has been selected.
-             mListener.onFriendSelected(DummyContent.FRIENDS.get(position).id);
+             //mListener.onFriendSelected(DummyContent.FRIENDS.get(position).id);
          }
      }
 
@@ -241,8 +239,7 @@ import retrofit.converter.GsonConverter;
 
                 if (myConsumers.size() == 0) {
                     showEmptyView(true);
-                }
-                else {
+                } else {
                     showEmptyView(false);
                 }
 
@@ -274,37 +271,4 @@ import retrofit.converter.GsonConverter;
          public void onFriendSelected(String id);
          public void onSearchFriendSelected();
      }
-
-
-
-    // --- CUSTOM INNER CLASS of ArrayAdapter ---
-     private class ConsumerAdapter extends ArrayAdapter {
-
-        // takes CONTEXT, LAYOUT and DATA
-        public ConsumerAdapter() {
-            super(getActivity().getBaseContext(), R.layout.row_consumer_overview, myConsumers);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            LayoutInflater inflater = getActivity().getLayoutInflater();
-
-            View rowView = inflater.inflate(R.layout.row_consumer_overview, parent, false);
-
-            Consumer consumer = myConsumers.get(position);
-
-            //TODO: fetch from web
-            /*ImageView thumbnail = (ImageView) rowView.findViewById(R.id.consumerThumbnailImageView);
-            thumbnail.setImageResource();*/
-
-            TextView nameTextView = (TextView) rowView.findViewById(R.id.consumerNameTextView);
-            nameTextView.setText(consumer.getName());
-
-            TextView occupationTextView = (TextView) rowView.findViewById(R.id.consumerOccupationTextView);
-            occupationTextView.setText(consumer.getOccupation());
-
-            return rowView;
-        }
-    }
  }
