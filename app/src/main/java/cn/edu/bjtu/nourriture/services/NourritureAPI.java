@@ -57,11 +57,11 @@ public interface NourritureAPI {
     // Consumer endpoints
     /*@Headers("Content-Type:application/json")
     @POST("/consumer")
-    public boolean postConsumer(Consumer consumer);
+    public boolean postConsumer(Consumer consumer);*/
 
     @Headers("Content-Type:application/json")
     @GET("/consumer")
-    public List<Consumer> getAllConsumers();*/
+    public List<Consumer> getAllConsumers();
 
     @Headers("Content-Type:application/json")
     @GET("/consumer/{username}")
