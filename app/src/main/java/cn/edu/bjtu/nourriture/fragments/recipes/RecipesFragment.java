@@ -1,6 +1,7 @@
 package cn.edu.bjtu.nourriture.fragments.recipes;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,12 +10,28 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.R;
-import cn.edu.bjtu.nourriture.dummy.DummyContent;
+import cn.edu.bjtu.nourriture.models.Recipe;
+import cn.edu.bjtu.nourriture.services.NourritureAPI;
+import cn.edu.bjtu.nourriture.services.NourritureBaseURL;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.converter.GsonConverter;
 
 /**
  * A fragment representing a list of Items.
@@ -44,10 +61,20 @@ public class RecipesFragment extends Fragment implements AbsListView.OnItemClick
     private AbsListView mListView;
 
     /**
+     * The text view for possible "empty text"
+     */
+    private TextView emptyTextView;
+
+    /**
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
-    private ListAdapter mAdapter;
+    private RecipesAdapter mAdapter;
+
+    /**
+     * For data loaded from API
+     */
+    private ArrayList<Recipe> myRecipes = new ArrayList<>();
 
 
 
@@ -74,14 +101,14 @@ public class RecipesFragment extends Fragment implements AbsListView.OnItemClick
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO: Change Adapter to display your content
-        mAdapter = new ArrayAdapter<DummyContent.DummyRecipe>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.RECIPES);
+        mAdapter = new RecipesAdapter();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recipe, container, false);
+
+        emptyTextView = (TextView) view.findViewById(android.R.id.empty);
 
         // Set the adapter
         mListView = (AbsListView) view.findViewById(R.id.recipeList);
@@ -90,12 +117,15 @@ public class RecipesFragment extends Fragment implements AbsListView.OnItemClick
         // Set OnItemClickListener so we can be notified on item clicks
         mListView.setOnItemClickListener(this);
 
-        if (DummyContent.RECIPES.size() == 0) {
-            TextView t = (TextView) view.findViewById(R.id.notFound);
-            t.setText(getString(R.string.no_recipes));
-        }
-
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Always fetch recipes when comes to the foreground
+        fetchAllRecipes();
     }
 
     @Override
@@ -118,13 +148,73 @@ public class RecipesFragment extends Fragment implements AbsListView.OnItemClick
         mListener = null;
     }
 
+
+
+    // --- AdapterView.OnItemClickListener
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
-            mListener.onRecipeSelected((DummyContent.RECIPES.get(position).id));
+            mListener.onRecipeSelected(myRecipes.get(position));
         }
+    }
+
+
+
+    // --- HELPERs ---
+    private void showEmptyView(boolean showEmptyView){
+
+        if (showEmptyView){
+            emptyTextView.setText(getString(R.string.no_recipes));
+        }
+        else {
+            emptyTextView.setText("");
+        }
+    }
+
+
+
+    // --- API calls ---
+    private void fetchAllRecipes() {
+
+        // custom GSON parser http://stackoverflow.com/questions/18473011/retrofit-gson-serialize-date-from-json-string-into-java-util-date
+        /*Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                .create();
+
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint(NourritureBaseURL.LOCALHOST_PLATFORM_ANDROID_URL)
+                .setConverter(new GsonConverter(gson))
+                .build();
+
+        NourritureAPI api = restAdapter.create(NourritureAPI.class);
+
+        //once response is received, in case of JSON api your data will be transformed to your model using Gson library
+        api.getAllMoments(new Callback<List<Moment>>() {
+            @Override
+            public void success(List<Moment> moments, Response response) {
+
+                myMoments.clear();
+
+                myMoments.addAll(moments);
+
+                if (myMoments.size() == 0) {
+                    showEmptyView(true);
+                }
+                else {
+                    showEmptyView(false);
+                }
+
+                mAdapter.notifyDataSetChanged();    // Notifies the attached observers that the underlying data has been changed and any View reflecting the data set should refresh itself
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast toast = Toast.makeText(getActivity().getApplicationContext(), R.string.api_error, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });*/
     }
 
 
@@ -141,6 +231,49 @@ public class RecipesFragment extends Fragment implements AbsListView.OnItemClick
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        public void onRecipeSelected(String id);
+        public void onRecipeSelected(Recipe recipe);
+    }
+
+
+
+    // INNER custom ArrayAdapter
+    public class RecipesAdapter extends ArrayAdapter {
+
+        // takes CONTEXT, LAYOUT and DATA
+        public RecipesAdapter()  {
+            super(getActivity().getBaseContext(), R.layout.row_recipe_overview, myRecipes);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            View rowView = getActivity().getLayoutInflater().inflate(R.layout.row_recipe_overview, parent, false);
+
+            Recipe recipe = myRecipes.get(position);
+
+            // Recipe thumbnail
+            ImageView thumbnail = (ImageView) rowView.findViewById(R.id.recipeThumbnailImageView);
+            String url = recipe.getPicture();
+            Picasso.with(getContext())
+                    .load(url)
+                    .resize(50, 50)
+                    .centerCrop()
+                    .placeholder(R.drawable.user_placeholder)
+                    .into(thumbnail);
+
+            // Recipe name
+            TextView nameTextView = (TextView) rowView.findViewById(R.id.recipeNameTextView);
+            nameTextView.setText(recipe.());
+
+            // Recipe difficulty
+            TextView difficultyTextView = (TextView) rowView.findViewById(R.id.recipeDifficultyTextView);
+            difficultyTextView.setText(recipe.());
+
+            // Recipe published date
+            TextView publishedTextView = (TextView) rowView.findViewById(R.id.recipePublishedTextView);
+            publishedTextView.setText(recipe.());
+
+            return rowView;
+        }
     }
 }
