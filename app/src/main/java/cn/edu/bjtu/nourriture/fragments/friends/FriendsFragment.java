@@ -174,7 +174,7 @@ import retrofit.converter.GsonConverter;
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        getActivity().getMenuInflater().inflate(R.menu.friends_menu, menu);
+        getActivity().getMenuInflater().inflate(R.menu.menu_friends, menu);
     }
 
     @Override

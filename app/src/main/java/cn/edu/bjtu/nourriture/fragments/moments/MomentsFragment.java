@@ -173,7 +173,7 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        getActivity().getMenuInflater().inflate(R.menu.moments_menu, menu);
+        getActivity().getMenuInflater().inflate(R.menu.menu_moments, menu);
     }
 
     @Override
