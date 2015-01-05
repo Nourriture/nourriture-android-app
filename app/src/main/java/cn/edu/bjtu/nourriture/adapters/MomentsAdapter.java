@@ -25,7 +25,7 @@ public class MomentsAdapter extends ArrayAdapter {
     // takes CONTEXT, LAYOUT and DATA
     public MomentsAdapter(Context context, ArrayList<Moment> toShowMoments){
 
-        super(context, R.layout.row_moment, toShowMoments);
+        super(context, R.layout.row_moment_overview, toShowMoments);
 
         this.context = context;
 
@@ -41,7 +41,7 @@ public class MomentsAdapter extends ArrayAdapter {
 
         // Make sure we have a view to work with
         if (momentView == null){
-            momentView = inflater.inflate(R.layout.row_moment, parent, false);
+            momentView = inflater.inflate(R.layout.row_moment_overview, parent, false);
         }
 
         Moment m = moments.get(position);
