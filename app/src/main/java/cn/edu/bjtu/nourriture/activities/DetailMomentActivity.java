@@ -63,9 +63,8 @@ public class DetailMomentActivity extends ActionBarActivity implements AdapterVi
 
         setContentView(R.layout.activity_detail_moment);
 
-        // Get the moment id from the intent
-        Intent intent = getIntent();    //get the Intent that started your activity by calling getIntent() and retrieve the data contained within the intent
-        current_moment_id = intent.getStringExtra(MainActivity.DETAILED_MOMENT_ID);
+        SharedPreferences pref = getSharedPreferences(MainActivity.MY_MOMENT_DETAIL_PREFERENCES, MODE_PRIVATE); // 0 - for private mode
+        current_moment_id = pref.getString(MainActivity.MY_MOMENT_ID, "");
 
         currentMomentDataToShow = new ArrayList<>();
 
