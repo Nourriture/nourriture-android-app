@@ -1,4 +1,4 @@
-package cn.edu.bjtu.nourriture.activities;
+package cn.edu.bjtu.nourriture.activities.moments;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -11,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import java.util.List;
 
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.models.Like;

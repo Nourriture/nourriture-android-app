@@ -1,4 +1,4 @@
-package cn.edu.bjtu.nourriture.activities;
+package cn.edu.bjtu.nourriture.activities.moments;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import cn.edu.bjtu.nourriture.R;
+import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.models.Author;
 import cn.edu.bjtu.nourriture.models.Consumer;
 import cn.edu.bjtu.nourriture.models.Moment;

@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import cn.edu.bjtu.nourriture.R;
+import cn.edu.bjtu.nourriture.activities.moments.DetailMomentActivity;
+import cn.edu.bjtu.nourriture.activities.moments.NewMomentActivity;
 import cn.edu.bjtu.nourriture.fragments.NavigationDrawerFragment;
 import cn.edu.bjtu.nourriture.fragments.friends.FriendsFragment;
 import cn.edu.bjtu.nourriture.fragments.moments.MomentsFragment;
