@@ -1,5 +1,6 @@
 package cn.edu.bjtu.nourriture.models;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -141,8 +142,16 @@ public class Recipe {
      * @return
      * The created
      */
-    public Date getCreated() {
-        return created;
+    public String getCreated() {
+        // Create our date "formatter" (the date format we want)
+        SimpleDateFormat formatterDate = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat formatterTime = new SimpleDateFormat("hh:mm");
+
+        // Create a new String using the date format we want
+        String dateString = formatterDate.format(created);
+        String timeString = formatterTime.format(created);
+
+        return dateString + " at " +timeString;
     }
 
     /**
