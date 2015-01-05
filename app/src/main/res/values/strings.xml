@@ -11,7 +11,7 @@
 
     <!-- No data titles -->
     <string name="no_moments">No moments yet</string>
-    <string name="no_recipes">Sorry, there are no recipes</string>
+    <string name="no_recipes">Sorry, there are no recipes yet</string>
     <string name="no_friends">No friends yet</string>
 
     <!-- Action bar titles -->
@@ -39,6 +39,10 @@
     <string name="momentLike">like</string>
     <string name="momentComments">comments</string>
     <string name="momentComment">comment</string>
+
+    <!-- Recipes fragment -->
+    <string name="recipeDifficulty">Difficulty:</string>
+    <string name="recipeCreated">Published:</string>
 
     <!-- Consumer fragment -->
     <string name="consumerUsername">Username</string>
