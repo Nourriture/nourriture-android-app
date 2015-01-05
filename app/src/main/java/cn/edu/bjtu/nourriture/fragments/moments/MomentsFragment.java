@@ -72,7 +72,7 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
     private MomentsAdapter mAdapter;
 
     /**
-     * Load some dummy moments
+     * For data loaded from API
      */
     private ArrayList<Moment> myMoments = new ArrayList<>();
 
@@ -151,6 +151,9 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
         mListener = null;
     }
 
+
+
+    // --- AdapterView.OnItemClickListener
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (null != mListener) {
