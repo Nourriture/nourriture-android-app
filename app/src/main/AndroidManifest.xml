@@ -19,12 +19,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.NewMomentActivity"
+            android:name=".activities.moments.NewMomentActivity"
             android:label="@string/title_activity_new_moment"
             android:windowSoftInputMode="stateVisible|adjustResize" >
         </activity>
         <activity
-            android:name=".activities.DetailMomentActivity"
+            android:name=".activities.moments.DetailMomentActivity"
             android:label="@string/title_activity_detail_moment"
             android:parentActivityName=".activities.MainActivity" >
             <meta-data
@@ -32,17 +32,17 @@
                 android:value="cn.edu.bjtu.nourriture.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.SocialListOfMomentActivity"
+            android:name=".activities.moments.SocialListOfMomentActivity"
             android:label="@string/title_activity_social_list_of_moment"
-            android:parentActivityName=".activities.DetailMomentActivity" >
+            android:parentActivityName=".activities.moments.DetailMomentActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="cn.edu.bjtu.nourriture.activities.DetailMomentActivity" />
+                android:value=".activities.moments.DetailMomentActivity" />
         </activity>
         <activity
-            android:launchMode="singleTop"
             android:name=".activities.RecipeProfileActivity"
-            android:label="Recipe profile" >
+            android:label="Recipe profile"
+            android:launchMode="singleTop" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.MainActivity" />
@@ -54,7 +54,7 @@
         </activity>
         <activity
             android:name=".activities.RecipeMoments"
-            android:label="Recipe's Moments" >
+            android:label="Recipe&apos;s Moments" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.RecipeProfileActivity" />
