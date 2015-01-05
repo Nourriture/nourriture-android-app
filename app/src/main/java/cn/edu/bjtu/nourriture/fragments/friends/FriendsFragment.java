@@ -206,7 +206,7 @@ import retrofit.converter.GsonConverter;
     private void showEmptyView(boolean showEmptyView){
 
         if (showEmptyView){
-            emptyTextView.setText(getString(R.string.no_moments));
+            emptyTextView.setText(getString(R.string.no_friends));
         }
         else {
             emptyTextView.setText("");
