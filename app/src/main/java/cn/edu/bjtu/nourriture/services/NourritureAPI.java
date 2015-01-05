@@ -61,7 +61,7 @@ public interface NourritureAPI {
 
     @Headers("Content-Type:application/json")
     @GET("/consumer")
-    public List<Consumer> getAllConsumers();
+    public void getAllConsumers(Callback<List<Consumer>> callback);
 
     @Headers("Content-Type:application/json")
     @GET("/consumer/{username}")
