@@ -42,13 +42,14 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
-    // SharedPreferences name
-    public static final String MY_PROFILE_PREFERENCES = "myProfile";
+    // SharedPreferences names
+    public static final String MY_PROFILE_PREFERENCES       = "myProfile";
+    public static final String MY_MOMENT_DETAIL_PREFERENCES = "myMomentDetail";
+    public static final String MY_RECIPE_DETAIL_PREFERENCES = "myRecipeDetail";
 
-
-
-    // --- INTENTs EXTRAs ---
-    public static final String DETAILED_MOMENT_ID       = "myDetailedMomentID";
+    // SharedPreferences keys
+    public static final String MY_MOMENT_ID = "myMomentDetailID";
+    public static final String MY_RECIPE_ID = "myRecipeDetailID";
 
 
 
@@ -67,19 +68,19 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer,(DrawerLayout) findViewById(R.id.drawer_layout));
 
         //FIXME: hardcoded the currently logged in Consumer. Usually this would be verified with login API call
-        SharedPreferences pref = getSharedPreferences(MY_PROFILE_PREFERENCES, 0);
+        SharedPreferences pref = getSharedPreferences(MY_PROFILE_PREFERENCES, MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit(); // used for save data
 
-        /*
+
         editor.putString(Consumer.CONSUMER_ID, "54a688dc7048351b5d2972a3"); // Storing string value
         editor.putString(Consumer.CONSUMER_USERNAME, "ctverecek"); // Storing string value
         editor.putString(Consumer.CONSUMER_NAME, "Pavel Prochazka"); // Storing string value
-        */
 
 
-        editor.putString(Consumer.CONSUMER_ID, "54a6893e7048351b5d2972a5"); // Storing string value
+
+       /* editor.putString(Consumer.CONSUMER_ID, "54a6893e7048351b5d2972a5"); // Storing string value
         editor.putString(Consumer.CONSUMER_USERNAME, "nielssj"); // Storing string value
-        editor.putString(Consumer.CONSUMER_NAME, "Niels Jensen"); // Storing string value
+        editor.putString(Consumer.CONSUMER_NAME, "Niels Jensen"); // Storing string value*/
 
 
         /*editor.putString(Consumer.CONSUMER_ID, "54a689007048351b5d2972a4"); // Storing string value
@@ -146,9 +147,13 @@ public class MainActivity extends ActionBarActivity
     public void onMomentSelected(String id) {
         System.out.println("Moment " + id);
 
+        SharedPreferences pref = getSharedPreferences(MY_MOMENT_DETAIL_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit(); // used for save data
+        editor.putString(MY_MOMENT_ID, id); // Storing string value
+        editor.commit(); // commit changes into sharedpreferences file.
+
         // Present the "Detail Moment" activity
         Intent intent = new Intent(MainActivity.this, DetailMomentActivity.class);
-        intent.putExtra(DETAILED_MOMENT_ID, id);
         startActivity(intent);
     }
 
