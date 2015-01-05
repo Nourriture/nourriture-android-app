@@ -12,13 +12,29 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.R;
 
 import cn.edu.bjtu.nourriture.dummy.DummyContent;
+import cn.edu.bjtu.nourriture.models.Consumer;
+import cn.edu.bjtu.nourriture.services.NourritureAPI;
+import cn.edu.bjtu.nourriture.services.NourritureBaseURL;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.converter.GsonConverter;
 
 /**
   * A fragment representing a list of Items.
@@ -47,11 +63,21 @@ import cn.edu.bjtu.nourriture.dummy.DummyContent;
       */
      private AbsListView mListView;
 
+    /**
+     * The text view for possible "empty text"
+     */
+    private TextView emptyTextView;
+
      /**
       * The Adapter which will be used to populate the ListView/GridView with
       * Views.
       */
-     private ListAdapter mAdapter;
+     private ConsumerAdapter mAdapter;
+
+     /**
+      * For data loaded from API
+      */
+     private ArrayList<Consumer> myConsumers = new ArrayList<>();
 
 
 
@@ -80,14 +106,14 @@ import cn.edu.bjtu.nourriture.dummy.DummyContent;
 
          setHasOptionsMenu(true);
 
-         // TODO: Change Adapter to display your content
-         mAdapter = new ArrayAdapter<DummyContent.DummyFriend>(getActivity(),
-                 android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.FRIENDS);
+         mAdapter = new ConsumerAdapter();
      }
 
      @Override
      public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
          View view = inflater.inflate(R.layout.fragment_friends, container, false);
+
+         emptyTextView = (TextView) view.findViewById(android.R.id.empty);
 
          // Set the adapter
          mListView = (AbsListView) view.findViewById(android.R.id.list);
@@ -96,13 +122,16 @@ import cn.edu.bjtu.nourriture.dummy.DummyContent;
          // Set OnItemClickListener so we can be notified on item clicks
          mListView.setOnItemClickListener(this);
 
-         if (DummyContent.FRIENDS.size() == 0) {
-             TextView t = (TextView) view.findViewById(android.R.id.empty);
-             t.setText(getString(R.string.no_friends));
-         }
-
          return view;
      }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Always fetch consumers when comes to the foreground
+        fetchAllConsumers();
+    }
 
      @Override
      public void onAttach(Activity activity) {
@@ -124,8 +153,12 @@ import cn.edu.bjtu.nourriture.dummy.DummyContent;
          mListener = null;
      }
 
+
+
+     // --- AdapterView.OnItemClickListener
      @Override
      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+         //TODO: show consumer's profile?
          if (null != mListener) {
              // Notify the active callbacks interface (the activity, if the
              // fragment is attached to one) that an item has been selected.
@@ -159,6 +192,7 @@ import cn.edu.bjtu.nourriture.dummy.DummyContent;
     }
 
 
+
     // --- HELPERs ---
     private void openSearchFriendFragment() {
         if (null != mListener) {
@@ -170,6 +204,59 @@ import cn.edu.bjtu.nourriture.dummy.DummyContent;
         }
 
     }
+
+    private void showEmptyView(boolean showEmptyView){
+
+        if (showEmptyView){
+            emptyTextView.setText(getString(R.string.no_moments));
+        }
+        else {
+            emptyTextView.setText("");
+        }
+    }
+
+
+
+    // --- API calls ---
+    private void fetchAllConsumers() {
+
+        // custom GSON parser http://stackoverflow.com/questions/18473011/retrofit-gson-serialize-date-from-json-string-into-java-util-date
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+                .create();
+
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint(NourritureBaseURL.LOCALHOST_PLATFORM_ANDROID_URL)
+                .setConverter(new GsonConverter(gson))
+                .build();
+
+        NourritureAPI api = restAdapter.create(NourritureAPI.class);
+        api.getAllConsumers(new Callback<List<Consumer>>() {
+            @Override
+            public void success(List<Consumer> consumers, Response response) {
+
+                myConsumers.clear();
+
+                myConsumers.addAll(consumers);
+
+                if (myConsumers.size() == 0) {
+                    showEmptyView(true);
+                }
+                else {
+                    showEmptyView(false);
+                }
+
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast toast = Toast.makeText(getActivity().getApplicationContext(), R.string.api_error, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
 
 
      // --- INTERFACE methods decleration ---
@@ -188,4 +275,36 @@ import cn.edu.bjtu.nourriture.dummy.DummyContent;
          public void onSearchFriendSelected();
      }
 
+
+
+    // --- CUSTOM INNER CLASS of ArrayAdapter ---
+     private class ConsumerAdapter extends ArrayAdapter {
+
+        // takes CONTEXT, LAYOUT and DATA
+        public ConsumerAdapter() {
+            super(getActivity().getBaseContext(), R.layout.row_consumer_overview, myConsumers);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+
+            View rowView = inflater.inflate(R.layout.row_consumer_overview, parent, false);
+
+            Consumer consumer = myConsumers.get(position);
+
+            //TODO: fetch from web
+            /*ImageView thumbnail = (ImageView) rowView.findViewById(R.id.consumerThumbnailImageView);
+            thumbnail.setImageResource();*/
+
+            TextView nameTextView = (TextView) rowView.findViewById(R.id.consumerNameTextView);
+            nameTextView.setText(consumer.getName());
+
+            TextView occupationTextView = (TextView) rowView.findViewById(R.id.consumerOccupationTextView);
+            occupationTextView.setText(consumer.getOccupation());
+
+            return rowView;
+        }
+    }
  }
