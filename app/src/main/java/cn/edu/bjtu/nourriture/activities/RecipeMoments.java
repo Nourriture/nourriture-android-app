@@ -18,7 +18,7 @@ import java.util.List;
 
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.dummy.DummyContent;
-import cn.edu.bjtu.nourriture.fragments.moments.MomentsAdapter;
+//import cn.edu.bjtu.nourriture.fragments.moments.MomentsAdapter;
 import cn.edu.bjtu.nourriture.models.Moment;
 
 /**
@@ -47,7 +47,7 @@ public class RecipeMoments extends ActionBarActivity
         t.setText("");
         AbsListView lv = (AbsListView) findViewById(R.id.recipeMomentsList);
         ArrayList<Moment> searchResultMoment = new ArrayList<Moment>();
-        List<DummyContent.DummyRecipe> searchResultRecipe = new ArrayList<DummyContent.DummyRecipe>();
+        /*List<DummyContent.DummyRecipe> searchResultRecipe = new ArrayList<DummyContent.DummyRecipe>();
         for (int i = 0; i < DummyContent.RECIPES.size();i++)
         {
             if (DummyContent.RECIPES.get(i).id.equals(Id))
@@ -69,9 +69,9 @@ public class RecipeMoments extends ActionBarActivity
                     }
                 }
             }
-        }
-        ListAdapter arrayAdapter;
-        arrayAdapter = new MomentsAdapter(this, searchResultMoment);
+        }*/
+        ListAdapter arrayAdapter = null;
+        //arrayAdapter = new MomentsAdapter(this, searchResultMoment);
 
         lv.setAdapter(arrayAdapter);
     }

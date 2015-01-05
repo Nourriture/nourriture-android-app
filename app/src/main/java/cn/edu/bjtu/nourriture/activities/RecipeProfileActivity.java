@@ -60,7 +60,7 @@ public class RecipeProfileActivity extends ActionBarActivity
                 TextView info = (TextView) findViewById(R.id.info);
                 info.setText(DummyContent.RECIPES.get(i).info);
 
-                final Button ShowMoment = (Button) findViewById(R.id.ShowMoment);
+                /*final Button ShowMoment = (Button) findViewById(R.id.ShowMoment);
                 ShowMoment.setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -75,7 +75,7 @@ public class RecipeProfileActivity extends ActionBarActivity
                             }
                         }
                     }
-                });
+                });*/
 
             }
 
