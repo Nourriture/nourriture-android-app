@@ -26,8 +26,8 @@ import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.models.Consumer;
 import cn.edu.bjtu.nourriture.models.Like;
 import cn.edu.bjtu.nourriture.models.Moment;
+import cn.edu.bjtu.nourriture.services.Constants;
 import cn.edu.bjtu.nourriture.services.NourritureAPI;
-import cn.edu.bjtu.nourriture.services.NourritureBaseURL;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -161,7 +161,7 @@ public class DetailMomentActivity extends ActionBarActivity implements AdapterVi
                 .create();
 
         RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint(NourritureBaseURL.LOCALHOST_PLATFORM_ANDROID_URL)
+                .setEndpoint(Constants.NOURRITURE_PLATFORM_ANDROID_URL)
                 .setConverter(new GsonConverter(gson))
                 .build();
 
@@ -197,7 +197,7 @@ public class DetailMomentActivity extends ActionBarActivity implements AdapterVi
         l.setName(consumerName);
 
         RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint(NourritureBaseURL.LOCALHOST_PLATFORM_ANDROID_URL)
+                .setEndpoint(Constants.NOURRITURE_PLATFORM_ANDROID_URL)
                 .build();
 
         NourritureAPI api = restAdapter.create(NourritureAPI.class);

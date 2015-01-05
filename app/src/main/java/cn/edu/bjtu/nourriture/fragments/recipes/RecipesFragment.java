@@ -27,8 +27,8 @@ import java.util.List;
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.models.Recipe;
+import cn.edu.bjtu.nourriture.services.Constants;
 import cn.edu.bjtu.nourriture.services.NourritureAPI;
-import cn.edu.bjtu.nourriture.services.NourritureBaseURL;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -219,7 +219,7 @@ public class RecipesFragment extends Fragment implements AbsListView.OnItemClick
                 .create();
 
         RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint(NourritureBaseURL.LOCALHOST_PLATFORM_URL)
+                .setEndpoint(Constants.NOURRITURE_PLATFORM_URL)
                 .setConverter(new GsonConverter(gson))
                 .build();
 

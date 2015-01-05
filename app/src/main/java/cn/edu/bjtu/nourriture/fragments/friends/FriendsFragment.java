@@ -26,8 +26,8 @@ import cn.edu.bjtu.nourriture.R;
 
 import cn.edu.bjtu.nourriture.adapters.ConsumersAdapter;
 import cn.edu.bjtu.nourriture.models.Consumer;
+import cn.edu.bjtu.nourriture.services.Constants;
 import cn.edu.bjtu.nourriture.services.NourritureAPI;
-import cn.edu.bjtu.nourriture.services.NourritureBaseURL;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -224,7 +224,7 @@ import retrofit.converter.GsonConverter;
                 .create();
 
         RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint(NourritureBaseURL.LOCALHOST_PLATFORM_ANDROID_URL)
+                .setEndpoint(Constants.NOURRITURE_PLATFORM_ANDROID_URL)
                 .setConverter(new GsonConverter(gson))
                 .build();
 

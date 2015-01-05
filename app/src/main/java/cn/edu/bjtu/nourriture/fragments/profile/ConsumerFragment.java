@@ -22,8 +22,8 @@ import java.util.HashMap;
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.models.Consumer;
+import cn.edu.bjtu.nourriture.services.Constants;
 import cn.edu.bjtu.nourriture.services.NourritureAPI;
-import cn.edu.bjtu.nourriture.services.NourritureBaseURL;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -151,7 +151,7 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
     // --- API calls ---
     private void fetchConsumerInfo() {
         RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint(NourritureBaseURL.LOCALHOST_PLATFORM_ANDROID_URL)
+                .setEndpoint(Constants.NOURRITURE_PLATFORM_ANDROID_URL)
                 .build();
 
         SharedPreferences pref = getActivity().getSharedPreferences(MainActivity.MY_PROFILE_PREFERENCES, 0); // 0 - for private mode
