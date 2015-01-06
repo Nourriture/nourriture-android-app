@@ -75,5 +75,7 @@
 
     <!-- Detail recipe activity -->
     <string name="title_activity_detail_recipe">Recipe</string>
+    <string name="recipeDetailIngredients">Ingredients:</string>
+    <string name="recipeDetailNutritions">Nutritions:</string>
 
 </resources>
