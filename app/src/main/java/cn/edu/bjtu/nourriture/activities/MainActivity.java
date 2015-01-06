@@ -15,8 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import cn.edu.bjtu.nourriture.R;
-import cn.edu.bjtu.nourriture.activities.moments.DetailMomentActivity;
-import cn.edu.bjtu.nourriture.activities.moments.NewMomentActivity;
+import cn.edu.bjtu.nourriture.activities.moment.DetailMomentActivity;
+import cn.edu.bjtu.nourriture.activities.moment.NewMomentActivity;
+import cn.edu.bjtu.nourriture.activities.recipe.DetailRecipeActivity;
 import cn.edu.bjtu.nourriture.fragments.NavigationDrawerFragment;
 import cn.edu.bjtu.nourriture.fragments.friends.FriendsFragment;
 import cn.edu.bjtu.nourriture.fragments.moments.MomentsFragment;
@@ -222,12 +223,16 @@ public class MainActivity extends ActionBarActivity
      */
     @Override
     public void onRecipeSelected(String id) {
-        //Bundle b = new Bundle();
-        //b.putString("name", name);
-        Intent intent = new Intent(MainActivity.this, RecipeProfileActivity.class);
-        intent.putExtra("id", id);
+        System.out.println("Recipe " + id);
+
+        SharedPreferences pref = getSharedPreferences(MY_RECIPE_DETAIL_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit(); // used for save data
+        editor.putString(MY_RECIPE_ID, id); // Storing string value
+        editor.commit(); // commit changes into sharedpreferences file.
+
+        // Present the "Detail Recipe" activity
+        Intent intent = new Intent(MainActivity.this, DetailRecipeActivity.class);
         startActivity(intent);
-//        System.out.println("Recipe " + name);
     }
 
     //FIXME: WTF is this for???
