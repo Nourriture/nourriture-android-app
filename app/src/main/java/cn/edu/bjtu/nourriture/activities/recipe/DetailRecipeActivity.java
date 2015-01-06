@@ -131,11 +131,24 @@ public class DetailRecipeActivity extends ActionBarActivity implements AdapterVi
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_cook_recipe) {
+            startCookRecipe();
+            return true;
+        }
+        else if (id == R.id.action_recipe_moments){
+            showRecipeMoments();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void startCookRecipe() {
+
+    }
+
+    private void showRecipeMoments() {
+
     }
 
 
