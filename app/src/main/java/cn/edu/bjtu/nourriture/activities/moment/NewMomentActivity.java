@@ -1,4 +1,4 @@
-package cn.edu.bjtu.nourriture.activities.moments;
+package cn.edu.bjtu.nourriture.activities.moment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;

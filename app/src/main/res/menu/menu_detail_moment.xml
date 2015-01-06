@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="cn.edu.bjtu.nourriture.activities.moments.DetailMomentActivity">
+    tools:context="cn.edu.bjtu.nourriture.activities.moment.DetailMomentActivity">
 
     <item android:id="@+id/action_like_moment"
         android:icon="@drawable/ic_action_favorite"
