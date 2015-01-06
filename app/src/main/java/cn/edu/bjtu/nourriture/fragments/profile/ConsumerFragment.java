@@ -154,7 +154,7 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
                 .setEndpoint(Constants.NOURRITURE_PLATFORM_ANDROID_URL)
                 .build();
 
-        SharedPreferences pref = getActivity().getSharedPreferences(MainActivity.MY_PROFILE_PREFERENCES, 0); // 0 - for private mode
+        SharedPreferences pref = getActivity().getSharedPreferences(MainActivity.SHARED_PREFERENCES_CURRENT_PROFILE, 0); // 0 - for private mode
         String username = pref.getString(Consumer.CONSUMER_USERNAME, "");
 
         NourritureAPI api = restAdapter.create(NourritureAPI.class);
