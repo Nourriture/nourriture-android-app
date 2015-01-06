@@ -1,5 +1,6 @@
 package cn.edu.bjtu.nourriture.activities.recipe;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -144,11 +145,13 @@ public class DetailRecipeActivity extends ActionBarActivity implements AdapterVi
     }
 
     private void startCookRecipe() {
-
+        Toast toast = Toast.makeText(getApplicationContext(), "Feature not implemented yet", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
     private void showRecipeMoments() {
-
+        Intent intent = new Intent(DetailRecipeActivity.this, MomentsOfRecipeActivity.class);
+        startActivity(intent);
     }
 
 
