@@ -22,7 +22,8 @@
     <string name="action_add_moment">Add moment</string>
     <string name="action_add_friend">Add friend</string>
     <string name="action_like_moment">Like</string>
-    <string name="action_comment_on_moment">Comment</string>
+    <string name="action_recipe_moments">Moments</string>
+    <string name="action_cook_recipe">Cook recipe</string>
     <string name="action_search">Search</string>
 
     <!-- Toast texts -->
