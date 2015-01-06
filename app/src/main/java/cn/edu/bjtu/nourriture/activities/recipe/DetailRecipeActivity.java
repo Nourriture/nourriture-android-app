@@ -49,7 +49,9 @@ public class DetailRecipeActivity extends ActionBarActivity implements AdapterVi
 
     private ListView listView;
 
-    // Intent EXTRA
+
+
+    // --- INTENTs EXTRAs ---
     public static final String INTENT_RECIPE_ID = "currentRecipeID";
 
 
@@ -60,8 +62,9 @@ public class DetailRecipeActivity extends ActionBarActivity implements AdapterVi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_recipe);
 
-        SharedPreferences pref = getSharedPreferences(MainActivity.MY_RECIPE_DETAIL_PREFERENCES, MODE_PRIVATE); // 0 - for private mode
-        current_recipe_id = pref.getString(MainActivity.MY_RECIPE_ID, "");
+        // Reading the recipe_id from SharedPreferences to avoid problems, when MomentsOfRecipeActivity dismissed
+        SharedPreferences pref = getSharedPreferences(MainActivity.SHARED_PREFERENCES_RECIPE_DETAIL, MODE_PRIVATE); // 0 - for private mode
+        current_recipe_id = pref.getString(MainActivity.CURRENT_RECIPE_ID, "");
 
         currentRecipeDataToShow = new ArrayList<>();
 
