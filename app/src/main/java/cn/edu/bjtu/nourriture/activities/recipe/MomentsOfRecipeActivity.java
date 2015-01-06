@@ -1,13 +1,9 @@
 package cn.edu.bjtu.nourriture.activities.recipe;
 
 import android.support.v7.app.ActionBarActivity;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.fragments.moments.MomentsFragment;
@@ -20,10 +16,14 @@ public class MomentsOfRecipeActivity extends ActionBarActivity implements Moment
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_moments_of_recipe);
+
+        String query = getIntent().getStringExtra(DetailRecipeActivity.INTENT_RECIPE_ID);
+
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, MomentsFragment.newInstance(1))
+                    .add(R.id.container, MomentsFragment.newInstance(101, MomentsFragment.MOMENTS_QUERY_TYPE.RECIPE, query))
                     .commit();
         }
     }
@@ -38,6 +38,7 @@ public class MomentsOfRecipeActivity extends ActionBarActivity implements Moment
         return true;
     }
 
+    // will get overwritten by the MomentsFragment anyways
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
