@@ -218,11 +218,11 @@ public class DetailMomentActivity extends ActionBarActivity implements AdapterVi
         });
     }
 
-    private void commentOnMoment() {
+    /*private void commentOnMoment() {
         //TODO: implement
         Toast toast = Toast.makeText(getApplicationContext(), "Feature not implemented yet", Toast.LENGTH_SHORT);
         toast.show();
-    }
+    }*/
 
 
 
