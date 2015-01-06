@@ -8,8 +8,8 @@
         android:title="@string/action_like_moment"
         app:showAsAction="always|withText" />
 
-    <item android:id="@+id/action_comment_on_moment"
-        android:icon="@drawable/ic_action_chat"
-        android:title="@string/action_comment_on_moment"
-        app:showAsAction="always|withText" />
+    <!--<item android:id="@+id/action_comment_on_moment"-->
+        <!--android:icon="@drawable/ic_action_chat"-->
+        <!--android:title="@string/action_comment_on_moment"-->
+        <!--app:showAsAction="always|withText" />-->
 </menu>
