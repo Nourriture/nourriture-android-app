@@ -348,7 +348,7 @@ public class Recipe {
         }
 
         HashMap difficultyDic = new HashMap();
-        difficultyDic.put(Recipe.RECIPE_DIFFICULTY, difficulty);
+        difficultyDic.put(Recipe.RECIPE_DIFFICULTY, difficulty + " out of 5");
         result.add(difficultyDic);
 
         HashMap ingredientsHeaderDic = new HashMap();
