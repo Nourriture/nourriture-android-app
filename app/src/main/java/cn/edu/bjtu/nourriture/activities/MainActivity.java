@@ -49,10 +49,12 @@ public class MainActivity extends ActionBarActivity
     public static final String MY_PROFILE_PREFERENCES       = "myProfile";
     public static final String MY_MOMENT_DETAIL_PREFERENCES = "myMomentDetail";
     public static final String MY_RECIPE_DETAIL_PREFERENCES = "myRecipeDetail";
+    public static final String CURRENT_SECTION_PREFERENCES  = "currentSection";
 
     // SharedPreferences keys
-    public static final String MY_MOMENT_ID = "myMomentDetailID";
-    public static final String MY_RECIPE_ID = "myRecipeDetailID";
+    public static final String MY_MOMENT_ID         = "myMomentDetailID";
+    public static final String MY_RECIPE_ID         = "myRecipeDetailID";
+    public static final String CURRENT_SECTION_ID   = "currentSectionID";
 
 
 
@@ -70,27 +72,11 @@ public class MainActivity extends ActionBarActivity
         // Set up the drawer.
         mNavigationDrawerFragment.setUp(R.id.navigation_drawer,(DrawerLayout) findViewById(R.id.drawer_layout));
 
-        //FIXME: hardcoded the currently logged in Consumer. Usually this would be verified with login API call
-        SharedPreferences pref = getSharedPreferences(MY_PROFILE_PREFERENCES, MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit(); // used for save data
+        // Save hardcoded consumer values into the SharedPreferences
+        loggedInConsumer();
 
-
-        editor.putString(Consumer.CONSUMER_ID, "54a688dc7048351b5d2972a3"); // Storing string value
-        editor.putString(Consumer.CONSUMER_USERNAME, "ctverecek"); // Storing string value
-        editor.putString(Consumer.CONSUMER_NAME, "Pavel Prochazka"); // Storing string value
-
-
-
-       /* editor.putString(Consumer.CONSUMER_ID, "54a6893e7048351b5d2972a5"); // Storing string value
-        editor.putString(Consumer.CONSUMER_USERNAME, "nielssj"); // Storing string value
-        editor.putString(Consumer.CONSUMER_NAME, "Niels Jensen"); // Storing string value*/
-
-
-        /*editor.putString(Consumer.CONSUMER_ID, "54a689007048351b5d2972a4"); // Storing string value
-        editor.putString(Consumer.CONSUMER_USERNAME, "arnaudkevin"); // Storing string value
-        editor.putString(Consumer.CONSUMER_NAME, "Arnaud Kevin"); // Storing string value*/
-
-        editor.commit(); // commit changes into sharedpreferences file.
+        // Read what is the last opened activity instance
+        lastOpenedActivityInstance();
     }
 
 
@@ -158,6 +144,9 @@ public class MainActivity extends ActionBarActivity
         // Present the "Detail Moment" activity
         Intent intent = new Intent(MainActivity.this, DetailMomentActivity.class);
         startActivity(intent);
+
+        // To persist state
+        saveLastOpenedActivityInstance(0);
     }
 
     @Override
@@ -233,6 +222,9 @@ public class MainActivity extends ActionBarActivity
         // Present the "Detail Recipe" activity
         Intent intent = new Intent(MainActivity.this, DetailRecipeActivity.class);
         startActivity(intent);
+
+        // To persist state
+        saveLastOpenedActivityInstance(1);
     }
 
     //FIXME: WTF is this for???
@@ -271,6 +263,9 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onFriendSelected(String id) {
         System.out.println("Friend " + id);
+
+        // To persist state
+        // saveLastOpenedActivityInstance(2);
     }
 
     /**
@@ -305,6 +300,42 @@ public class MainActivity extends ActionBarActivity
                 mTitle = getString(R.string.title_section4);
                 break;
         }
+    }
+
+    private void loggedInConsumer() {
+
+        //FIXME: hardcoded the currently logged in Consumer. Usually this would be verified with login API call
+        SharedPreferences pref = getSharedPreferences(MY_PROFILE_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit(); // used for save data
+
+        editor.putString(Consumer.CONSUMER_ID, "54a688dc7048351b5d2972a3"); // Storing string value
+        editor.putString(Consumer.CONSUMER_USERNAME, "ctverecek"); // Storing string value
+        editor.putString(Consumer.CONSUMER_NAME, "Pavel Prochazka"); // Storing string value
+
+       /* editor.putString(Consumer.CONSUMER_ID, "54a6893e7048351b5d2972a5"); // Storing string value
+        editor.putString(Consumer.CONSUMER_USERNAME, "nielssj"); // Storing string value
+        editor.putString(Consumer.CONSUMER_NAME, "Niels Jensen"); // Storing string value*/
+
+
+        /*editor.putString(Consumer.CONSUMER_ID, "54a689007048351b5d2972a4"); // Storing string value
+        editor.putString(Consumer.CONSUMER_USERNAME, "arnaudkevin"); // Storing string value
+        editor.putString(Consumer.CONSUMER_NAME, "Arnaud Kevin"); // Storing string value*/
+
+        editor.commit(); // commit changes into sharedpreferences file.
+    }
+
+    private void lastOpenedActivityInstance(){
+        SharedPreferences pref = getSharedPreferences(MainActivity.CURRENT_SECTION_PREFERENCES, MODE_PRIVATE); // 0 - for private mode
+        int sectionID = pref.getInt(MainActivity.CURRENT_SECTION_ID, 0);    //default will be 0
+
+        onNavigationDrawerItemSelected(sectionID);
+    }
+
+    private void saveLastOpenedActivityInstance(int number){
+        SharedPreferences pref = getSharedPreferences(CURRENT_SECTION_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit(); // used for save data
+        editor.putInt(CURRENT_SECTION_ID, number);
+        editor.commit();
     }
 
 
