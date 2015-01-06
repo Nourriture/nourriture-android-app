@@ -23,6 +23,7 @@ import java.util.List;
 
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.R;
+import cn.edu.bjtu.nourriture.activities.recipe.MomentsOfRecipeActivity;
 import cn.edu.bjtu.nourriture.adapters.MomentsAdapter;
 import cn.edu.bjtu.nourriture.models.Moment;
 import cn.edu.bjtu.nourriture.services.Constants;
@@ -44,6 +45,11 @@ import retrofit.converter.GsonConverter;
  */
 public class MomentsFragment extends Fragment implements AbsListView.OnItemClickListener {
 
+    // To distingush, how to query "GET /moment" endpoint
+    public enum MOMENTS_QUERY_TYPE{
+        RECIPE, CONSUMER, FOLLOWED_BY, ALL
+    }
+
 
 
     // --- PROPERTIES ---
@@ -51,7 +57,9 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
      * The fragment argument representing the section number for this
      * fragment.
      */
-    private static final String ARG_SECTION_NUMBER = "section_number";
+    private static final String ARG_SECTION_NUMBER  = "section_number";
+    private static final String ARG_MOMENTS_QUERY_TYPE   = "moments_query";
+    private static final String ARG_QUERY_STRING    = "query_string";
 
     private OnFragmentInteractionListener mListener;
 
@@ -76,13 +84,20 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
      */
     private ArrayList<Moment> myMoments = new ArrayList<>();
 
+    private MOMENTS_QUERY_TYPE queryType;
+    private String query;
+
 
 
     // --- CONSTRUCTOR ---
-    public static MomentsFragment newInstance(int sectionNumber) {
+    public static MomentsFragment newInstance(int sectionNumber, MOMENTS_QUERY_TYPE queryType, String query) {
         MomentsFragment fragment = new MomentsFragment();
         Bundle args = new Bundle();
+
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        args.putInt(ARG_MOMENTS_QUERY_TYPE, queryType.ordinal());
+        args.putString(ARG_QUERY_STRING, query);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -100,6 +115,11 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            queryType = MOMENTS_QUERY_TYPE.values()[getArguments().getInt(ARG_MOMENTS_QUERY_TYPE)];
+            query = getArguments().getString(ARG_QUERY_STRING);
+        }
 
         setHasOptionsMenu(true);
 
@@ -127,7 +147,7 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
         super.onResume();
 
         // Always fetch moments when comes to the foreground
-        fetchAllMoments();
+        fetchMoments();
     }
 
     @Override
@@ -136,8 +156,13 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
         try {
             mListener = (OnFragmentInteractionListener) activity;
 
-            // Tell the main activity that fragment has been attached (will change the title)
-            ((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));
+            if (activity.getClass() == MainActivity.class){
+                // Tell the main activity that fragment has been attached (will change the title)
+                ((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));
+            }
+            else if (activity.getClass() == MomentsOfRecipeActivity.class){
+                //TODO:do I need to let activity know about something?
+            }
 
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
@@ -215,7 +240,7 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
 
 
     // --- API calls ---
-    private void fetchAllMoments() {
+    private void fetchMoments() {
 
         // custom GSON parser http://stackoverflow.com/questions/18473011/retrofit-gson-serialize-date-from-json-string-into-java-util-date
         Gson gson = new GsonBuilder()
@@ -225,35 +250,57 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(Constants.NOURRITURE_PLATFORM_ANDROID_URL)
                 .setConverter(new GsonConverter(gson))
+                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
 
         NourritureAPI api = restAdapter.create(NourritureAPI.class);
 
-        //once response is received, in case of JSON api your data will be transformed to your model using Gson library
-        api.getAllMoments(new Callback<List<Moment>>() {
-            @Override
-            public void success(List<Moment> moments, Response response) {
-
-                myMoments.clear();
-
-                myMoments.addAll(moments);
-
-                if (myMoments.size() == 0) {
-                    showEmptyView(true);
-                }
-                else {
-                    showEmptyView(false);
+        if (queryType == MOMENTS_QUERY_TYPE.RECIPE){
+            api.getMomentsForRecipe(query, new Callback<List<Moment>>() {
+                @Override
+                public void success(List<Moment> moments, Response response) {
+                    handleSuccessRequest(moments, response);
                 }
 
-                mAdapter.notifyDataSetChanged();    // Notifies the attached observers that the underlying data has been changed and any View reflecting the data set should refresh itself
-            }
+                @Override
+                public void failure(RetrofitError error) {
+                    handleFailureRequest(error);
+                }
+            });
+        }
+        else if (queryType == MOMENTS_QUERY_TYPE.ALL){
+            api.getAllMoments(new Callback<List<Moment>>() {
+                @Override
+                public void success(List<Moment> moments, Response response) {
+                    handleSuccessRequest(moments, response);
+                }
 
-            @Override
-            public void failure(RetrofitError error) {
-                Toast toast = Toast.makeText(getActivity().getApplicationContext(), R.string.api_error, Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
+                @Override
+                public void failure(RetrofitError error) {
+                    handleFailureRequest(error);
+                }
+            });
+        }
+    }
+
+    private void handleSuccessRequest(List<Moment> moments, Response response){
+        myMoments.clear();
+
+        myMoments.addAll(moments);
+
+        if (myMoments.size() == 0) {
+            showEmptyView(true);
+        }
+        else {
+            showEmptyView(false);
+        }
+
+        mAdapter.notifyDataSetChanged();    // Notifies the attached observers that the underlying data has been changed and any View reflecting the data set should refresh itself
+    }
+
+    private void handleFailureRequest(RetrofitError error){
+        Toast toast = Toast.makeText(getActivity().getApplicationContext(), R.string.api_error, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
 
