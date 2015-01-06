@@ -289,7 +289,7 @@ public class RecipesFragment extends Fragment implements AbsListView.OnItemClick
                     .load(url)
                     .resize(50, 50)
                     .centerCrop()
-                    .placeholder(R.drawable.user_placeholder)
+                    .placeholder(R.drawable.image_placeholder)
                     .into(thumbnail);
 
             // Recipe name
