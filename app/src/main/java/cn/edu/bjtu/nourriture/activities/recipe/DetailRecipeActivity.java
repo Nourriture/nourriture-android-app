@@ -213,6 +213,13 @@ public class DetailRecipeActivity extends ActionBarActivity implements AdapterVi
                 TextView titleView = (TextView) rowView.findViewById(R.id.header);
                 titleView.setText(recipeInfo.get(Recipe.RECIPE_RECIPE_HEADER).toString());
             }
+            // row with TEXT only
+            else if (recipeInfo.containsKey(Recipe.RECIPE_INGREDIENSTS)){
+                rowView = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+
+                TextView textView = (TextView) rowView.findViewById(android.R.id.text1);
+                textView.setText(recipeInfo.get(Recipe.RECIPE_INGREDIENSTS).toString());
+            }
             // row with TITLE and VALUE
             else {
                 rowView = inflater.inflate(R.layout.row_consumer_title_and_value, parent, false);
@@ -230,11 +237,7 @@ public class DetailRecipeActivity extends ActionBarActivity implements AdapterVi
                 }
                 else if (recipeInfo.containsKey(Recipe.RECIPE_DIFFICULTY)){
                     titleTextView.setText(R.string.recipeDetailDifficulty);
-                    valueTextView.setText(recipeInfo.get(Recipe.RECIPE_DIFFICULTY).toString() + " out of 5");
-                }
-                else if (recipeInfo.containsKey(Recipe.RECIPE_INGREDIENSTS)){
-                    titleTextView.setText("Ingredient:");
-                    valueTextView.setText("hovno");
+                    valueTextView.setText(recipeInfo.get(Recipe.RECIPE_DIFFICULTY).toString());
                 }
                 else if (recipeInfo.containsKey(Recipe.RECIPE_CALORIES)){
                     titleTextView.setText(R.string.recipeDetailCalories);
