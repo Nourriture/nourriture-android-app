@@ -68,9 +68,12 @@
     <string name="momentDetailLikes">Likes:</string>
     <string name="momentDetailComments">Comments:</string>
 
-    <!-- Social list activity-->
+    <!-- Social list activity -->
     <string name="title_activity_social_list_of_moment">SocialListOfMomentActivity</string>
     <string name="listTypeLikes">Likes</string>
     <string name="listTypeComments">Comments</string>
+
+    <!-- Detail recipe activity -->
+    <string name="title_activity_detail_recipe">Recipe</string>
 
 </resources>
