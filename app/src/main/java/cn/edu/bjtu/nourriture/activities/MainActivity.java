@@ -46,15 +46,17 @@ public class MainActivity extends ActionBarActivity
     private CharSequence mTitle;
 
     // SharedPreferences names
-    public static final String MY_PROFILE_PREFERENCES       = "myProfile";
-    public static final String MY_MOMENT_DETAIL_PREFERENCES = "myMomentDetail";
-    public static final String MY_RECIPE_DETAIL_PREFERENCES = "myRecipeDetail";
-    public static final String CURRENT_SECTION_PREFERENCES  = "currentSection";
+    public static final String SHARED_PREFERENCES_CURRENT_PROFILE   = "myProfile";  //used for Consumer info
 
-    // SharedPreferences keys
-    public static final String MY_MOMENT_ID         = "myMomentDetailID";
-    public static final String MY_RECIPE_ID         = "myRecipeDetailID";
-    public static final String CURRENT_SECTION_ID   = "currentSectionID";
+    public static final String SHARED_PREFERENCES_CURRENT_SECTION   = "currentSection"; //used to maintain selected section in menu
+    public static final String CURRENT_SECTION_ID                   = "currentSectionID";
+
+    public static final String SHARED_PREFERENCES_MOMENT_DETAIL     = "myMomentDetail";
+    public static final String CURRENT_MOMENT_ID                    = "myMomentDetailID";
+
+
+    public static final String SHARED_PREFERENCES_RECIPE_DETAIL     = "myRecipeDetail";
+    public static final String CURRENT_RECIPE_ID                    = "myRecipeDetailID";
 
 
 
@@ -96,8 +98,8 @@ public class MainActivity extends ActionBarActivity
         switch (position){
             case 0:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, MomentsFragment.newInstance(position + 1))
-                        .addToBackStack( "MomentTag" )
+                        .replace(R.id.container, MomentsFragment.newInstance(position + 1, MomentsFragment.MOMENTS_QUERY_TYPE.ALL, ""))    //TODO: change to followedBy
+                        .addToBackStack("MomentTag")
                         .commit();
                 break;
             case 1:
@@ -136,9 +138,9 @@ public class MainActivity extends ActionBarActivity
     public void onMomentSelected(String id) {
         System.out.println("Moment " + id);
 
-        SharedPreferences pref = getSharedPreferences(MY_MOMENT_DETAIL_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences pref = getSharedPreferences(SHARED_PREFERENCES_MOMENT_DETAIL, MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit(); // used for save data
-        editor.putString(MY_MOMENT_ID, id); // Storing string value
+        editor.putString(CURRENT_MOMENT_ID, id); // Storing string value
         editor.commit(); // commit changes into sharedpreferences file.
 
         // Present the "Detail Moment" activity
@@ -156,45 +158,9 @@ public class MainActivity extends ActionBarActivity
         Intent intent_info = new Intent(MainActivity.this, NewMomentActivity.class);
         startActivity(intent_info);
         overridePendingTransition(R.anim.slide_up_animation,R.anim.no_change_animation);
-    }
 
-    //FIXME: WTF is this for???
-    public void momentSearchByRecipe(View view){
-        /*TextView t = (TextView) findViewById(R.id.momentNotFound);
-        t.setText("");
-        AbsListView lv = (AbsListView) findViewById(R.id.momentList);
-        ArrayList<Moment> searchResultMoment = new ArrayList<Moment>();
-        List<DummyContent.DummyRecipe> searchResultRecipe = new ArrayList<DummyContent.DummyRecipe>();
-        final EditText searchBar = (EditText) findViewById(R.id.momentSearchBar);
-        for (int i = 0; i < DummyContent.RECIPES.size();i++)
-        {
-            if (DummyContent.RECIPES.get(i).content.toUpperCase().equals(searchBar.getText().toString().toUpperCase()))
-            {
-                searchResultRecipe.add(DummyContent.RECIPES.get(i));
-            }
-        }
-        if (searchResultRecipe.size() == 0) {
-            t.setText(getString(R.string.no_moments));
-        }
-        else{
-            for (int i = 0; i < searchResultRecipe.size();i++)
-            {
-                for (int a = 0; a < DummyContent.MOMENTS.size();a++)
-                {
-                    if (DummyContent.MOMENTS.get(a).getMomentSubjectID().equals(searchResultRecipe.get(i).id))
-                    {
-                        searchResultMoment.add(DummyContent.MOMENTS.get(a));
-                    }
-                }
-            }
-        }
-        ListAdapter arrayAdapter;
-        arrayAdapter = new MomentsAdapter(this, searchResultMoment);
-
-        lv.setAdapter(arrayAdapter);
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);*/
-
+        // To persist state
+        saveLastOpenedActivityInstance(0);
     }
 
     public void onSearchFriendSelected() {
@@ -214,9 +180,9 @@ public class MainActivity extends ActionBarActivity
     public void onRecipeSelected(String id) {
         System.out.println("Recipe " + id);
 
-        SharedPreferences pref = getSharedPreferences(MY_RECIPE_DETAIL_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences pref = getSharedPreferences(SHARED_PREFERENCES_RECIPE_DETAIL, MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit(); // used for save data
-        editor.putString(MY_RECIPE_ID, id); // Storing string value
+        editor.putString(CURRENT_RECIPE_ID, id); // Storing string value
         editor.commit(); // commit changes into sharedpreferences file.
 
         // Present the "Detail Recipe" activity
@@ -225,34 +191,6 @@ public class MainActivity extends ActionBarActivity
 
         // To persist state
         saveLastOpenedActivityInstance(1);
-    }
-
-    //FIXME: WTF is this for???
-    public void recipeSearch(View view){
-        /*TextView t = (TextView) findViewById(R.id.notFound);
-        t.setText("");
-        AbsListView lv = (AbsListView) findViewById(R.id.recipeList);
-        List<DummyContent.DummyRecipe> searchResult = new ArrayList<DummyContent.DummyRecipe>();
-        final EditText searchBar = (EditText) findViewById(R.id.recipeSearchbar);
-        Log.d("test", "["+searchBar.getText().toString()+"]");
-        if (!searchBar.getText().toString().isEmpty()) {
-            for (int i = 0; i < DummyContent.RECIPES.size(); i++) {
-                if (DummyContent.RECIPES.get(i).content.toUpperCase().equals(searchBar.getText().toString().toUpperCase())) {
-                    searchResult.add(DummyContent.RECIPES.get(i));
-                }
-            }
-            if (searchResult.size() == 0) {
-                t.setText(getString(R.string.no_recipes));
-            }
-            ArrayAdapter<DummyContent.DummyRecipe> arrayAdapter = new ArrayAdapter<DummyContent.DummyRecipe>(
-                    this,
-                    android.R.layout.simple_list_item_1,
-                    searchResult);
-
-            lv.setAdapter(arrayAdapter);
-        }
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);*/
     }
 
     /**
@@ -305,7 +243,7 @@ public class MainActivity extends ActionBarActivity
     private void loggedInConsumer() {
 
         //FIXME: hardcoded the currently logged in Consumer. Usually this would be verified with login API call
-        SharedPreferences pref = getSharedPreferences(MY_PROFILE_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences pref = getSharedPreferences(SHARED_PREFERENCES_CURRENT_PROFILE, MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit(); // used for save data
 
         editor.putString(Consumer.CONSUMER_ID, "54a688dc7048351b5d2972a3"); // Storing string value
@@ -325,14 +263,14 @@ public class MainActivity extends ActionBarActivity
     }
 
     private void lastOpenedActivityInstance(){
-        SharedPreferences pref = getSharedPreferences(MainActivity.CURRENT_SECTION_PREFERENCES, MODE_PRIVATE); // 0 - for private mode
+        SharedPreferences pref = getSharedPreferences(MainActivity.SHARED_PREFERENCES_CURRENT_SECTION, MODE_PRIVATE); // 0 - for private mode
         int sectionID = pref.getInt(MainActivity.CURRENT_SECTION_ID, 0);    //default will be 0
 
         onNavigationDrawerItemSelected(sectionID);
     }
 
     private void saveLastOpenedActivityInstance(int number){
-        SharedPreferences pref = getSharedPreferences(CURRENT_SECTION_PREFERENCES, MODE_PRIVATE);
+        SharedPreferences pref = getSharedPreferences(SHARED_PREFERENCES_CURRENT_SECTION, MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit(); // used for save data
         editor.putInt(CURRENT_SECTION_ID, number);
         editor.commit();
