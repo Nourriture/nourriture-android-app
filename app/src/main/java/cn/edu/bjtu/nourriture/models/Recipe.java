@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by Pavel Procházka on 29/12/14.
  */
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;
@@ -15,6 +15,18 @@ import com.google.gson.annotations.SerializedName;
 
 @Generated("org.jsonschema2pojo")
 public class Recipe {
+
+    // Used in getRecipeInfoToDisplay() as hashmap's KEY
+    // Used in DetailRecipeActivity
+    public static final String RECIPE_PICTURE       = "picture";
+    public static final String RECIPE_TITLE         = "title";
+    public static final String RECIPE_DESCRIPTION   = "description";
+    public static final String RECIPE_DIFFICULTY    = "difficutly";
+    public static final String RECIPE_INGREDIENSTS  = "ingredients";    //will be an array of Ingredient
+    public static final String RECIPE_CALORIES      = "calories";
+    public static final String RECIPE_CARBS         = "carbs";
+    public static final String RECIPE_PROTEINS      = "proteins";
+    public static final String RECIPE_FATS          = "fats";
 
     @SerializedName("_id")
     @Expose
@@ -307,4 +319,55 @@ public class Recipe {
         this.instructions = instructions;
     }
 
+
+
+    public ArrayList<HashMap> getRecipeInfoToDisplay(){
+        ArrayList<HashMap> result = new ArrayList<>();
+
+        if (picture != null && !picture.isEmpty()) {
+            HashMap textDic = new HashMap();
+            textDic.put(Recipe.RECIPE_PICTURE, picture);
+            result.add(textDic);
+        }
+
+        if (title != null && !title.isEmpty()) {
+            HashMap textDic = new HashMap();
+            textDic.put(Recipe.RECIPE_TITLE, title);
+            result.add(textDic);
+        }
+
+        if (description != null && !description.isEmpty()) {
+            HashMap textDic = new HashMap();
+            textDic.put(Recipe.RECIPE_DESCRIPTION, description);
+            result.add(textDic);
+        }
+
+        HashMap difficultyDic = new HashMap();
+        difficultyDic.put(Recipe.RECIPE_DIFFICULTY, difficulty);
+        result.add(difficultyDic);
+
+        if (ingredients != null && !ingredients.isEmpty()) {
+            HashMap textDic = new HashMap();
+            textDic.put(Recipe.RECIPE_INGREDIENSTS, ingredients);
+            result.add(textDic);
+        }
+
+        HashMap caloriesDic = new HashMap();
+        caloriesDic.put(Recipe.RECIPE_CALORIES, calories);
+        result.add(caloriesDic);
+
+        HashMap carbsDic = new HashMap();
+        carbsDic.put(Recipe.RECIPE_CARBS, carbs);
+        result.add(carbsDic);
+
+        HashMap proteinsDic = new HashMap();
+        proteinsDic.put(Recipe.RECIPE_PROTEINS, proteins);
+        result.add(proteinsDic);
+
+        HashMap fatsDic = new HashMap();
+        fatsDic.put(Recipe.RECIPE_FATS, fat);
+        result.add(fatsDic);
+
+        return result;
+    }
 }
