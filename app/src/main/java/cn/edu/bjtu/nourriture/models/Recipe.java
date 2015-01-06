@@ -27,6 +27,7 @@ public class Recipe {
     public static final String RECIPE_CARBS         = "carbs";
     public static final String RECIPE_PROTEINS      = "proteins";
     public static final String RECIPE_FATS          = "fats";
+    public static final String RECIPE_RECIPE_HEADER = "recipeHeader";
 
     @SerializedName("_id")
     @Expose
@@ -330,6 +331,10 @@ public class Recipe {
             result.add(textDic);
         }
 
+        HashMap infoHeaderDic = new HashMap();
+        infoHeaderDic.put(Recipe.RECIPE_RECIPE_HEADER, "Basic info:");
+        result.add(infoHeaderDic);
+
         if (title != null && !title.isEmpty()) {
             HashMap textDic = new HashMap();
             textDic.put(Recipe.RECIPE_TITLE, title);
@@ -346,11 +351,19 @@ public class Recipe {
         difficultyDic.put(Recipe.RECIPE_DIFFICULTY, difficulty);
         result.add(difficultyDic);
 
+        HashMap ingredientsHeaderDic = new HashMap();
+        ingredientsHeaderDic.put(Recipe.RECIPE_RECIPE_HEADER, "Ingredients:");
+        result.add(ingredientsHeaderDic);
+
         if (ingredients != null && !ingredients.isEmpty()) {
             HashMap textDic = new HashMap();
             textDic.put(Recipe.RECIPE_INGREDIENSTS, ingredients);
             result.add(textDic);
         }
+
+        HashMap nutritionHeaderDic = new HashMap();
+        nutritionHeaderDic.put(Recipe.RECIPE_RECIPE_HEADER, "Nutritions:");
+        result.add(nutritionHeaderDic);
 
         HashMap caloriesDic = new HashMap();
         caloriesDic.put(Recipe.RECIPE_CALORIES, calories);
