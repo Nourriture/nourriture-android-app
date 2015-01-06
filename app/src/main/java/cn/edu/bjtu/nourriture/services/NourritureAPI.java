@@ -48,9 +48,9 @@ public interface NourritureAPI {
     @GET("/recipe")
     public void getAllRecipes(Callback<List<Recipe>> callback);
 
-    /*@Headers("Content-Type:application/json")
+    @Headers("Content-Type:application/json")
     @GET("/recipe/{id}")
-    public Recipe getRecipe(@Path("id") String recipeID);*/
+    public void getRecipe(@Path("id") String recipeID, Callback<Recipe> callback);
 
 
 
