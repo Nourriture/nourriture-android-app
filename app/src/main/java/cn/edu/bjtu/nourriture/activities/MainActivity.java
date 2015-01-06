@@ -98,7 +98,7 @@ public class MainActivity extends ActionBarActivity
         switch (position){
             case 0:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.container, MomentsFragment.newInstance(position + 1, MomentsFragment.MOMENTS_QUERY_TYPE.ALL, ""))    //TODO: change to followedBy
+                        .replace(R.id.container, MomentsFragment.newInstance(position + 1, MomentsFragment.MOMENTS_QUERY_TYPE.FOLLOWED_BY, ""))
                         .addToBackStack("MomentTag")
                         .commit();
                 break;

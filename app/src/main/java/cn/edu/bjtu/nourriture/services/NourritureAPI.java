@@ -39,6 +39,10 @@ public interface NourritureAPI {
     public void getMomentsForRecipe(@Query("subjectID") String subjectID, Callback<List<Moment>> callback);
 
     @Headers("Content-Type:application/json")
+    @GET("/moment")
+    public void getMomentsFollowedBy(@Query("followedBy") String consumerID, Callback<List<Moment>> callback);
+
+    @Headers("Content-Type:application/json")
     @POST("/moment/{momentID}/like")
     public void likeMoment(@Body Like like, @Path("momentID") String momentID, Callback<Moment> callback);
 

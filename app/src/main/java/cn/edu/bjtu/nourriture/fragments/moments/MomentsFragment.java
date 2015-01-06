@@ -1,6 +1,7 @@
 package cn.edu.bjtu.nourriture.fragments.moments;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.activities.recipe.MomentsOfRecipeActivity;
 import cn.edu.bjtu.nourriture.adapters.MomentsAdapter;
+import cn.edu.bjtu.nourriture.models.Consumer;
 import cn.edu.bjtu.nourriture.models.Moment;
 import cn.edu.bjtu.nourriture.services.Constants;
 import cn.edu.bjtu.nourriture.services.NourritureAPI;
@@ -257,6 +259,23 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
 
         if (queryType == MOMENTS_QUERY_TYPE.RECIPE){
             api.getMomentsForRecipe(query, new Callback<List<Moment>>() {
+                @Override
+                public void success(List<Moment> moments, Response response) {
+                    handleSuccessRequest(moments, response);
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    handleFailureRequest(error);
+                }
+            });
+        }
+        else if (queryType == MOMENTS_QUERY_TYPE.FOLLOWED_BY){
+            SharedPreferences pref = getActivity().getSharedPreferences(MainActivity.SHARED_PREFERENCES_CURRENT_PROFILE, 0); // 0 - for private mode
+            //String username = pref.getString(Consumer.CONSUMER_USERNAME, "");
+            String consumerID = pref.getString(Consumer.CONSUMER_ID, "");
+
+            api.getMomentsFollowedBy(consumerID, new Callback<List<Moment>>() {
                 @Override
                 public void success(List<Moment> moments, Response response) {
                     handleSuccessRequest(moments, response);
