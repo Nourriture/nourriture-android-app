@@ -2,6 +2,7 @@ package cn.edu.bjtu.nourriture.activities;
 
 /**
  * Created by Kevin on 31/12/14.
+ * TO BE DELETED
  */
 import android.content.DialogInterface;
 import android.content.Intent;
