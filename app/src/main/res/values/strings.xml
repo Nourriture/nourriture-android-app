@@ -84,4 +84,7 @@
     <string name="recipeDetailProteins">Proteins:</string>
     <string name="recipeDetailFats">Fats:</string>
 
+    <!-- Recipe's moment activity -->
+    <string name="title_activity_moments_of_recipe">Recipe\' moments</string>
+
 </resources>
