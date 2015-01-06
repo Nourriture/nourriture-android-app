@@ -143,10 +143,10 @@ public class DetailMomentActivity extends ActionBarActivity implements AdapterVi
             likeMoment();
             return true;
         }
-        else if (id == R.id.action_comment_on_moment){
+        /*else if (id == R.id.action_comment_on_moment){
             commentOnMoment();
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
