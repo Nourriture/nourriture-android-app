@@ -64,8 +64,9 @@ public class DetailMomentActivity extends ActionBarActivity implements AdapterVi
 
         setContentView(R.layout.activity_detail_moment);
 
-        SharedPreferences pref = getSharedPreferences(MainActivity.MY_MOMENT_DETAIL_PREFERENCES, MODE_PRIVATE); // 0 - for private mode
-        current_moment_id = pref.getString(MainActivity.MY_MOMENT_ID, "");
+        // Reading the moment_id from SharedPreferences to avoid problems, when SocialListOfMomentActivity dismissed
+        SharedPreferences pref = getSharedPreferences(MainActivity.SHARED_PREFERENCES_MOMENT_DETAIL, MODE_PRIVATE); // 0 - for private mode
+        current_moment_id = pref.getString(MainActivity.CURRENT_MOMENT_ID, "");
 
         currentMomentDataToShow = new ArrayList<>();
 
@@ -188,7 +189,7 @@ public class DetailMomentActivity extends ActionBarActivity implements AdapterVi
 
     //FIXME: for now will be able to add as many likes as possible
     private void likeMoment() {
-        SharedPreferences pref = getSharedPreferences(MainActivity.MY_PROFILE_PREFERENCES, 0); // 0 - for private mode
+        SharedPreferences pref = getSharedPreferences(MainActivity.SHARED_PREFERENCES_CURRENT_PROFILE, 0); // 0 - for private mode
         String consumerID = pref.getString(Consumer.CONSUMER_ID, "");
         String consumerName = pref.getString(Consumer.CONSUMER_NAME, "");
 
