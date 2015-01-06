@@ -156,6 +156,8 @@ public class DetailRecipeActivity extends ActionBarActivity implements AdapterVi
     }
 
     private void showRecipeMoments() {
+
+        // Passing intentExtra -> used for distinguishing in MomentsOfRecipeActivity
         Intent intent = new Intent(DetailRecipeActivity.this, MomentsOfRecipeActivity.class);
         intent.putExtra(INTENT_RECIPE_ID, current_recipe_id);
         startActivity(intent);
