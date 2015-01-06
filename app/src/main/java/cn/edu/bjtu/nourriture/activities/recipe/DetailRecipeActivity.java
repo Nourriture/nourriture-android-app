@@ -10,11 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -187,16 +190,28 @@ public class DetailRecipeActivity extends ActionBarActivity implements AdapterVi
 
             View rowView = null;
 
-            HashMap momentInfo = currentRecipeDataToShow.get(position);
+            HashMap recipeInfo = currentRecipeDataToShow.get(position);
 
-            // row with MOMENT content
-            /*if (momentInfo.containsKey(Moment.MOMENT_TEXT)){
-                rowView = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
+            // row with IMAGE
+            if (recipeInfo.containsKey(Recipe.RECIPE_PICTURE)){
+                rowView = inflater.inflate(R.layout.row_consumer_image, parent, false);
 
-                TextView textView = (TextView) rowView.findViewById(android.R.id.text1);
-                textView.setText(momentInfo.get(Moment.MOMENT_TEXT).toString());
-                textView.setTextSize(20);
-                //textView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
+                ImageView imgView = (ImageView) rowView.findViewById(R.id.consumerImageView);
+
+                String url = recipeInfo.get(Recipe.RECIPE_PICTURE).toString();
+                Picasso.with(getContext())
+                        .load(url)
+                        .resize(160, 160)
+                        .centerCrop()
+                        .placeholder(R.drawable.image_placeholder)
+                        .into(imgView);
+            }
+            // row with HEADER
+            else if (recipeInfo.containsKey(Recipe.RECIPE_RECIPE_HEADER)){
+                rowView = inflater.inflate(R.layout.group_header_item, parent, false);
+
+                TextView titleView = (TextView) rowView.findViewById(R.id.header);
+                titleView.setText(recipeInfo.get(Recipe.RECIPE_RECIPE_HEADER).toString());
             }
             // row with TITLE and VALUE
             else {
@@ -205,23 +220,39 @@ public class DetailRecipeActivity extends ActionBarActivity implements AdapterVi
                 TextView titleTextView = (TextView) rowView.findViewById(R.id.titleTextView);
                 TextView valueTextView = (TextView) rowView.findViewById(R.id.valueTextView);
 
-                if (momentInfo.containsKey(Moment.MOMENT_AUTHOR)){
-                    titleTextView.setText(R.string.momentDetailAuthor);
-                    valueTextView.setText(momentInfo.get(Moment.MOMENT_AUTHOR).toString());
+                if (recipeInfo.containsKey(Recipe.RECIPE_TITLE)){
+                    titleTextView.setText(R.string.recipeDetailName);
+                    valueTextView.setText(recipeInfo.get(Recipe.RECIPE_TITLE).toString());
                 }
-                else if (momentInfo.containsKey(Moment.MOMENT_CREATED)){
-                    titleTextView.setText(R.string.momentDetailCreated);
-                    valueTextView.setText(momentInfo.get(Moment.MOMENT_CREATED).toString());
+                else if (recipeInfo.containsKey(Recipe.RECIPE_DESCRIPTION)){
+                    titleTextView.setText(R.string.recipeDetailDescription);
+                    valueTextView.setText(recipeInfo.get(Recipe.RECIPE_DESCRIPTION).toString());
                 }
-                else if (momentInfo.containsKey(Moment.MOMENT_LIKES)){
-                    titleTextView.setText(R.string.momentDetailLikes);
-                    valueTextView.setText(momentInfo.get(Moment.MOMENT_LIKES).toString());
+                else if (recipeInfo.containsKey(Recipe.RECIPE_DIFFICULTY)){
+                    titleTextView.setText(R.string.recipeDetailDifficulty);
+                    valueTextView.setText(recipeInfo.get(Recipe.RECIPE_DIFFICULTY).toString() + " out of 5");
                 }
-                else if (momentInfo.containsKey(Moment.MOMENT_COMMENTS)){
-                    titleTextView.setText(R.string.momentDetailComments);
-                    valueTextView.setText(momentInfo.get(Moment.MOMENT_COMMENTS).toString());
+                else if (recipeInfo.containsKey(Recipe.RECIPE_INGREDIENSTS)){
+                    titleTextView.setText("Ingredient:");
+                    valueTextView.setText("hovno");
                 }
-            }*/
+                else if (recipeInfo.containsKey(Recipe.RECIPE_CALORIES)){
+                    titleTextView.setText(R.string.recipeDetailCalories);
+                    valueTextView.setText(recipeInfo.get(Recipe.RECIPE_CALORIES).toString());
+                }
+                else if (recipeInfo.containsKey(Recipe.RECIPE_CARBS)){
+                    titleTextView.setText(R.string.recipeDetailCarbs);
+                    valueTextView.setText(recipeInfo.get(Recipe.RECIPE_CARBS).toString());
+                }
+                else if (recipeInfo.containsKey(Recipe.RECIPE_PROTEINS)){
+                    titleTextView.setText(R.string.recipeDetailProteins);
+                    valueTextView.setText(recipeInfo.get(Recipe.RECIPE_PROTEINS).toString());
+                }
+                else if (recipeInfo.containsKey(Recipe.RECIPE_FATS)){
+                    titleTextView.setText(R.string.recipeDetailFats);
+                    valueTextView.setText(recipeInfo.get(Recipe.RECIPE_FATS).toString());
+                }
+            }
 
             return rowView;
         }
