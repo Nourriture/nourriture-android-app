@@ -356,9 +356,11 @@ public class Recipe {
         result.add(ingredientsHeaderDic);
 
         if (ingredients != null && !ingredients.isEmpty()) {
-            HashMap textDic = new HashMap();
-            textDic.put(Recipe.RECIPE_INGREDIENSTS, ingredients);
-            result.add(textDic);
+            for (Ingredient i : ingredients){
+                HashMap ingredientDic = new HashMap();
+                ingredientDic.put(Recipe.RECIPE_INGREDIENSTS, i.getQuantity() + " " + i.getQuantityUnit() + " of " + i.getName());
+                result.add(ingredientDic);
+            }
         }
 
         HashMap nutritionHeaderDic = new HashMap();
