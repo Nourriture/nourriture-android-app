@@ -45,13 +45,6 @@
             android:windowSoftInputMode="stateVisible|adjustResize" >
         </activity>
         <activity
-            android:name=".activities.RecipeMoments"
-            android:label="Recipe&apos;s Moments" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.RecipeProfileActivity" />
-        </activity>
-        <activity
             android:name=".activities.recipe.DetailRecipeActivity"
             android:label="@string/title_activity_detail_recipe"
             android:parentActivityName=".activities.MainActivity" >
