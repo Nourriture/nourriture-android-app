@@ -69,11 +69,11 @@ public interface NourritureAPI {
     public void getConsumer(@Path("username") String consumerUsername, Callback<Consumer> callback);
 
     // Relationships
-    /*@Headers("Content-Type:application/json")
-    @GET("/consumer/{username}/following")
-    public Consumer getConsumerFollowing(@Path("username") String consumerUsername);
-
     @Headers("Content-Type:application/json")
+    @GET("/consumer/{username}/following")
+    public void getConsumerFollowing(@Path("username") String consumerUsername, Callback<List<Consumer>> callback);
+
+    /*@Headers("Content-Type:application/json")
     @POST("/consumer/{username}/following")
     public Consumer getConsumerFollowing(@Path("username") Consumer consumer);*/
 }

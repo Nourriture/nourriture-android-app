@@ -1,6 +1,7 @@
 package cn.edu.bjtu.nourriture.fragments.friends;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -128,7 +129,7 @@ import retrofit.converter.GsonConverter;
         super.onResume();
 
         // Always fetch consumers when comes to the foreground
-        fetchAllConsumers();
+        fetchConsumersFollowing();
     }
 
      @Override
@@ -216,7 +217,7 @@ import retrofit.converter.GsonConverter;
 
 
     // --- API calls ---
-    private void fetchAllConsumers() {
+    private void fetchConsumersFollowing() {
 
         // custom GSON parser http://stackoverflow.com/questions/18473011/retrofit-gson-serialize-date-from-json-string-into-java-util-date
         Gson gson = new GsonBuilder()
@@ -228,8 +229,11 @@ import retrofit.converter.GsonConverter;
                 .setConverter(new GsonConverter(gson))
                 .build();
 
+        SharedPreferences pref = getActivity().getSharedPreferences(MainActivity.SHARED_PREFERENCES_CURRENT_PROFILE, 0); // 0 - for private mode
+        String username = pref.getString(Consumer.CONSUMER_USERNAME, "");
+
         NourritureAPI api = restAdapter.create(NourritureAPI.class);
-        api.getAllConsumers(new Callback<List<Consumer>>() {
+        api.getConsumerFollowing(username, new Callback<List<Consumer>>() {
             @Override
             public void success(List<Consumer> consumers, Response response) {
 
