@@ -12,6 +12,7 @@ import retrofit.http.GET;
 import retrofit.http.Headers;
 import retrofit.http.POST;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 /**
  * Created by Pavel Procházka on 31/12/14.
@@ -26,20 +27,20 @@ public interface NourritureAPI {
     public void postMoment(@Body Moment moment, Callback<Moment> callback);
 
     @Headers("Content-Type:application/json")
+    @GET("/moment")
+    public void getAllMoments(Callback<List<Moment>> callback);
+
+    @Headers("Content-Type:application/json")
     @GET("/moment/{momentID}")
     public void getMoment(@Path("momentID") String momentID, Callback<Moment> callback);
 
     @Headers("Content-Type:application/json")
     @GET("/moment")
-    public void getAllMoments(Callback<List<Moment>> callback);
+    public void getMomentsForRecipe(@Query("subjectID") String subjectID, Callback<List<Moment>> callback);
 
     @Headers("Content-Type:application/json")
     @POST("/moment/{momentID}/like")
     public void likeMoment(@Body Like like, @Path("momentID") String momentID, Callback<Moment> callback);
-
-    //TODO: implement on the backend!
-    /*@GET("/moment/{recipeID}")
-    public List<Moment> getMomentsForRecipe(@Path("recipeID") String recipeID);*/
 
 
 
