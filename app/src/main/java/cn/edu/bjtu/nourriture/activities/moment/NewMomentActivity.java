@@ -14,6 +14,8 @@ import com.google.gson.GsonBuilder;
 
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.activities.MainActivity;
+import cn.edu.bjtu.nourriture.activities.recipe.DetailRecipeActivity;
+import cn.edu.bjtu.nourriture.activities.recipe.MomentsOfRecipeActivity;
 import cn.edu.bjtu.nourriture.models.Author;
 import cn.edu.bjtu.nourriture.models.Consumer;
 import cn.edu.bjtu.nourriture.models.Moment;
@@ -29,11 +31,20 @@ public class NewMomentActivity extends ActionBarActivity {
 
 
 
+    // --- PROPERTIES ---
+    private String recipeIDtoPOST;
+
+
+
     // --- ACTIVITY lifecycle methods ---
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_moment);
+
+        //will be NULL if coming from the MainActivity
+        //will be an ID if coming from the MomentsOfRecipeActivity (WANT TO POST MOMENT ABOUT a SPECIFIC RECIPE)
+        recipeIDtoPOST = getIntent().getStringExtra(DetailRecipeActivity.INTENT_RECIPE_ID);
     }
 
 
@@ -74,7 +85,7 @@ public class NewMomentActivity extends ActionBarActivity {
             // 1) create a moment object
             EditText t = (EditText) findViewById(R.id.new_moment_edit_text);
 
-            SharedPreferences pref = getSharedPreferences(MainActivity.MY_PROFILE_PREFERENCES, 0); // 0 - for private mode
+            SharedPreferences pref = getSharedPreferences(MainActivity.SHARED_PREFERENCES_CURRENT_PROFILE, 0); // 0 - for private mode
             String consumerID = pref.getString(Consumer.CONSUMER_ID, "");
             String consumerName = pref.getString(Consumer.CONSUMER_NAME, "");
 
@@ -85,6 +96,11 @@ public class NewMomentActivity extends ActionBarActivity {
             Moment m = new Moment();
             m.setAuthor(a);
             m.setText(t.getText().toString());
+
+            // In case of posting a moment about specific recipe
+            if (recipeIDtoPOST != null && !recipeIDtoPOST.isEmpty()){
+                m.setSubjectID(recipeIDtoPOST);
+            }
 
             // 2) POST request to API
             // custom GSON parser http://stackoverflow.com/questions/18473011/retrofit-gson-serialize-date-from-json-string-into-java-util-date
@@ -123,9 +139,16 @@ public class NewMomentActivity extends ActionBarActivity {
 
     private void discardMoment() {
 
-        // Present the "Main" activity modaly (slide down)
-        Intent intent_home = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent_home);
+        Intent intent = null;
+        if (recipeIDtoPOST != null){
+            // Present the "MomentsOfRecipe" activity modaly (slide down)
+            intent = new Intent(getApplicationContext(), MomentsOfRecipeActivity.class);
+        }
+        else {
+            // Present the "Main" activity modaly (slide down)
+            intent = new Intent(getApplicationContext(), MainActivity.class);
+        }
+        startActivity(intent);
         overridePendingTransition(R.anim.no_change_animation, R.anim.slide_down_animation);
     }
 
