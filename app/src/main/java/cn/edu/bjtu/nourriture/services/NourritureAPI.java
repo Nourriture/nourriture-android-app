@@ -8,6 +8,7 @@ import cn.edu.bjtu.nourriture.models.Moment;
 import cn.edu.bjtu.nourriture.models.Recipe;
 import retrofit.Callback;
 import retrofit.http.Body;
+import retrofit.http.DELETE;
 import retrofit.http.GET;
 import retrofit.http.Headers;
 import retrofit.http.POST;
@@ -60,10 +61,6 @@ public interface NourritureAPI {
 
 
     // Consumer endpoints
-    /*@Headers("Content-Type:application/json")
-    @POST("/consumer")
-    public boolean postConsumer(Consumer consumer);*/
-
     @Headers("Content-Type:application/json")
     @GET("/consumer")
     public void getAllConsumers(Callback<List<Consumer>> callback);
@@ -77,7 +74,11 @@ public interface NourritureAPI {
     @GET("/consumer/{username}/following")
     public void getConsumerFollowing(@Path("username") String consumerUsername, Callback<List<Consumer>> callback);
 
-    /*@Headers("Content-Type:application/json")
-    @POST("/consumer/{username}/following")
-    public Consumer getConsumerFollowing(@Path("username") Consumer consumer);*/
+    @Headers("Content-Type:application/json")
+    @POST("/consumer/{consumerID}/following")
+    public void postConsumerFollowing(@Path("consumerID") String consumerID, @Body String consumerIDToFollow, Callback<Consumer> callback);
+
+    @Headers("Content-Type:application/json")
+    @DELETE("/consumer/{consumerID}/following/{consumerToDeleteID}")
+    public void deleteConsumerFollowing(@Path("consumerID") String consumerID, @Path("consumerToDeleteID")  String consumerToDelete, Callback<Consumer> callback);
 }
