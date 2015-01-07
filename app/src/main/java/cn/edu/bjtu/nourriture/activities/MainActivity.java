@@ -206,6 +206,9 @@ public class MainActivity extends ActionBarActivity
         Intent intent_info = new Intent(MainActivity.this, NewFriendActivity.class);
         startActivity(intent_info);
         overridePendingTransition(R.anim.slide_up_animation,R.anim.no_change_animation);
+
+        // To persist state
+        saveLastOpenedActivityInstance(2);
     }
 
     /**
