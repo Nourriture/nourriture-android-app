@@ -13,6 +13,7 @@
     <string name="no_moments">No moments yet</string>
     <string name="no_recipes">Sorry, there are no recipes yet</string>
     <string name="no_friends">No friends yet</string>
+    <string name="no_consumers">Sorry, there are no consumers yet</string>
 
     <!-- Action bar titles -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
