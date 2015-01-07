@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import cn.edu.bjtu.nourriture.R;
-import cn.edu.bjtu.nourriture.activities.friend.SearchFriendActivity;
 import cn.edu.bjtu.nourriture.activities.moment.DetailMomentActivity;
 import cn.edu.bjtu.nourriture.activities.moment.NewMomentActivity;
 import cn.edu.bjtu.nourriture.activities.recipe.DetailRecipeActivity;
@@ -203,9 +202,9 @@ public class MainActivity extends ActionBarActivity
     public void onSearchFriendSelected() {
 
         // Present the "New Moment" activity modaly (slide up)
-        Intent intent_info = new Intent(MainActivity.this, SearchFriendActivity.class);
+        /*Intent intent_info = new Intent(MainActivity.this, SearchFriendActivity.class);
         startActivity(intent_info);
-        overridePendingTransition(R.anim.slide_up_animation,R.anim.no_change_animation);
+        overridePendingTransition(R.anim.slide_up_animation,R.anim.no_change_animation);*/
     }
 
     /**

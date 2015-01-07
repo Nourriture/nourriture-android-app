@@ -40,11 +40,6 @@
                 android:value=".activities.moment.DetailMomentActivity" />
         </activity>
         <activity
-            android:name=".activities.friend.SearchFriendActivity"
-            android:label="Search friend"
-            android:windowSoftInputMode="stateVisible|adjustResize" >
-        </activity>
-        <activity
             android:name=".activities.recipe.DetailRecipeActivity"
             android:label="@string/title_activity_detail_recipe"
             android:parentActivityName=".activities.MainActivity" >
