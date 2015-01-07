@@ -55,6 +55,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="cn.edu.bjtu.nourriture.activities.recipe.DetailRecipeActivity" />
         </activity>
+        <activity
+            android:name=".activities.friend.NewFriendActivity"
+            android:label="@string/title_activity_new_friend" >
+        </activity>
     </application>
 
 </manifest>
