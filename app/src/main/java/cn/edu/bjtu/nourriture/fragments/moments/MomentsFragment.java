@@ -22,13 +22,13 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.edu.bjtu.nourriture.Constants;
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.activities.recipe.RecipeMomentsActivity;
 import cn.edu.bjtu.nourriture.adapters.MomentsAdapter;
 import cn.edu.bjtu.nourriture.models.Consumer;
 import cn.edu.bjtu.nourriture.models.Moment;
-import cn.edu.bjtu.nourriture.services.Constants;
 import cn.edu.bjtu.nourriture.services.NourritureAPI;
 import retrofit.Callback;
 import retrofit.RestAdapter;
