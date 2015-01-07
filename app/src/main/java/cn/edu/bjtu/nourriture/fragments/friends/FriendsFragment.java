@@ -29,7 +29,7 @@ import cn.edu.bjtu.nourriture.R;
 
 import cn.edu.bjtu.nourriture.adapters.ConsumersAdapter;
 import cn.edu.bjtu.nourriture.models.Consumer;
-import cn.edu.bjtu.nourriture.services.Constants;
+import cn.edu.bjtu.nourriture.Constants;
 import cn.edu.bjtu.nourriture.services.NourritureAPI;
 import retrofit.Callback;
 import retrofit.RestAdapter;

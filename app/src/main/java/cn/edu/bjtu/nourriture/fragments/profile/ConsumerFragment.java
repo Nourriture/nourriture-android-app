@@ -22,7 +22,7 @@ import java.util.HashMap;
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.models.Consumer;
-import cn.edu.bjtu.nourriture.services.Constants;
+import cn.edu.bjtu.nourriture.Constants;
 import cn.edu.bjtu.nourriture.services.NourritureAPI;
 import retrofit.Callback;
 import retrofit.RestAdapter;

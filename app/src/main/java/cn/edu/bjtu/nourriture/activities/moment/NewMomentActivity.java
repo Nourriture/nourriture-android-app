@@ -19,7 +19,7 @@ import cn.edu.bjtu.nourriture.activities.recipe.RecipeMomentsActivity;
 import cn.edu.bjtu.nourriture.models.Author;
 import cn.edu.bjtu.nourriture.models.Consumer;
 import cn.edu.bjtu.nourriture.models.Moment;
-import cn.edu.bjtu.nourriture.services.Constants;
+import cn.edu.bjtu.nourriture.Constants;
 import cn.edu.bjtu.nourriture.services.NourritureAPI;
 import retrofit.Callback;
 import retrofit.RestAdapter;
