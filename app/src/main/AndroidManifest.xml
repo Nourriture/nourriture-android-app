@@ -40,7 +40,7 @@
                 android:value=".activities.moment.DetailMomentActivity" />
         </activity>
         <activity
-            android:name=".activities.SearchFriendActivity"
+            android:name=".activities.friend.SearchFriendActivity"
             android:label="Search friend"
             android:windowSoftInputMode="stateVisible|adjustResize" >
         </activity>
@@ -53,7 +53,7 @@
                 android:value="cn.edu.bjtu.nourriture.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.recipe.MomentsOfRecipeActivity"
+            android:name=".activities.recipe.RecipeMomentsActivity"
             android:label="@string/title_activity_moments_of_recipe"
             android:parentActivityName=".activities.recipe.DetailRecipeActivity" >
             <meta-data

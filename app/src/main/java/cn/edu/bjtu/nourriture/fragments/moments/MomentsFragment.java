@@ -24,7 +24,7 @@ import java.util.List;
 
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.R;
-import cn.edu.bjtu.nourriture.activities.recipe.MomentsOfRecipeActivity;
+import cn.edu.bjtu.nourriture.activities.recipe.RecipeMomentsActivity;
 import cn.edu.bjtu.nourriture.adapters.MomentsAdapter;
 import cn.edu.bjtu.nourriture.models.Consumer;
 import cn.edu.bjtu.nourriture.models.Moment;
@@ -162,7 +162,7 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
                 // Tell the main activity that fragment has been attached (will change the title)
                 ((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));
             }
-            else if (activity.getClass() == MomentsOfRecipeActivity.class){
+            else if (activity.getClass() == RecipeMomentsActivity.class){
                 //TODO:do I need to let activity know about something?
             }
 

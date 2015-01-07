@@ -1,4 +1,4 @@
-package cn.edu.bjtu.nourriture.activities;
+package cn.edu.bjtu.nourriture.activities.friend;
 
 /**
  * Created by Kevin on 31/12/14.

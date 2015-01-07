@@ -4,15 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.activities.moment.NewMomentActivity;
 import cn.edu.bjtu.nourriture.fragments.moments.MomentsFragment;
 
-public class MomentsOfRecipeActivity extends ActionBarActivity implements MomentsFragment.OnFragmentInteractionListener {
+public class RecipeMomentsActivity extends ActionBarActivity implements MomentsFragment.OnFragmentInteractionListener {
 
 
 
@@ -26,7 +24,7 @@ public class MomentsOfRecipeActivity extends ActionBarActivity implements Moment
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_moments_of_recipe);
+        setContentView(R.layout.activity_recipe_moments);
 
         //coming from the DetailRecipeActivity, which passes intentExtra
         if (getIntent().getStringExtra(DetailRecipeActivity.INTENT_RECIPE_ID) != null){
@@ -51,7 +49,7 @@ public class MomentsOfRecipeActivity extends ActionBarActivity implements Moment
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_moments_of_recipe, menu);
+        getMenuInflater().inflate(R.menu.menu_recipe_moments, menu);
         return true;
     }
 
@@ -83,7 +81,7 @@ public class MomentsOfRecipeActivity extends ActionBarActivity implements Moment
     public void onNewMomentSelected() {
 
         // Present the "New Moment" activity modaly (slide up)
-        Intent intent_info = new Intent(MomentsOfRecipeActivity.this, NewMomentActivity.class);
+        Intent intent_info = new Intent(RecipeMomentsActivity.this, NewMomentActivity.class);
         intent_info.putExtra(DetailRecipeActivity.INTENT_RECIPE_ID, recipeID);
         startActivity(intent_info);
         overridePendingTransition(R.anim.slide_up_animation,R.anim.no_change_animation);

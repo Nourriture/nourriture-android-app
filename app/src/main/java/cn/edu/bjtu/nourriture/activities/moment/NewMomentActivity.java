@@ -15,7 +15,7 @@ import com.google.gson.GsonBuilder;
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.activities.recipe.DetailRecipeActivity;
-import cn.edu.bjtu.nourriture.activities.recipe.MomentsOfRecipeActivity;
+import cn.edu.bjtu.nourriture.activities.recipe.RecipeMomentsActivity;
 import cn.edu.bjtu.nourriture.models.Author;
 import cn.edu.bjtu.nourriture.models.Consumer;
 import cn.edu.bjtu.nourriture.models.Moment;
@@ -142,7 +142,7 @@ public class NewMomentActivity extends ActionBarActivity {
         Intent intent = null;
         if (recipeIDtoPOST != null){
             // Present the "MomentsOfRecipe" activity modaly (slide down)
-            intent = new Intent(getApplicationContext(), MomentsOfRecipeActivity.class);
+            intent = new Intent(getApplicationContext(), RecipeMomentsActivity.class);
         }
         else {
             // Present the "Main" activity modaly (slide down)
