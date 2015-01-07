@@ -3,6 +3,7 @@ package cn.edu.bjtu.nourriture.activities.friend;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -88,7 +89,7 @@ public class NewFriendActivity extends ActionBarActivity implements ListView.OnI
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         System.out.println(position);
 
-        Consumer c = myConsumers.get(position);
+        final Consumer c = myConsumers.get(position);
 
         // 1. Instantiate an AlertDialog.Builder with its constructor
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -98,13 +99,12 @@ public class NewFriendActivity extends ActionBarActivity implements ListView.OnI
                 .setTitle(getString(R.string.title_add_friend))
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // if this button is clicked, close
-                        // current activity
-                        NewFriendActivity.this.finish();
+
+                        startToFollowConsumer(c);
                     }
                 })
-                .setNegativeButton("No",new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,int id) {
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
                         // if this button is clicked, just close
                         // the dialog box and do nothing
                         dialog.cancel();
@@ -198,6 +198,31 @@ public class NewFriendActivity extends ActionBarActivity implements ListView.OnI
                 }
 
                 mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast toast = Toast.makeText(getBaseContext(), R.string.api_error, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
+
+    private void startToFollowConsumer(Consumer consumerToFollow){
+        SharedPreferences pref = getSharedPreferences(MainActivity.SHARED_PREFERENCES_CURRENT_PROFILE, 0); // 0 - for private mode
+        String consumerID = pref.getString(Consumer.CONSUMER_ID, "");
+
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint(Constants.NOURRITURE_PLATFORM_ANDROID_URL)
+                .build();
+
+        NourritureAPI api = restAdapter.create(NourritureAPI.class);
+        api.postConsumerFollowing(consumerID, consumerToFollow.getId(), new Callback<Consumer>() {
+            @Override
+            public void success(Consumer consumer, Response response) {
+                // if this button is clicked, close
+                // current activity
+                NewFriendActivity.this.finish();
             }
 
             @Override
