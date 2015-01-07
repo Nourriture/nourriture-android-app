@@ -32,6 +32,8 @@ public class Consumer {
     @Expose
     private String Id;
     @Expose
+    private String cId; //used when refering to a consumer in FollowingRelation
+    @Expose
     private String created;
     @Expose
     private String username;
@@ -68,6 +70,20 @@ public class Consumer {
      */
     public void setId(String Id) {
         this.Id = Id;
+    }
+
+    /**
+     * @return The cId
+     */
+    public String getcId() {
+        return cId;
+    }
+
+    /**
+     * @param Id The _cId
+     */
+    public void setcId(String cId) {
+        this.cId = cId;
     }
 
     /**
