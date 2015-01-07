@@ -1,7 +1,7 @@
 nourriture-android-app
 ======================
 
-The app is divided into 4 main sections, each represented by its own Fragment. 
+The app has 3 build variants (localhost, development and production), each using different BASE URL for our API calls. Make sure to use the appropriate variant by going to View -> Tool Windows -> Build Variants in Android Studio.
 
 See the storyboard of our application below:
 
