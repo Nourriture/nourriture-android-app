@@ -1,10 +1,15 @@
 package cn.edu.bjtu.nourriture.activities.friend;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +32,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.converter.GsonConverter;
 
-public class NewFriendActivity extends ActionBarActivity {
+public class NewFriendActivity extends ActionBarActivity implements ListView.OnItemLongClickListener{
 
 
 
@@ -36,7 +41,7 @@ public class NewFriendActivity extends ActionBarActivity {
 
     private TextView emptyTextView;
 
-    private ListView listView;
+    private AbsListView listView;
 
     private ArrayList<Consumer> myConsumers = new ArrayList<>();    //For data loaded from API
 
@@ -55,6 +60,12 @@ public class NewFriendActivity extends ActionBarActivity {
         // can findViewById, because View already populated by setContentView
         listView = (ListView) findViewById(android.R.id.list);
         listView.setAdapter(mAdapter);
+
+        // Set OnItemClickListener so we can be notified on item clicks
+        //listView.setOnItemClickListener(this);
+
+        // Set OnItemLongClickListener so we can be notified on item long clicks
+        listView.setOnItemLongClickListener(this);
     }
 
     @Override
@@ -63,6 +74,48 @@ public class NewFriendActivity extends ActionBarActivity {
 
         // Fetch all consumers
         fetchAllConsumers();
+    }
+
+
+
+    // --- EVENT LISTENERS ---
+    /*@Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }*/
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        System.out.println(position);
+
+        Consumer c = myConsumers.get(position);
+
+        // 1. Instantiate an AlertDialog.Builder with its constructor
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // 2. Chain together various setter methods to set the dialog characteristics
+        builder.setMessage(getString(R.string.message_add_friend) + " " + c.getName() + "?")
+                .setTitle(getString(R.string.title_add_friend))
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if this button is clicked, close
+                        // current activity
+                        NewFriendActivity.this.finish();
+                    }
+                })
+                .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
+
+        // 3. Get the AlertDialog from create()
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        return false;
     }
 
 
