@@ -92,4 +92,10 @@
     <string name="title_activity_new_friend">New friend</string>
     <string name="action_cancel_friend">Cancel</string>
 
+    <!-- Friend dialogs -->
+    <string name="title_add_friend">Add friend</string>
+    <string name="message_add_friend">Do you want to start following</string>
+    <string name="title_remove_friend">Remove friend</string>
+    <string name="message_remove_friend">Do you want to stop following</string>
+
 </resources>
