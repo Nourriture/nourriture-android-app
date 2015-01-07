@@ -5,5 +5,5 @@ package cn.edu.bjtu.nourriture;
  */
 public interface Constants {
 	public String NOURRITURE_PLATFORM_URL           = "http://dev.9la.dk/platform";
-    public String NOURRITURE_PLATFORM_ANDROID_URL   = "http://dev.9la.dk/android/";
+    public String NOURRITURE_PLATFORM_ANDROID_URL   = "http://dev.9la.dk/android";
 }
