@@ -252,7 +252,6 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setEndpoint(Constants.NOURRITURE_PLATFORM_ANDROID_URL)
                 .setConverter(new GsonConverter(gson))
-                .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
 
         NourritureAPI api = restAdapter.create(NourritureAPI.class);
