@@ -180,13 +180,14 @@ public class RecipesFragment extends Fragment implements AbsListView.OnItemClick
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle presses on the action bar items
-        switch (item.getItemId()) {
+        /*switch (item.getItemId()) {
             case R.id.action_search_recipe:
                 searchForRecipe();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-        }
+        }*/
+        return super.onOptionsItemSelected(item);
     }
 
 
