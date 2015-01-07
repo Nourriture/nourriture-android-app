@@ -183,7 +183,7 @@ import retrofit.converter.GsonConverter;
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.action_add_friend:
-                openSearchFriendFragment();
+                openNewFriendActivity();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -193,13 +193,13 @@ import retrofit.converter.GsonConverter;
 
 
     // --- HELPERs ---
-    private void openSearchFriendFragment() {
+    private void openNewFriendActivity() {
         if (null != mListener) {
             // Notify the active callbacks interface (the activity, if the
             // fragment is attached to one) that an item has been selected.
 
             // Calls the MainActivity, which then presents the NewMomentActivity
-            mListener.onSearchFriendSelected();
+            mListener.onNewFriendSelected();
         }
 
     }
@@ -273,6 +273,6 @@ import retrofit.converter.GsonConverter;
       */
      public interface OnFragmentInteractionListener {
          public void onFriendSelected(String id);
-         public void onSearchFriendSelected();
+         public void onNewFriendSelected();
      }
  }

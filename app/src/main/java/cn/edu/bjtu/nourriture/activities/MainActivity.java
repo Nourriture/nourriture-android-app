@@ -199,7 +199,7 @@ public class MainActivity extends ActionBarActivity
     }
 
     @Override
-    public void onSearchFriendSelected() {
+    public void onNewFriendSelected() {
 
         // Present the "New Moment" activity modaly (slide up)
         /*Intent intent_info = new Intent(MainActivity.this, SearchFriendActivity.class);
