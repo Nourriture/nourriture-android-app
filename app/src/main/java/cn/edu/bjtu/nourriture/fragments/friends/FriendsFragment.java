@@ -1,6 +1,8 @@
 package cn.edu.bjtu.nourriture.fragments.friends;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -44,7 +46,7 @@ import retrofit.converter.GsonConverter;
   * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
   * interface.
   */
- public class FriendsFragment extends Fragment implements AbsListView.OnItemClickListener {
+ public class FriendsFragment extends Fragment implements AbsListView.OnItemLongClickListener {
 
 
 
@@ -118,8 +120,8 @@ import retrofit.converter.GsonConverter;
          mListView = (AbsListView) view.findViewById(android.R.id.list);
          ((AdapterView<ListAdapter>) mListView).setAdapter(mAdapter);
 
-         // Set OnItemClickListener so we can be notified on item clicks
-         mListView.setOnItemClickListener(this);
+         // Set OnItemLongClickListener so we can be notified on item long clicks
+         mListView.setOnItemLongClickListener(this);
 
          return view;
      }
@@ -154,8 +156,8 @@ import retrofit.converter.GsonConverter;
 
 
 
-     // --- AdapterView.OnItemClickListener
-     @Override
+     // --- EVENT LISTENERS ---
+     /*@Override
      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
          //TODO: show consumer's profile?
          if (null != mListener) {
@@ -163,7 +165,39 @@ import retrofit.converter.GsonConverter;
              // fragment is attached to one) that an item has been selected.
              //mListener.onFriendSelected(DummyContent.FRIENDS.get(position).id);
          }
-     }
+     }*/
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        System.out.println(position);
+
+        final Consumer c = myConsumers.get(position);
+
+        // 1. Instantiate an AlertDialog.Builder with its constructor
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        // 2. Chain together various setter methods to set the dialog characteristics
+        builder.setMessage(getString(R.string.message_remove_friend) + " " + c.getName() + "?")
+                .setTitle(getString(R.string.title_remove_friend))
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                        stopToFollowConsumer(c);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // if this button is clicked, just close
+                        // the dialog box and do nothing
+                        dialog.cancel();
+                    }
+                });
+
+        // 3. Get the AlertDialog from create()
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        return false;
+    }
 
 
 
@@ -258,9 +292,32 @@ import retrofit.converter.GsonConverter;
         });
     }
 
+    private void stopToFollowConsumer(Consumer consumerToDelete){
+        SharedPreferences pref = getActivity().getSharedPreferences(MainActivity.SHARED_PREFERENCES_CURRENT_PROFILE, 0); // 0 - for private mode
+        String consumerID = pref.getString(Consumer.CONSUMER_ID, "");
+
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint(Constants.NOURRITURE_PLATFORM_ANDROID_URL)
+                .build();
+
+        NourritureAPI api = restAdapter.create(NourritureAPI.class);
+        api.deleteConsumerFollowing(consumerID, consumerToDelete.getcId(), new Callback<Consumer>() {
+            @Override
+            public void success(Consumer consumer, Response response) {
+                fetchConsumersFollowing();
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast toast = Toast.makeText(getActivity(), R.string.api_error, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
 
 
-     // --- INTERFACE methods decleration ---
+
+    // --- INTERFACE methods decleration ---
      /**
       * This interface must be implemented by activities that contain this
       * fragment to allow an interaction in this fragment to be communicated
