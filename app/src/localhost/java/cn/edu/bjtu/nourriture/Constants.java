@@ -14,4 +14,6 @@ public interface Constants {
      */
     public String NOURRITURE_PLATFORM_URL            = "http://10.0.2.2:2121";
     public String NOURRITURE_PLATFORM_ANDROID_URL    = "http://10.0.2.2:8081";
+
+    public String GOOGLE_ANALYTICS_TRACKING_ID      = "";
 }
