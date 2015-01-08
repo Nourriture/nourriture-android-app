@@ -9,9 +9,12 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import cn.edu.bjtu.nourriture.Analytics;
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.activities.recipe.DetailRecipeActivity;
@@ -45,6 +48,13 @@ public class NewMomentActivity extends ActionBarActivity {
         //will be NULL if coming from the MainActivity
         //will be an ID if coming from the MomentsOfRecipeActivity (WANT TO POST MOMENT ABOUT a SPECIFIC RECIPE)
         recipeIDtoPOST = getIntent().getStringExtra(DetailRecipeActivity.INTENT_RECIPE_ID);
+
+        // Get tracker.
+        Tracker t = ((Analytics) getApplication()).getTracker(Analytics.TrackerName.APP_TRACKER);
+        // Set screen name.
+        t.setScreenName(getString(R.string.ga_moment_new_screen));
+        // Send a screen view.
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
 

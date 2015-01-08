@@ -16,12 +16,15 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.edu.bjtu.nourriture.Analytics;
 import cn.edu.bjtu.nourriture.Constants;
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.R;
@@ -126,6 +129,13 @@ public class MomentsFragment extends Fragment implements AbsListView.OnItemClick
         setHasOptionsMenu(true);
 
         mAdapter = new MomentsAdapter(getActivity().getBaseContext(), myMoments);
+
+        // Get tracker.
+        Tracker t = ((Analytics) getActivity().getApplication()).getTracker(Analytics.TrackerName.APP_TRACKER);
+        // Set screen name.
+        t.setScreenName(getActivity().getString(R.string.ga_moments_all_screen));
+        // Send a screen view.
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     @Override
