@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
@@ -23,6 +25,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cn.edu.bjtu.nourriture.Analytics;
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.models.Recipe;
@@ -83,6 +86,13 @@ public class DetailRecipeActivity extends ActionBarActivity implements AdapterVi
          * Set OnItemClickListener so we can be notified on item clicks
          */
         listView.setOnItemClickListener(this);
+
+        // Get tracker.
+        Tracker t = ((Analytics) getApplication()).getTracker(Analytics.TrackerName.APP_TRACKER);
+        // Set screen name.
+        t.setScreenName(getString(R.string.ga_recipe_detail_screen));
+        // Send a screen view.
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     @Override

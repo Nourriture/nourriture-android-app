@@ -5,6 +5,10 @@ import android.content.SharedPreferences;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+
+import cn.edu.bjtu.nourriture.Analytics;
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.activities.moment.NewMomentActivity;
@@ -40,6 +44,13 @@ public class RecipeMomentsActivity extends ActionBarActivity implements MomentsF
                     .add(R.id.container, MomentsFragment.newInstance(101, MomentsFragment.MOMENTS_QUERY_TYPE.RECIPE, recipeID))
                     .commit();
         }
+
+        // Get tracker.
+        Tracker t = ((Analytics) getApplication()).getTracker(Analytics.TrackerName.APP_TRACKER);
+        // Set screen name.
+        t.setScreenName(getString(R.string.ga_recipe_moments_screen));
+        // Send a screen view.
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
 
