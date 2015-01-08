@@ -15,12 +15,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.edu.bjtu.nourriture.Analytics;
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.adapters.ConsumersAdapter;
@@ -67,6 +70,13 @@ public class NewFriendActivity extends ActionBarActivity implements ListView.OnI
 
         // Set OnItemLongClickListener so we can be notified on item long clicks
         listView.setOnItemLongClickListener(this);
+
+        // Get tracker.
+        Tracker t = ((Analytics) getApplication()).getTracker(Analytics.TrackerName.APP_TRACKER);
+        // Set screen name.
+        t.setScreenName(getString(R.string.ga_friend_new_screen));
+        // Send a screen view.
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     @Override
