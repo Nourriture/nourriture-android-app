@@ -98,4 +98,18 @@
     <string name="title_remove_friend">Remove friend</string>
     <string name="message_remove_friend">Do you want to stop following</string>
 
+    <!-- Google Analytics screen names -->
+    <string name="ga_moments_all_screen">All moments screen</string>
+    <string name="ga_moment_detail_screen">Moment detail screen</string>
+    <string name="ga_moment_new_screen">New moment screen</string>
+
+    <string name="ga_recipes_all_screen">All recipes screen</string>
+    <string name="ga_recipe_detail_screen">Recipe detail screen</string>
+    <string name="ga_recipe_moments_screen">Recipe moments screen</string>
+
+    <string name="ga_friends_all_screen">All friends screen</string>
+    <string name="ga_friend_new_screen">New friend screen</string>
+
+    <string name="ga_my_profile_screen">My profile screen</string>
+
 </resources>
