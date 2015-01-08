@@ -15,10 +15,14 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import cn.edu.bjtu.nourriture.Analytics;
 import cn.edu.bjtu.nourriture.R;
 import cn.edu.bjtu.nourriture.activities.MainActivity;
 import cn.edu.bjtu.nourriture.models.Consumer;
@@ -92,6 +96,13 @@ public class ConsumerFragment extends Fragment implements AbsListView.OnItemClic
         consumerDataToShow = new ArrayList<>();
 
         mAdapter = new ConsumerAdapter();
+
+        // Get tracker.
+        Tracker t = ((Analytics) getActivity().getApplication()).getTracker(Analytics.TrackerName.APP_TRACKER);
+        // Set screen name.
+        t.setScreenName(getString(R.string.ga_my_profile_screen));
+        // Send a screen view.
+        t.send(new HitBuilders.AppViewBuilder().build());
     }
 
     @Override
