@@ -189,13 +189,18 @@ public class NewFriendActivity extends ActionBarActivity implements ListView.OnI
                 .setConverter(new GsonConverter(gson))
                 .build();
 
-        /*SharedPreferences pref = getActivity().getSharedPreferences(MainActivity.SHARED_PREFERENCES_CURRENT_PROFILE, 0); // 0 - for private mode
-        String username = pref.getString(Consumer.CONSUMER_USERNAME, "");*/
-
         NourritureAPI api = restAdapter.create(NourritureAPI.class);
         api.getAllConsumers(new Callback<List<Consumer>>() {
             @Override
             public void success(List<Consumer> consumers, Response response) {
+
+                SharedPreferences pref = getSharedPreferences(MainActivity.SHARED_PREFERENCES_CURRENT_PROFILE, 0); // 0 - for private mode
+                String consumerID = pref.getString(Consumer.CONSUMER_ID, "");
+                for (Consumer c:consumers) {
+                    if (consumerID.equals(c.getId())) {
+                        consumers.remove(c);
+                    }
+                }
 
                 myConsumers.clear();
 
